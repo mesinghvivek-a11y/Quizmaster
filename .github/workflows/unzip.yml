@@ -1,50 +1,33 @@
-name: Deploy site from zip
+name: Unzip and commit site
 
 on:
   workflow_dispatch:
     inputs:
       zip_path:
-        description: "Zip file in repo root (leave blank to use the newest .zip)"
-        required: false
-        default: ""
+        description: Path of the zip in the repo
+        default: quizmaster-site.zip
 
 permissions:
   contents: write
 
 jobs:
-  deploy:
+  unzip:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Find the zip
-        id: z
+      - name: Unzip into repo root
         env:
           ZIP: ${{ inputs.zip_path }}
         run: |
-          if [ -z "$ZIP" ]; then ZIP=$(ls -t *.zip 2>/dev/null | head -n1); fi
-          if [ -z "$ZIP" ] || [ ! -f "$ZIP" ]; then echo "No .zip found in the repo root"; exit 1; fi
-          echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
-
-      - name: Unzip and copy files into the repo
-        env:
-          ZIPFILE: ${{ steps.z.outputs.zip }}
-        run: |
-          rm -rf /tmp/x && mkdir /tmp/x
-          unzip -q "$ZIPFILE" -d /tmp/x
-          SRC=/tmp/x
-          if [ "$(ls -A /tmp/x | wc -l)" = "1" ] && [ -d "/tmp/x/$(ls -A /tmp/x)" ]; then
-            SRC="/tmp/x/$(ls -A /tmp/x)"
-          fi
-          rsync -a --exclude='.git' --exclude='.github' "$SRC"/ ./
-          rm -f -- "$ZIPFILE"
+          test -f "$ZIP" || { echo "Zip not found: $ZIP"; exit 1; }
+          unzip -oq "$ZIP" -d .
+          rm "$ZIP"
 
       - name: Commit and push
-        env:
-          ZIPFILE: ${{ steps.z.outputs.zip }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Deploy site from $ZIPFILE" || echo "Nothing to commit"
+          git commit -m "Add Quiz Master site" || echo "Nothing to commit"
           git push
