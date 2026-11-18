@@ -1,4 +1,4 @@
-# My PYQ Online — deploy in ~15 minutes
+# Quiz Master — deploy in ~15 minutes
 Static site (no build step). Works without Supabase as a guest/offline app; add Supabase for Google login, sync, shared banks, reports and live rooms.
 
 1. **GitHub**: create a repo, upload everything in this folder, commit.
