@@ -5,7 +5,7 @@ on:
     inputs:
       zip_path:
         description: Path of the zip in the repo
-        default: mypyq-site.zip
+        default: quizmaster-site.zip
 
 permissions:
   contents: write
@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Unzip into repo root (overwrites existing files)
+      - name: Unzip into repo root
         env:
           ZIP: ${{ inputs.zip_path }}
         run: |
@@ -29,5 +29,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Update My PYQ Online site" || echo "Nothing to commit"
+          git commit -m "Add Quiz Master site" || echo "Nothing to commit"
           git push
