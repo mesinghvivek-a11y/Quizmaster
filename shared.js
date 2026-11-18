@@ -54,5 +54,6 @@ window.Peer=function(hostId){const me=hostId||rid(),ev={},self=this,em=(e,a)=>(e
   self.connect=hid=>{const c=open(hid),k=conn(m=>c.send({type:'broadcast',event:'m',payload:{to:'host',from:me,msg:m}}));
    c.on('broadcast',{event:'m'},({payload:p})=>{if(p.to===me||p.to==='*')k.emit('data',p.msg)});
    c.on('presence',{event:'leave'},({leftPresences:l})=>{if((l||[]).some(x=>x.host))k.emit('close')});
-   c.subscribe(s=>{if(s==='SUBSCRIBED')setTimeout(async()=>{await c.track({});const st=c.presenceState();if(Object.keys(st).some(x=>st[x].some(y=>y.host)))k.emit('open');else em('error',{type:'peer-unavailable'})},900)});return k}}};
+      c.subscribe(async s=>{if(s!=='SUBSCRIBED')return;await c.track({});let n=0;const t=setInterval(()=>{const st=c.presenceState();if(Object.keys(st).some(x=>st[x].some(y=>y.host))){clearInterval(t);k.emit('open')}else if(++n>25){clearInterval(t);em('error',{type:'peer-unavailable'})}},300)});return k}}};
+
 })();
