@@ -1,65 +1,33 @@
-# Save as: .github/workflows/unzip-and-commit.yml
-# Usage: upload/commit mypyq-online-site.zip to the repo root on `main`.
-# The workflow unzips it into ./public and commits the extracted files.
-name: Unzip site and commit
+name: Unzip and commit site
 
 on:
-  push:
-    branches: [main]
-    paths: ['mypyq-online-site.zip']   # runs only when the zip changes
-  workflow_dispatch:                   # also lets you run it manually
+  workflow_dispatch:
+    inputs:
+      zip_path:
+        description: Path of the zip in the repo
+        default: mypyq-site.zip
 
 permissions:
-  contents: write                      # needed to push the commit
-
-concurrency:
-  group: unzip-site
-  cancel-in-progress: false
-
-env:
-  ZIP_FILE: mypyq-online-site.zip
-  TARGET_DIR: public                   # set Cloudflare/Netlify publish directory to this
-  FAIL_ON_PLACEHOLDERS: "false"        # set to "true" to block publishing while [yellow placeholders] remain
+  contents: write
 
 jobs:
-  unzip-and-commit:
+  unzip:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Unzip into target folder
+      - name: Unzip into repo root (overwrites existing files)
+        env:
+          ZIP: ${{ inputs.zip_path }}
         run: |
-          set -euo pipefail
-          test -f "$ZIP_FILE" || { echo "::error::$ZIP_FILE not found in repo root"; exit 1; }
-          rm -rf /tmp/unz && mkdir -p /tmp/unz
-          unzip -q "$ZIP_FILE" -d /tmp/unz
-          # the zip has one top-level folder (mypyq-online-site/); use it when present
-          SRC=/tmp/unz
-          if [ "$(find /tmp/unz -mindepth 1 -maxdepth 1 | wc -l)" = "1" ] && [ -d "$(find /tmp/unz -mindepth 1 -maxdepth 1)" ]; then
-            SRC="$(find /tmp/unz -mindepth 1 -maxdepth 1)"
-          fi
-          mkdir -p "$TARGET_DIR"
-          rsync -a --delete "$SRC"/ "$TARGET_DIR"/      # clean replace, keeps dotfiles like .well-known
-          touch "$TARGET_DIR/.nojekyll"                 # harmless; needed if you use GitHub Pages
-          echo "Extracted $(find "$TARGET_DIR" -type f | wc -l) files into $TARGET_DIR"
-
-      - name: Check legal-page placeholders
-        run: |
-          if grep -rq 'class="fill"' "$TARGET_DIR" --include=index.html; then
-            echo "::warning::Privacy/Terms still contain highlighted placeholders (operator name / grievance officer)."
-            [ "$FAIL_ON_PLACEHOLDERS" = "true" ] && exit 1
-          fi
-          exit 0
+          test -f "$ZIP" || { echo "Zip not found: $ZIP"; exit 1; }
+          unzip -oq "$ZIP" -d .
+          rm "$ZIP"
 
       - name: Commit and push
         run: |
-          set -euo pipefail
-          git config user.name  "github-actions[bot]"
+          git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A "$TARGET_DIR"
-          if git diff --cached --quiet; then
-            echo "No changes to commit"; exit 0
-          fi
-          git commit -m "Deploy site from ${ZIP_FILE} (${GITHUB_SHA::7})"
+          git add -A
+          git commit -m "Update My PYQ Online site" || echo "Nothing to commit"
           git push
