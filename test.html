@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Quiz Master · Test portal</title>
+<title>My PYQ Online · Test portal</title>
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="theme-color" content="#2f4fd8"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon-192.png"><script src="config.js"></script><script src="shared.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -509,7 +509,7 @@ document.addEventListener('keydown',e=>{
  else if(k.length===1){const i='1234'.includes(k)?+k-1:'abcd'.indexOf(k);if(i>=0&&i<q.options.length)pick(q.options[i].key);}
 });
 
-/* ===== Quiz Master additions: subjects · local storage · sessions · performance · import ===== */
+/* ===== My PYQ Online additions: subjects · local storage · sessions · performance · import ===== */
 const LS_LAST='qm-last',SUBJECTS=[];
 let SESS=[],sess={},tab='quiz',pendingSubj=null;
 const POLITY_SRC=$('sourceNote').innerHTML;
@@ -557,7 +557,7 @@ async function openSubject(id,first){
  answers.clear();flags.clear();spent.clear();elapsed=0;submitted=false;mode='practice';sess={};retryIds=null;search='';$('searchBox').value='';viewFilter.value='all';
  paused=false;document.body.classList.remove('paused');$('summaryBackdrop').hidden=true;
  populateFilters();store.set(LS_LAST,s.id);$('subjectSel').value=s.id;
- $('brandTitle').textContent=s.name;$('brandSub').textContent=`Master test · ${DATA.chapters.length} chapters`;document.title=s.name+' · Quiz Master';$('sourceNote').innerHTML=s.sourceHtml||'';
+ $('brandTitle').textContent=s.name;$('brandSub').textContent=`Master test · ${DATA.chapters.length} chapters`;document.title=s.name+' · My PYQ Online';$('sourceNote').innerHTML=s.sourceHtml||'';
  const prior=restore();if(sess.ids)retryIds=new Set(sess.ids);applyFilters();
  if(prior){const i=order.findIndex(q=>q.id===prior.c);if(i>0){current=i;render();}toast(submitted?'Restored your submitted test.':`Welcome back — restored ${answers.size} answers.`);}
  paint();$('pauseBtn').disabled=submitted;$('testSubmit').textContent=submitted?'Summary':'Submit';
@@ -648,7 +648,7 @@ $('bkFile').addEventListener('change',async e=>{const f=e.target.files[0];e.targ
   const m=new Map(SESS.map(r=>[r.id,r]));(b.sessions||[]).forEach(r=>m.set(r.id,r));await kv.set('sessions',[...m.values()]);
   for(const [id,d] of Object.entries(b.subjects||{}))await kv.set('subj:'+id,d);for(const [k,v] of Object.entries(b.kvs||{}))await kv.set(k,v);
   toast('Backup restored — reloading…');setTimeout(()=>location.reload(),700);
- }catch(x){toast('That file is not a valid Quiz Master backup.');}});
+ }catch(x){toast('That file is not a valid My PYQ Online backup.');}});
 
 /* add / import subject */
 const TEMPLATE={_readme:['Replace the sample content with your own and keep this structure. Save as .json and import it from Subject → Add subject.','subject (required): name shown in the subject list. subtitle, source and groupLabel are optional.','chapters (optional): [{ "no": 1, "title": "…", "group": "…" }]. "group" powers an extra filter (e.g. Physics / Chemistry / Biology, or Ancient / Medieval / Modern).','questions (required): chapter = chapter number (or chapter title); options = 2 to 6 choices (letters a–f are assigned in order); answer = a letter such as "b", or ["a","c"] when several options are correct. Leave answer out for an unscored question.','explanation and exams (for example "UPSC CSE (Pre) 2019") are optional; exam labels with a year feed the Exam and Year filters. This _readme key is ignored.'],format:'quizmaster-subject-v1',subject:'General Science',subtitle:'NCERT based · Class 6–10',groupLabel:'Branch',chapters:[{no:1,title:'Motion and Force',group:'Physics'},{no:2,title:'Acids, Bases and Salts',group:'Chemistry'}],questions:[{chapter:1,question:'The SI unit of force is –',options:['Joule','Newton','Watt','Pascal'],answer:'b',explanation:'Force is measured in newton (N).',exams:['UPSC CSE (Pre) 2019']},{chapter:2,question:'Which of the following are acids?\n1. HCl\n2. NaOH\n3. H2SO4',options:['1 and 2','2 only','1 and 3','1, 2 and 3'],answer:'c',explanation:'NaOH is a base.',exams:[]},{chapter:1,question:'Select all vector quantities.',options:['Speed','Velocity','Displacement','Mass'],answer:['b','c'],explanation:'Velocity and displacement have direction.'}]};
@@ -1043,4 +1043,4 @@ new ResizeObserver(()=>document.documentElement.style.setProperty('--topH',$('to
  c.addEventListener('touchend',e=>{if(x0==null)return;const t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;x0=null;if(Math.abs(dx)>90&&Math.abs(dy)<45&&Date.now()-t0<600&&!paused&&tab==='quiz')go(current+(dx<0?1:-1));},{passive:true});
 })();
 </script>
-</body></html>
+<p style="text-align:center;font-size:12px;color:var(--muted);padding:14px 14px calc(14px + env(safe-area-inset-bottom))"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="mailto:support@mypyq.online">Contact</a></p></body></html>
