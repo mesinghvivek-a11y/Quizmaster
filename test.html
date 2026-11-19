@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Quiz Master · Test portal</title>
-<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="theme-color" content="#2f4fd8"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon-192.png"><script src="config.js"></script><script src="shared.js"></script>
+<title>My PYQ Online · Test portal</title>
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="theme-color" content="#2f4fd8"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon-192.png"><script src="config.js"></script><script src="shared.js"></script><script>try{var __s=new URLSearchParams(location.search).get("s")||localStorage.getItem("qm-last")||"polity";if(__s==="polity"||__s==="history")window.__pre={id:__s,p:fetch("data/"+__s+".json").then(function(r){return r.json()})}}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -201,13 +201,25 @@ body.perfmode .fbar,body.perfmode #fToggle,body.perfmode .bar2{display:none!impo
 .rcode{font:800 40px var(--ui);letter-spacing:.18em;text-align:center;margin:10px 0;color:var(--brand);cursor:pointer}
 .lbt{width:100%;border-collapse:collapse;font-size:13px}.lbt th,.lbt td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}.lbt th{font-size:11px;color:var(--muted)}
 @media(max-width:760px){.lpanel{margin:0 14px 18px}}
+/* ===== v6 ===== */
+.qhead{justify-content:flex-start!important;gap:8px 10px!important;padding:10px 16px!important}
+.qn{font-size:20px;font-weight:800;color:var(--brand);letter-spacing:-.03em}.qch{flex:1;min-width:0;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qhead .tags{flex-basis:100%;justify-content:flex-start;margin:0!important;order:5}.tag{font-size:10px!important;padding:2px 8px!important}
+.qacts{display:flex;gap:6px;margin-left:auto}.ib{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;padding:0}.ib:hover{color:var(--brand);border-color:var(--brand)}.ib.on{background:var(--brand-soft);color:var(--brand);border-color:transparent}.ib.rep:hover{color:#c2323a;border-color:#c2323a}
+.qtype{display:none}
+.bottom .stats,.bottom .acc{display:none!important}.bottom .bar{justify-content:center}
+.navbtns{width:100%;max-width:560px;display:grid!important;grid-template-columns:repeat(3,1fr);gap:8px}.navbtns .btn{min-width:0!important;height:44px;font-weight:700}.navbtns .lbl2{display:inline!important}.navbtns .only-s{display:none!important}
+@media(max-width:760px){.navbtns{max-width:none;grid-template-columns:1fr auto 1.15fr 1fr}.navbtns .btn{height:50px;font-size:15px}#prevBtn{order:1}#clearBtn{order:2}#navToggle{order:3;display:flex!important;gap:6px}#nextBtn{order:4}}
+.mtf{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:14px;background:var(--surface2)}.mtf table{border-collapse:collapse;width:100%;font-size:calc(16px*var(--scale))}.mtf th{font-size:12px;text-align:left;padding:8px 12px;color:var(--muted);border-bottom:1px solid var(--line)}.mtf th small{display:block;font-weight:500}.mtf td{padding:8px 12px;vertical-align:top;border-bottom:1px solid var(--line)}.mtf td:nth-child(1),.mtf td:nth-child(3){width:1%;white-space:nowrap;color:var(--brand)}.mtf td:nth-child(2){border-right:1px solid var(--line)}.mtf tr:last-child td{border-bottom:0}
+.opt .mo b{color:var(--brand)}.opt .mo i{display:inline-block;width:16px}
+#timerBox{cursor:default}
 </style>
 </head>
 <body>
 <div class="warnbar" id="warnBar" hidden></div>
 <header class="top" id="top">
  <div class="bar bar1"><a class="btn" href="index.html" title="Back to home" aria-label="Home">⌂<span class="lbl2"> Home</span></a>
-  <label class="sel subj"><span>Subject</span><select id="subjectSel" aria-label="Select subject"></select></label>
+  <label class="sel subj" hidden><span>Subject</span><select id="subjectSel" aria-label="Select subject"></select></label>
   <div class="brand"><div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M12 3v7M12 14v7M3 12h7M14 12h7M5.6 5.6l5 5M13.4 13.4l5 5M18.4 5.6l-5 5M10.6 13.4l-5 5"/></svg></div><div class="btxt"><b id="brandTitle">Indian Polity &amp; Governance</b><small id="brandSub">Master test · 42 chapters</small></div></div>
   <span class="spacer"></span>
   <div class="seg" id="tabSeg" hidden role="group" aria-label="View"><button type="button" data-tab="quiz" class="on">Quiz</button><button type="button" data-tab="perf"><span class="lbl2">Performance</span><span class="only-s">Stats</span></button></div>
@@ -226,7 +238,7 @@ body.perfmode .fbar,body.perfmode #fToggle,body.perfmode .bar2{display:none!impo
 <div class="fscrim" id="fScrim"></div>
 <section class="fbar" id="fbar" aria-label="Filters and options">
  <div class="fhead"><b>Filters &amp; options</b><button class="btn primary" id="fDone" type="button">Done</button></div>
- <div class="filters"><label class="sel" id="groupWrap" hidden><span id="groupLbl">Era</span><select id="groupFilter"><option value="all">All</option></select></label>
+ <div class="filters"><label class="sel" id="groupWrap"><span id="groupLbl">Era</span><select id="groupFilter"><option value="all">All</option></select></label>
    <label class="sel"><span>Exam</span><select id="examFilter"><option value="all">All exams</option></select></label>
    <label class="sel" id="yearWrap"><span>Year</span><select id="yearFilter"><option value="all">All years</option></select></label>
    <label class="sel wide"><span>Chapter</span><select id="chapterFilter"><option value="all">All chapters</option></select></label>
@@ -234,7 +246,7 @@ body.perfmode .fbar,body.perfmode #fToggle,body.perfmode .bar2{display:none!impo
    <input class="search" id="searchBox" type="search" placeholder="Search questions…" aria-label="Search questions and explanations">
    <button class="btn" id="shuffleBtn" type="button" title="Shuffle the questions in this view" aria-label="Reshuffle">⇄<span class="lbl"> Reshuffle</span></button>
    <button class="btn" id="fClear" type="button">Clear filters</button>
-   <button class="btn" id="reviseBtn" type="button">↻ Revise due</button><button class="btn" id="mockBtn" type="button">⚙ Custom session</button></div>
+   <button class="btn" id="reviseBtn" type="button">↻ Revise due</button><button class="btn primary" id="hostBtn" type="button" style="font-weight:700">▶ Host test</button><button class="btn" id="joinBtn" type="button" style="font-weight:700;border-color:var(--brand);color:var(--brand)">⌁ Join test</button></div>
  <div class="fextra"><div class="fgrp"><small>SESSION</small><div id="slotMode"></div></div><div class="fgrp"><small>DISPLAY</small><div id="slotTools"></div></div></div>
 </section>
 
@@ -291,7 +303,7 @@ body.perfmode .fbar,body.perfmode #fToggle,body.perfmode .bar2{display:none!impo
 </section></div>
 <div class="backdrop" id="mockBackdrop" hidden style="z-index:88"><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="mkT0">
  <div class="dhead"><div><h2 id="mkT0">Custom session</h2><p>Pick chapters, practice or exam, and play solo or with friends.</p></div><button class="btn" id="mkCancel" type="button">Close</button></div>
- <div class="mockgrid" style="margin-bottom:6px"><div class="seg" id="mkWho"><button type="button" data-w="solo" class="on">Solo</button><button type="button" data-w="host">Host room</button><button type="button" data-w="join">Join room</button></div><div class="seg" id="mkModeSeg"><button type="button" data-m="practice" class="on">Practice</button><button type="button" data-m="exam">Exam</button></div></div>
+ <div class="mockgrid" style="margin-bottom:6px"><div class="seg" id="mkWho" hidden><button type="button" data-w="host" class="on">Host room</button><button type="button" data-w="join">Join room</button></div><div class="seg" id="mkModeSeg"><button type="button" data-m="practice" class="on">Practice</button><button type="button" data-m="exam">Exam</button></div></div>
  <div id="mkJoin" hidden><div class="impname"><label>Room code<input id="mkCode" maxlength="8" autocapitalize="characters" autocomplete="off" placeholder="e.g. K7M2Q"></label></div></div>
  <div class="impname" id="mkNameW"><label>Your name<input id="mkName" maxlength="16" autocomplete="off" placeholder="Shown to friends"></label></div>
  <div id="mkCfg"><div class="dhead" style="margin-top:12px;align-items:center"><b style="font-size:13px">Chapters <small style="font-weight:500;color:var(--muted)">· pick two or more (none = all)</small></b><span><button class="btn" id="mkAll" type="button" style="height:30px">All</button> <button class="btn" id="mkNone" type="button" style="height:30px">None</button></span></div>
@@ -304,7 +316,7 @@ body.perfmode .fbar,body.perfmode #fToggle,body.perfmode .bar2{display:none!impo
   <label class="sel"><span>Negative marking</span><select id="mkNeg"><option value="0">None</option><option value="0.25">¼ per wrong</option><option value="0.33">⅓ per wrong</option><option value="0.5">½ per wrong</option></select></label>
  </div>
  <label class="chk"><input type="checkbox" id="mkShuf" checked><span>Shuffle question order</span></label><label class="chk"><input type="checkbox" id="mkBal"><span>Balance across chapters (equal share from each)</span></label></div>
- <div class="dfoot" style="justify-content:flex-end"><button class="btn primary" id="mkGo" type="button">Start session</button></div>
+ <label class="chk" id="mkAloneW" hidden><input type="checkbox" id="mkAlone"><span>Just me — no room needed (works offline)</span></label><div class="dfoot" style="justify-content:flex-end"><button class="btn primary" id="mkGo" type="button">Start session</button></div>
 </section></div>
 <div class="backdrop" id="roomBackdrop" hidden style="z-index:89"><section class="dialog confirm" role="dialog" aria-modal="true"><h2>Room lobby</h2><div id="roomBody"></div><div class="row" style="margin-top:16px"><button class="btn" id="roomLeave" type="button">Leave</button><button class="btn primary" id="roomStart" type="button">Start for everyone</button></div></section></div>
 <div class="backdrop" id="lbBackdrop" hidden style="z-index:79"><section class="dialog"><div class="dhead"><div><h2>Results</h2><p>Winner list and everyone’s responses</p></div></div><div id="lbBody"></div><div class="dfoot"><button class="btn primary" id="lbSum" type="button">My summary</button><button class="btn" id="lbClose" type="button">Close room</button></div></section></div>
@@ -312,7 +324,7 @@ body.perfmode .fbar,body.perfmode #fToggle,body.perfmode .bar2{display:none!impo
 <div class="toast" id="toast" hidden role="status"></div>
 
 <script>
-let DATA=null,SUBJ=null,LIVE=null;
+let DATA=null,SUBJ=null,LIVE=null;const FORCE=new Set();
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
@@ -392,31 +404,32 @@ function render(){
  document.querySelectorAll('#modeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
  renderNavigator();updateScore();syncBar(q);save();
  if(!q){card.innerHTML='<div class="empty"><h3>No questions match this view</h3><p>Change the exam, chapter, review set or search text.</p></div>';return;}
- const saved=stateFor(q),rev=revealed(saved);selected=saved?saved.selected:null;
+ const saved=stateFor(q)||(FORCE.has(q.id)?{grade:'timeout',sel:[],selected:null}:null),rev=revealed(saved);selected=saved?saved.selected:null;
  const tags=(q.group&&DATA.groups&&DATA.groups.length?`<span class="tag">${esc(q.group)}</span>`:'')+(q.examTags.length?q.examTags.map(t=>`<span class="tag exam">${esc(t.label)}</span>`).join(''):(SUBJ.builtin?'<span class="tag">Exam tag not recovered</span>':''));
- const prompt=q.prompt?`<p class="prompt">${esc(rf(q.prompt))}</p>`:'';
+ const mt=q.prompt?parseMatch(q.prompt):null,prompt=q.prompt?(mt?matchHTML(mt):`<p class="prompt">${esc(rf(q.prompt))}</p>`):'';
  let options;
  if(q.options.length){options='<div class="options" role="group" aria-label="Answer options">'+q.options.map(o=>{
   let cls='opt',mark='';
   if(rev){if(q.gradeable&&q.correct.includes(o.sourceLabel)){cls+=' correct';mark='✓'}else if(selKeys(saved).includes(o.key)&&q.gradeable){cls+=' wrong';mark='✗'}else if(selKeys(saved).includes(o.key))cls+=' selected';}
   else if(selKeys(saved).includes(o.key))cls+=' selected';
-  return `<button class="${cls}" type="button" data-option="${esc(o.key)}" ${rev||submitted?'disabled':''}><span class="letter">${esc(o.sourceLabel.toUpperCase())}</span><span>${esc(rf(o.text))||'<em>[Option text not recovered]</em>'}</span>${mark?`<span class="mark">${mark}</span>`:''}</button>`;}).join('')+'</div>';}
+  return `<button class="${cls}" type="button" data-option="${esc(o.key)}" ${rev||submitted?'disabled':''}><span class="letter">${esc(o.sourceLabel.toUpperCase())}</span><span>${(mt&&optMatch(o.text,mt))?'<span class="mo">'+optMatch(o.text,mt)+'</span>':(esc(rf(o.text))||'<em>[Option text not recovered]</em>')}</span>${mark?`<span class="mark">${mark}</span>`:''}</button>`;}).join('')+'</div>';}
  else options='<div class="note" style="margin:0 0 20px">The source layout did not yield reliable separate options for this item. The extracted prompt is retained for review; it is not scored.</div>';
  const expl=(t,label,fallback)=>(t||fallback)?`<details open><summary>${label}</summary><div class="explain">${esc(rf(t||fallback))}</div></details>`:'';
  let fb='';
  if(rev){
   if(saved.grade==='correct')fb=`<div class="fb good"><div class="fb-head"><span class="fb-ico" data-i="✓"></span><div>Correct<small>Correct option: ${keyStr(q)}</small></div></div>${expl(q.explanation,'Explanation','No separate explanation text was recovered from the source.')}</div>`;
   else if(saved.grade==='wrong')fb=`<div class="fb bad"><div class="fb-head"><span class="fb-ico" data-i="✗"></span><div>Incorrect<small>Correct option: ${keyStr(q)}</small></div></div>${expl(q.explanation,'Explanation')}</div>`;
+  else if(saved.grade==='timeout')fb=`<div class="fb neutral"><div class="fb-head"><span class="fb-ico" data-i="⏱"></span><div>Time’s up<small>Correct option: ${keyStr(q)}</small></div></div>${expl(q.explanation,'Explanation','No separate explanation text was recovered from the source.')}</div>`;
   else fb=`<div class="fb neutral"><div class="fb-head"><span class="fb-ico" data-i="!"></span><div>Attempt recorded · no answer key<small>${esc(q.answerRaw||'No printed answer key line')} — the book gives no mappable keyed option, so this cannot be scored.</small></div></div>${expl(q.explanation,'Explanation / source note')}</div>`;
  }
  const exam=mode==='exam';
  const hint=isMulti(q)&&!rev&&!submitted&&q.attemptable?'<span>Multiple answers: select every correct option'+(mode==='practice'?', then press Check':'')+'</span>':submitted?'Test submitted — review only.':!q.attemptable?'This item is retained for source review.':exam?'<span>Exam mode: change your answer any time before you submit</span>':'<span>Tap an option to check it instantly</span><kbd class="kbdhint">A–D</kbd><span class="kbdhint">then</span><kbd class="kbdhint">Enter</kbd><span class="kbdhint">for next</span>';
  const mchk=isMulti(q)&&!rev&&!submitted&&mode==='practice'&&saved&&saved.sel&&saved.sel.length?'<div style="margin:0 28px 4px"><button class="btn primary" id="chkMulti" type="button">Check answer</button></div>':'';
- card.innerHTML=`<div class="qhead"><div class="badge"><span class="ch">${q.chapterNo}<em>.</em>${esc(q.number)}</span><small>Chapter ${String(q.chapterNo).padStart(2,'0')} · ${esc(q.chapter||'')}<br>${esc([q.bookPage,q.pdfPage?'PDF p.'+q.pdfPage:''].filter(Boolean).join(' · '))}</small></div><div class="tags">${tags}</div><button class="btn flagbtn ${flags.has(q.id)?'flagged':''}" id="flagBtn" type="button" title="Mark for review (F)" aria-pressed="${flags.has(q.id)}">⚑<span class="lbl2"> ${flags.has(q.id)?'Flagged':'Flag'}</span></button></div>
- <div class="qbody"><p class="qtype">Question ${esc(q.number)} · ${esc(q.type)}</p>${prompt}${options}</div>
+ card.innerHTML=`<div class="qhead"><span class="qn">Q${esc(q.number)}</span><span class="qch" title="${esc(q.chapter||'')}">Ch ${String(q.chapterNo).padStart(2,'0')} · ${esc(q.chapter||'')}</span><div class="qacts"><button class="ib ${flags.has(q.id)?'on':''}" id="flagBtn" type="button" title="Bookmark for review (F)" aria-label="Bookmark for review" aria-pressed="${flags.has(q.id)}"><svg viewBox="0 0 24 24" width="18" height="18" fill="${flags.has(q.id)?'currentColor':'none'}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"/></svg></button><button class="ib rep" id="rptBtn" type="button" title="Report a problem with this question" aria-label="Report a problem"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/></svg></button></div>${tags?`<div class="tags">${tags}</div>`:''}</div>
+ <div class="qbody">${prompt}${options}</div>
  <p class="hint">${hint}</p>${mchk}${fb}${noteBox(q)}`;
  card.querySelectorAll('[data-option]').forEach(b=>b.addEventListener('click',()=>pick(b.dataset.option)));
- $('flagBtn').addEventListener('click',()=>toggleFlag(q));
+ $('flagBtn').addEventListener('click',()=>toggleFlag(q));$('rptBtn').addEventListener('click',()=>{$('rptBackdrop').hidden=false;});
  const cm=$('chkMulti');if(cm)cm.addEventListener('click',checkMulti);
  const nt=$('noteTa');if(nt)nt.addEventListener('input',()=>setNote(q.id,nt.value));
 }
@@ -509,7 +522,7 @@ document.addEventListener('keydown',e=>{
  else if(k.length===1){const i='1234'.includes(k)?+k-1:'abcd'.indexOf(k);if(i>=0&&i<q.options.length)pick(q.options[i].key);}
 });
 
-/* ===== Quiz Master additions: subjects · local storage · sessions · performance · import ===== */
+/* ===== My PYQ Online additions: subjects · local storage · sessions · performance · import ===== */
 const LS_LAST='qm-last',SUBJECTS=[];
 let SESS=[],sess={},tab='quiz',pendingSubj=null;
 const POLITY_SRC=$('sourceNote').innerHTML;
@@ -525,8 +538,8 @@ function dl(name,text){const a=document.createElement('a');a.href=URL.createObje
 
 /* durable storage: IndexedDB (large data) with localStorage fallback */
 const kv={db:null,
- open(){return this.db?Promise.resolve(this.db):new Promise(r=>{try{const q=indexedDB.open('quizmaster',1);q.onupgradeneeded=()=>q.result.createObjectStore('kv');q.onsuccess=()=>r(this.db=q.result);q.onerror=()=>r(null);}catch(e){r(null)}})},
- async run(m,fn){const d=await this.open();if(!d)return{ok:false};return new Promise(r=>{try{const t=d.transaction('kv',m),q=fn(t.objectStore('kv'));t.oncomplete=()=>r({ok:true,v:q&&q.result});t.onerror=t.onabort=()=>r({ok:false});}catch(e){r({ok:false})}})},
+ open(){return this.db?Promise.resolve(this.db):new Promise(r=>{try{const q=indexedDB.open('quizmaster',1);q.onupgradeneeded=()=>q.result.createObjectStore('kv');q.onsuccess=()=>{const d=this.db=q.result;d.onclose=d.onversionchange=()=>{try{d.close()}catch(e){}this.db=null};r(d)};q.onerror=()=>r(null);}catch(e){r(null)}})},
+ async run(m,fn,again){const d=await this.open();if(!d)return{ok:false};return new Promise(r=>{try{const t=d.transaction('kv',m),q=fn(t.objectStore('kv'));t.oncomplete=()=>r({ok:true,v:q&&q.result});t.onerror=t.onabort=()=>r({ok:false});}catch(e){this.db=null;r(again?{ok:false}:this.run(m,fn,1))}})},
  async get(k){const r=await this.run('readonly',s=>s.get(k));if(r.ok)return r.v===undefined?null:r.v;try{const l=localStorage.getItem('qmkv:'+k);return l?JSON.parse(l):null}catch(e){return null}},
  async set(k,v){const r=await this.run('readwrite',s=>s.put(v,k));if(!r.ok)store.set('qmkv:'+k,JSON.stringify(v));return r.ok},
  async del(k){const r=await this.run('readwrite',s=>s.delete(k));if(!r.ok)try{localStorage.removeItem('qmkv:'+k)}catch(e){}},
@@ -537,15 +550,15 @@ function fillChapters(){const g=groupFilter.value;fillSel(chapterFilter,'All cha
 function populateFilters(){
  fillSel(examFilter,'All exams',[...new Set(DATA.questions.flatMap(q=>q.examTags.map(t=>t.family||t.label)).filter(Boolean))].sort((a,b)=>a.localeCompare(b)).map(x=>[x,x]));
  const ys=[...new Set(DATA.questions.flatMap(q=>q.examTags.flatMap(yrsOf)))].sort((a,b)=>a-b);
- fillSel(yearFilter,'All years',ys.map(y=>[String(y),String(y)]));$('yearWrap').hidden=!ys.length;
- const gs=DATA.groups||[];$('groupWrap').hidden=!gs.length;$('groupLbl').textContent=DATA.groupLabel||'Category';
- fillSel(groupFilter,'All '+(DATA.groupLabel||'Category').toLowerCase()+'s',gs.map(g=>[g,g]));fillChapters();
+ fillSel(yearFilter,'All years',ys.map(y=>[String(y),String(y)]));yearFilter.disabled=!ys.length;
+ const gs=DATA.groups||[];groupFilter.disabled=!gs.length;$('groupLbl').textContent='Section';
+ fillSel(groupFilter,'All sections',gs.map(g=>[g,g]));fillChapters();
 }
 groupFilter.addEventListener('change',()=>{fillChapters();userFilter();});yearFilter.addEventListener('change',userFilter);
 
 /* subjects */
 async function ensureData(s){
- if(!s.data)s.data=s.builtin?await(await fetch('data/'+s.id+'.json')).json():await kv.get('subj:'+s.id);
+ if(!s.data)s.data=s.builtin?await(window.__pre&&window.__pre.id===s.id?window.__pre.p:fetch('data/'+s.id+'.json').then(r=>r.json())):s.cloud?await QM.bank(s.cloud):await kv.get('subj:'+s.id);
  if(!s.prep){const g=new Map(s.data.chapters.map(c=>[c.no,c.group||'']));s.data.questions.forEach(q=>q.group=g.get(q.chapterNo)||'');s.data.groups=[...new Set(s.data.chapters.map(c=>c.group).filter(Boolean))];s.prep=1;}
  return s.data;}
 function buildSubjectSelect(){const el=$('subjectSel');el.innerHTML='';SUBJECTS.forEach(s=>el.append(new Option(s.name,s.id)));el.append(new Option('＋ Add subject…','__add'));if(SUBJ)el.value=SUBJ.id;}
@@ -557,7 +570,7 @@ async function openSubject(id,first){
  answers.clear();flags.clear();spent.clear();elapsed=0;submitted=false;mode='practice';sess={};retryIds=null;search='';$('searchBox').value='';viewFilter.value='all';
  paused=false;document.body.classList.remove('paused');$('summaryBackdrop').hidden=true;
  populateFilters();store.set(LS_LAST,s.id);$('subjectSel').value=s.id;
- $('brandTitle').textContent=s.name;$('brandSub').textContent=`Master test · ${DATA.chapters.length} chapters`;document.title=s.name+' · Quiz Master';$('sourceNote').innerHTML=s.sourceHtml||'';
+ $('brandTitle').textContent=s.name;$('brandSub').textContent=`Master test · ${DATA.chapters.length} chapters`;document.title=s.name+' · My PYQ Online';$('sourceNote').innerHTML=s.sourceHtml||'';
  const prior=restore();if(sess.ids)retryIds=new Set(sess.ids);applyFilters();
  if(prior){const i=order.findIndex(q=>q.id===prior.c);if(i>0){current=i;render();}toast(submitted?'Restored your submitted test.':`Welcome back — restored ${answers.size} answers.`);}
  paint();$('pauseBtn').disabled=submitted;$('testSubmit').textContent=submitted?'Summary':'Submit';
@@ -648,7 +661,7 @@ $('bkFile').addEventListener('change',async e=>{const f=e.target.files[0];e.targ
   const m=new Map(SESS.map(r=>[r.id,r]));(b.sessions||[]).forEach(r=>m.set(r.id,r));await kv.set('sessions',[...m.values()]);
   for(const [id,d] of Object.entries(b.subjects||{}))await kv.set('subj:'+id,d);for(const [k,v] of Object.entries(b.kvs||{}))await kv.set(k,v);
   toast('Backup restored — reloading…');setTimeout(()=>location.reload(),700);
- }catch(x){toast('That file is not a valid Quiz Master backup.');}});
+ }catch(x){toast('That file is not a valid My PYQ Online backup.');}});
 
 /* add / import subject */
 const TEMPLATE={_readme:['Replace the sample content with your own and keep this structure. Save as .json and import it from Subject → Add subject.','subject (required): name shown in the subject list. subtitle, source and groupLabel are optional.','chapters (optional): [{ "no": 1, "title": "…", "group": "…" }]. "group" powers an extra filter (e.g. Physics / Chemistry / Biology, or Ancient / Medieval / Modern).','questions (required): chapter = chapter number (or chapter title); options = 2 to 6 choices (letters a–f are assigned in order); answer = a letter such as "b", or ["a","c"] when several options are correct. Leave answer out for an unscored question.','explanation and exams (for example "UPSC CSE (Pre) 2019") are optional; exam labels with a year feed the Exam and Year filters. This _readme key is ignored.'],format:'quizmaster-subject-v1',subject:'General Science',subtitle:'NCERT based · Class 6–10',groupLabel:'Branch',chapters:[{no:1,title:'Motion and Force',group:'Physics'},{no:2,title:'Acids, Bases and Salts',group:'Chemistry'}],questions:[{chapter:1,question:'The SI unit of force is –',options:['Joule','Newton','Watt','Pascal'],answer:'b',explanation:'Force is measured in newton (N).',exams:['UPSC CSE (Pre) 2019']},{chapter:2,question:'Which of the following are acids?\n1. HCl\n2. NaOH\n3. H2SO4',options:['1 and 2','2 only','1 and 3','1, 2 and 3'],answer:'c',explanation:'NaOH is a base.',exams:[]},{chapter:1,question:'Select all vector quantities.',options:['Speed','Velocity','Displacement','Mass'],answer:['b','c'],explanation:'Velocity and displacement have direction.'}]};
@@ -657,11 +670,11 @@ function examTag(l){const ys=new Set();String(l).replace(/\b((?:19|20)\d{2})\b/g
  return{label:String(l),family:fam||String(l),stage:'',year:ys.size?[...ys][0]:0,years:[...ys]};}
 /* ===== v3: Excel import/export · smart revision · notes · mock tests · goals & charts ===== */
 const INTERVALS=[0,1,3,7,16,35],dayKey=(t=Date.now())=>{const d=new Date(t);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
-let QS={},NOTES={},DAILY={},PREFS={goal:30},_ps=null;
+let QS={},NOTES={},NTS={},DAILY={},PREFS={goal:30},_ps=null;
 const h32=s=>{let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return(h>>>0).toString(36);};
-async function loadSubjData(s){QS=(await kv.get('qs:'+s.id))||{};NOTES=(await kv.get('notes:'+s.id))||{};}
+async function loadSubjData(s){QS=(await kv.get('qs:'+s.id))||{};NOTES=(await kv.get('notes:'+s.id))||{};NTS=(await kv.get('nts:'+s.id))||{};}
 function persistSoon(){clearTimeout(_ps);_ps=setTimeout(flushPersist,900);}
-function flushPersist(){if(_ps==null)return;clearTimeout(_ps);_ps=null;if(SUBJ){kv.set('qs:'+SUBJ.id,QS);kv.set('notes:'+SUBJ.id,NOTES);}kv.set('daily',DAILY);kv.set('prefs',PREFS);}
+function flushPersist(){if(_ps==null)return;clearTimeout(_ps);_ps=null;if(SUBJ){kv.set('qs:'+SUBJ.id,QS);kv.set('notes:'+SUBJ.id,NOTES);kv.set('nts:'+SUBJ.id,NTS);}kv.set('daily',DAILY);kv.set('prefs',PREFS);}
 function recordResult(q,g){
  if(!q||(g!=='correct'&&g!=='wrong'))return;
  const s=QS[q.id]||(QS[q.id]={a:0,c:0,w:0,b:0,t:0,d:0});s.a++;if(g==='correct'){s.c++;s.b=Math.min(5,s.b+1);}else{s.w++;s.b=0;}
@@ -671,7 +684,8 @@ function autoSubmit(){gradePending();submitted=true;setPaused(false);stopClock()
 
 /* notes */
 const noteBox=q=>`<details class="mynote" ${NOTES[q.id]?'open':''}><summary>📝 ${NOTES[q.id]?'My note':'Add a note'}</summary><textarea id="noteTa" placeholder="A memory trick, source or doubt to revisit…">${esc(NOTES[q.id]||'')}</textarea></details>`;
-function setNote(id,t){if(t.trim())NOTES[id]=t;else delete NOTES[id];persistSoon();}
+const nMeta=id=>{const q=byId.get(id);return{ts:Date.now(),c:q?q.chapterNo:0,ch:q?q.chapter:'',n:q?String(q.number):'',p:q?String(q.prompt||'').slice(0,160):''}};
+function setNote(id,t){if(t.trim()){NOTES[id]=t;NTS[id]=nMeta(id);}else{delete NOTES[id];delete NTS[id];}persistSoon();}
 
 /* "Show" filter counts */
 const VIEW_BASE={due:'Due for revision',everwrong:'Missed before',weak:'Weak: under 60%',new:'Never attempted',noted:'With my notes'};
@@ -811,12 +825,12 @@ function normalizeImport(raw){
  const data={title:name,subtitle:String(raw.subtitle||''),groupLabel:String(raw.groupLabel||'').trim()||'Category',chapters:chs.filter(c=>used.has(c.no)).sort((x,y)=>x.no-y.no),questions:qs,source:String(raw.source||'Imported subject'),stats:{total:qs.length}};
  return{data,skipped:err,ungraded:qs.filter(q=>!q.gradeable).length};}
 const showImp=l=>{$('impGo').disabled=true;pend=null;$('impNameWrap').hidden=true;$('impMsg').innerHTML=`<div class="note" style="margin:0"><b>Couldn’t import this file</b><br>${l.slice(0,8).map(esc).join('<br>')}${l.length>8?`<br>…and ${l.length-8} more`:''}</div>`;};
-function openAdd(){$('impMsg').innerHTML='';$('impGo').disabled=true;$('impNameWrap').hidden=true;pend=null;$('impFile').value='';renderMine();$('subjBackdrop').hidden=false;}
+function openAdd(){if(!QM.isAdmin){toast('Only admins can add subjects.');return;}$('impMsg').innerHTML='';$('impGo').disabled=true;$('impNameWrap').hidden=true;pend=null;$('impFile').value='';renderMine();$('subjBackdrop').hidden=false;}
 function renderMine(){
- $('mySubj').innerHTML='<h3>Your subjects</h3>'+SUBJECTS.map(s=>`<div class="mine"><span><b>${esc(s.name)}</b>${s.builtin?' <span class="chip">built-in</span>':''}</span><span class="mbtn"><button class="btn" type="button" data-ex="${s.id}">Export Excel</button>${s.builtin?'':`<button class="btn" type="button" data-sh="${s.id}">Share link</button><button class="btn danger" type="button" data-rm="${s.id}">Remove</button>`}</span></div>`).join('');
+ $('mySubj').innerHTML='<h3>Your subjects</h3>'+SUBJECTS.map(s=>`<div class="mine"><span><b>${esc(s.name)}</b>${s.builtin?' <span class="chip">built-in</span>':''}</span><span class="mbtn"><button class="btn" type="button" data-ex="${s.id}">Export Excel</button>${s.builtin?'':`<button class="btn danger" type="button" data-rm="${s.id}">Remove</button>`}</span></div>`).join('');
  $('mySubj').querySelectorAll('[data-ex]').forEach(b=>b.addEventListener('click',async()=>{b.disabled=true;try{await exportSubject(SUBJECTS.find(x=>x.id===b.dataset.ex));}finally{b.disabled=false;}}));
  $('mySubj').querySelectorAll('[data-rm]').forEach(b=>b.addEventListener('click',async()=>{const s=SUBJECTS.find(x=>x.id===b.dataset.rm);if(!s||!await ask('Remove “'+s.name+'”?','The subject, its notes and saved progress are deleted. Past sessions stay in Performance.','Remove'))return;
-  await kv.del('subj:'+s.id);await kv.del('qs:'+s.id);await kv.del('notes:'+s.id);try{localStorage.removeItem('qm-state:'+s.id)}catch(e){}const cur=SUBJ.id===s.id;SUBJECTS.splice(SUBJECTS.indexOf(s),1);if(cur){sess={};await openSubject('polity',true);}buildSubjectSelect();renderMine();}));}
+  await kv.del('subj:'+s.id);await kv.del('qs:'+s.id);await kv.del('notes:'+s.id);await kv.del('nts:'+s.id);try{localStorage.removeItem('qm-state:'+s.id)}catch(e){}const cur=SUBJ.id===s.id;SUBJECTS.splice(SUBJECTS.indexOf(s),1);if(cur){sess={};await openSubject('polity',true);}buildSubjectSelect();renderMine();}));}
 $('tplBtn').addEventListener('click',()=>{dlBlob(templateBlob(),'quizmaster-subject-template.xlsx');toast('Template downloaded — open it in Excel, Numbers or Google Sheets.');});
 $('impFile').addEventListener('change',async e=>{
  const f=e.target.files[0];if(!f)return;$('impMsg').innerHTML='<div class="note" style="margin:0">Reading file…</div>';
@@ -835,7 +849,7 @@ $('closeSubj').addEventListener('click',()=>$('subjBackdrop').hidden=true);
 $('subjBackdrop').addEventListener('click',e=>{if(e.target===$('subjBackdrop'))$('subjBackdrop').hidden=true;});
 
 /* ---------- mock tests ---------- */
-$('mockBtn').addEventListener('click',()=>openCustom());
+$('hostBtn').addEventListener('click',()=>{who='host';openCustom();});$('joinBtn').addEventListener('click',()=>{who='join';openCustom();});
 $('mkCancel').addEventListener('click',()=>$('mockBackdrop').hidden=true);
 /* ---------- performance extras: goal, streak, charts, backup ---------- */
 function streak(){let n=0,t=Date.now();if(!DAILY[dayKey(t)])t-=864e5;while(DAILY[dayKey(t)]>0){n++;t-=864e5;}return n;}
@@ -869,7 +883,7 @@ const L=()=>LIVE&&LIVE.ph!=='over'?LIVE:null;
 const myName=()=>($('mkName').value.trim()||store.get('qm-name')||'Player').slice(0,16);
 const shufA=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 const lab=(q,s)=>s.map(k=>((q.options.find(o=>o.key===k)||{}).sourceLabel||'?')).join(',').toUpperCase();
-let who='solo',cmode='practice';
+let who='host',cmode='practice';
 function openCustom(){
  const cc=new Map(),pre=chapterFilter.value;DATA.questions.forEach(q=>{if(q.gradeable&&q.attemptable&&q.options.length)cc.set(q.chapterNo,(cc.get(q.chapterNo)||0)+1);});
  $('mkChs').innerHTML=DATA.chapters.filter(c=>cc.get(c.no)).map(c=>`<label class="chk"><input type="checkbox" value="${c.no}" ${String(c.no)===pre?'checked':''}><span>${String(c.no).padStart(2,'0')} · ${esc(c.title)}</span><em>${cc.get(c.no)}</em></label>`).join('');
@@ -887,9 +901,10 @@ function buildIds(){
  if(!$('mkShuf').checked){const ix=new Map(DATA.questions.map((q,i)=>[q.id,i]));ids.sort((a,b)=>ix.get(a.id)-ix.get(b.id));}
  return ids.map(q=>q.id);}
 function setWho(w){who=w;document.querySelectorAll('#mkWho button').forEach(b=>b.classList.toggle('on',b.dataset.w===w));document.querySelectorAll('#mkModeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.m===cmode));
- $('mkJoin').hidden=w!=='join';$('mkCfg').hidden=w==='join';$('mkModeSeg').hidden=w==='join';$('mkNameW').hidden=w==='solo';
- document.querySelectorAll('.solo-only').forEach(x=>x.hidden=w!=='solo');document.querySelectorAll('.host-only').forEach(x=>x.hidden=w!=='host');
- $('mkGo').textContent=w==='solo'?'Start session':w==='host'?'Create room':'Join room';}
+ $('mkJoin').hidden=w!=='join';$('mkCfg').hidden=w==='join';$('mkModeSeg').hidden=w==='join';$('mkNameW').hidden=w==='host'&&$('mkAlone').checked;
+ const al=w==='host'&&$('mkAlone').checked;document.querySelectorAll('.solo-only').forEach(x=>x.hidden=!al);document.querySelectorAll('.host-only').forEach(x=>x.hidden=!(w==='host'&&!al));$('mkAloneW').hidden=w!=='host';
+ $('mkGo').textContent=w==='join'?'Join room':$('mkAlone').checked?'Start session':'Create room';$('mkT0').textContent=w==='join'?'Join a test':'Host a test';}
+$('mkAlone').addEventListener('change',()=>setWho(who));
 $('mkWho').addEventListener('click',e=>{const b=e.target.closest('[data-w]');if(b)setWho(b.dataset.w);});
 $('mkModeSeg').addEventListener('click',e=>{const b=e.target.closest('[data-m]');if(b){cmode=b.dataset.m;setWho(who);}});
 $('mkChs').addEventListener('change',updAvail);$('mkSrc').addEventListener('change',updAvail);
@@ -900,7 +915,7 @@ $('mkGo').addEventListener('click',async()=>{
  if(who==='join')return joinRoom();
  const ids=buildIds();if(!ids)return;
  const cfg={subj:SUBJ.id,ids,mode:cmode,neg:+$('mkNeg').value,qsec:+$('mkQS').value,n:ids.length};
- if(who==='host')return hostRoom(cfg);
+ if(who==='host'&&!$('mkAlone').checked)return hostRoom(cfg);
  const lim=+$('mkT').value*60;
  if(answers.size&&!await ask('Start this session?','Your current attempt in this subject will be ended (it stays in Performance).','Start'))return;
  logSession(submitted?'submitted':'ended');stopClock();answers.clear();flags.clear();spent.clear();submitted=false;elapsed=0;mode=cmode;
@@ -909,91 +924,119 @@ $('mkGo').addEventListener('click',async()=>{
  toast(`${ids.length} questions · ${cmode}${lim?' · '+lim/60+' min (starts when you answer the first one)':''}`);});
 
 /* --- live rooms --- */
-const names=()=>[LIVE.name,...LIVE.players.keys()];
+const names=()=>[...LIVE.roster];
 const cast=m=>{if(LIVE.peer&&LIVE.peer.bc)LIVE.peer.bc(m);else LIVE.players.forEach(c=>{try{c.send(m)}catch(e){}});};
 const loadPeer=async()=>{if(!QM.enabled){toast('Live rooms need Supabase keys in config.js (see README).');return false;}try{await QM.load();return true;}catch(e){return false;}};
-const mkShow=H=>()=>H.ph==='live'||H.ph==='reveal'?mmss(Math.max(0,Math.ceil((H.end-Date.now())/1000))):'--:--';
+const mkShow=H=>()=>H.ph==='live'||H.ph==='reveal'?(H.pz?'⏸ ':'')+mmss(Math.max(0,Math.ceil((H.pz?H.pr:H.end-Date.now())/1000))):'--:--';
 function liveTick(){if(!LIVE)return;if(LIVE.host)hostTick();paint();const c=$('lcd');if(c&&LIVE.show)c.textContent=LIVE.show();}
+function hostWire(H,peer,onOpen){
+ peer.on('open',()=>{H.up=1;onOpen()});
+ peer.on('error',e=>{toast(e.type==='unavailable-id'?'Room code clash — try again.':'Connection problem ('+(e.type||'error')+').');if(!H.up&&LIVE===H)liveLeave();});
+ peer.on('connection',c=>{c.on('data',m=>hostMsg(c,m));c.on('close',()=>{if(!c._n||LIVE!==H)return;if(H.ph==='lobby'){H.players.delete(c._n);H.roster.delete(c._n);lobbyCast();showRoom();}else H.off.add(c._n);});});}
 async function hostRoom(cfg){
  store.set('qm-name',myName());if(!await loadPeer()){toast('Could not connect to live rooms.');return;}
- const code=Array.from({length:5},()=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*32)]).join(''),peer=new Peer('qm-'+code);
- const H=LIVE={host:1,peer,code,cfg,name:myName(),ph:'lobby',players:new Map(),picks:new Map(),i:-1,end:0,ci:-1,last:''};H.show=mkShow(H);H.iv=setInterval(liveTick,250);
- peer.on('open',()=>{H.up=1;$('mockBackdrop').hidden=true;showRoom();});
- peer.on('error',e=>{toast(e.type==='unavailable-id'?'Room code clash — try again.':'Connection problem ('+(e.type||'error')+').');if(!H.up&&LIVE===H)liveLeave();});
- peer.on('connection',c=>{c.on('data',m=>hostMsg(c,m));c.on('close',()=>{if(c._n&&LIVE===H){H.players.delete(c._n);if(H.ph==='lobby'){lobbyCast();showRoom();}}});});}
+ const code=Array.from({length:5},()=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*32)]).join(''),peer=new Peer('qm-'+code),name=myName();
+ const H=LIVE={host:1,peer,code,cfg,name,ph:'lobby',players:new Map(),roster:new Set([name]),off:new Set(),picks:new Map(),i:-1,end:0,ci:-1,last:''};H.show=mkShow(H);H.iv=setInterval(liveTick,250);
+ hostWire(H,peer,()=>{$('mockBackdrop').hidden=true;showRoom();});}
+async function hostRestore(s){
+ if(!await loadPeer())return;const peer=new Peer('qm-'+s.code);
+ const H=LIVE={host:1,peer,code:s.code,cfg:s.cfg,name:s.name,ph:'wait',players:new Map(),roster:new Set(s.roster),off:new Set(s.roster.filter(n=>n!==s.name)),picks:new Map(s.picks.map(([q,m])=>[q,new Map(m)])),i:s.i,end:0,ci:-1,last:'',pz:s.pz,pr:s.rem};H.show=mkShow(H);H.iv=setInterval(liveTick,250);
+ hostWire(H,peer,async()=>{await liveBegin(s.cfg);if(LIVE!==H)return;const mine={};H.picks.forEach((pm,q)=>{const v=pm.get(H.name);if(v)mine[q]=v.sel;});restoreMine(mine);H.ph=s.ph;H.end=Date.now()+s.rem;castPh();toast('Room restored — players can rejoin.');});}
+function restoreMine(mine){for(const qid in mine){const q=byId.get(qid);if(!q)continue;const sel=mine[qid];answers.set(qid,{selected:sel[0]||null,sel,grade:mode==='exam'?'pending':gradeOf(q,{sel})});}}
 function lobbyCast(){const c=LIVE.cfg;cast({t:'lobby',players:names(),cfg:{mode:c.mode,qsec:c.qsec,neg:c.neg,n:c.n}});}
-function hostMsg(c,m){
- if(!LIVE||!m)return;
- if(m.t==='hi'){if(LIVE.ph!=='lobby'){c.send({t:'err',m:'This session has already started.'});return;}
-  const n=String(m.name||'Player').slice(0,16);let k=n,x=2;while(k===LIVE.name||LIVE.players.has(k))k=n+x++;c._n=k;LIVE.players.set(k,c);c.send({t:'me',name:k});lobbyCast();showRoom();}
+const mineOf=n=>{const o={};LIVE.picks.forEach((pm,q)=>{const v=pm.get(n);if(v)o[q]=v.sel;});return o;};
+function hostMsg(c,m){const H=LIVE;if(!H||!m)return;
+ if(m.t==='hi'){const n0=String(m.name||'Player').slice(0,16);
+  if(H.ph!=='lobby'){if(m.rj&&H.roster.has(n0)){c._n=n0;H.players.set(n0,c);H.off.delete(n0);c.send({t:'me',name:n0});c.send({t:'rj',cfg:H.cfg,mine:mineOf(n0),ph:phMsg(),names:names()});}else c.send({t:'err',m:'This session has already started.'});return;}
+  let k=n0,x=2;while(H.roster.has(k))k=n0+x++;c._n=k;H.players.set(k,c);H.roster.add(k);c.send({t:'me',name:k});lobbyCast();showRoom();}
  else if(m.t==='a'&&c._n)recPick(c._n,m);}
-function recPick(name,m){const H=LIVE;if(!H||H.ph!=='live'||H.cfg.ids[H.i]!==m.qid||!Array.isArray(m.sel))return;
+function recPick(name,m){const H=LIVE;if(!H||H.ph!=='live'||H.pz||H.cfg.ids[H.i]!==m.qid||!Array.isArray(m.sel))return;
  let pm=H.picks.get(m.qid);if(!pm)H.picks.set(m.qid,pm=new Map());const o=pm.get(name);pm.set(name,{sel:m.sel,ms:o?o.ms:(+m.ms||0)});castPh();}
-const allIn=()=>{const pm=LIVE.picks.get(LIVE.cfg.ids[LIVE.i]);return!!pm&&names().every(n=>pm.has(n));};
-function hostTick(){const H=LIVE;if(!H||H.ph==='over')return;const now=Date.now();
+const allIn=()=>{const H=LIVE,pm=H.picks.get(H.cfg.ids[H.i]);return!!pm&&names().filter(n=>!H.off.has(n)).every(n=>pm.has(n));};
+function hostTick(){const H=LIVE;if(!H||H.ph==='over'||H.pz)return;const now=Date.now();
  if(H.ph==='live'){if(now>=H.end||allIn())toReveal();}else if(H.ph==='reveal'&&now>=H.end)nextQ();}
 function toReveal(){if(LIVE.cfg.mode==='exam')return nextQ();LIVE.ph='reveal';LIVE.end=Date.now()+REV*1000;castPh();}
 function nextQ(){const H=LIVE;if(!H||!H.host||H.ph==='over'||H.ph==='lobby')return;H.i++;if(H.i>=H.cfg.ids.length)return finish();H.ph='live';H.end=Date.now()+H.cfg.qsec*1000;castPh();}
-function castPh(){const H=LIVE,pm=H.picks.get(H.cfg.ids[H.i]),pk={};if(pm)pm.forEach((v,n)=>pk[n]=H.cfg.mode==='exam'?[]:v.sel);const m={t:'ph',i:H.i,ph:H.ph,rem:H.end-Date.now(),picks:pk};cast(m);onPh(m);}
+function phMsg(){const H=LIVE,pm=H.picks.get(H.cfg.ids[H.i]),pk={};if(pm)pm.forEach((v,n)=>pk[n]=H.cfg.mode==='exam'?[]:v.sel);return{t:'ph',i:H.i,ph:H.ph,rem:H.pz?H.pr:H.end-Date.now(),pz:H.pz?1:0,picks:pk};}
+function castPh(){const m=phMsg();cast(m);onPh(m);saveHost();}
+function saveHost(){const H=LIVE;try{localStorage.setItem('qm-host',JSON.stringify({code:H.code,cfg:H.cfg,name:H.name,i:H.i,ph:H.ph,rem:H.pz?H.pr:Math.max(0,H.end-Date.now()),pz:H.pz?1:0,roster:[...H.roster],picks:[...H.picks].map(([q,m])=>[q,[...m]])}));localStorage.setItem('qm-room',JSON.stringify({role:'h',code:H.code,t:Date.now()}));}catch(e){}}
 function onPh(m){const H=LIVE;if(!H||!byId.has(H.cfg.ids[m.i]))return;const first=H.ci!==m.i;
  if(first&&m.ph==='live'){H.qs=Date.now()-(H.cfg.qsec*1000-m.rem);H.last='';}
- H.ci=m.i;H.ph=m.ph;H.end=Date.now()+m.rem;H.cpicks=m.picks;
+ H.ci=m.i;H.ph=m.ph;H.end=Date.now()+m.rem;H.cpicks=m.picks;H.pz=m.pz;H.pr=m.rem;
+ if(m.ph==='reveal'&&H.cfg.mode==='practice'){const qq=H.cfg.ids[m.i],a=answers.get(qq);if(!a)FORCE.add(qq);else if(a.grade==='pending'){const g=gradeOf(byId.get(qq),a);answers.set(qq,{...a,grade:g});recordResult(byId.get(qq),g);}}
  if(current!==m.i){current=m.i;selected=null;scrollTo({top:0});}render();}
 function finish(){const H=LIVE,ids=H.cfg.ids,neg=H.cfg.neg||0,rows=[],pk={};
  ids.forEach(id=>{pk[id]={};const pm=H.picks.get(id);if(pm)pm.forEach((v,n)=>pk[id][n]=v.sel);});
  names().forEach(n=>{let c=0,w=0,t=0,att=0;ids.forEach(id=>{const v=H.picks.get(id)&&H.picks.get(id).get(n);if(!v)return;att++;t+=v.ms||0;const g=gradeOf(byId.get(id),{sel:v.sel});if(g==='correct')c++;else if(g==='wrong')w++;});rows.push({n,c,w,u:ids.length-att,t,s:Math.round((c-w*neg)*100)/100});});
  rows.sort((a,b)=>b.s-a.s||a.t-b.t);const res={rows,ids,pk,neg};cast({t:'end',res});liveEnd(res);}
-function liveEnd(res){const H=LIVE;if(!H)return;H.res=res;H.ph='over';clearInterval(H.iv);gradePending();submitted=true;setPaused(false);stopClock();logSession('submitted');$('testSubmit').textContent='Summary';render();paint();showLB();}
+function liveEnd(res){const H=LIVE;if(!H)return;try{localStorage.removeItem('qm-room');localStorage.removeItem('qm-host');}catch(e){}H.res=res;H.ph='over';clearInterval(H.iv);gradePending();submitted=true;setPaused(false);stopClock();logSession('submitted');$('testSubmit').textContent='Summary';render();paint();showLB();}
 function showLB(){const r=LIVE.res,t=r.rows[0];
  $('lbBody').innerHTML=`<p class="weak" style="background:var(--ok-bg);color:var(--ok);border-color:var(--ok-line)">🏆 ${esc(t.n)} wins with ${t.s} point${t.s===1?'':'s'}</p><div style="overflow-x:auto"><table class="lbt"><tr><th>#</th><th>Player</th><th>Score</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Avg time</th></tr>${r.rows.map((x,i)=>`<tr><td>${i+1}</td><td><b>${esc(x.n)}</b>${x.n===LIVE.name?' (you)':''}</td><td><b>${x.s}</b></td><td>${x.c}</td><td>${x.w}</td><td>${x.u}</td><td>${x.c+x.w?mmss(Math.round(x.t/(x.c+x.w)/1000)):'–'}</td></tr>`).join('')}</table></div><h3>Responses by question</h3><div style="overflow:auto;max-height:300px"><table class="lbt"><tr><th>Q</th><th>Key</th>${r.rows.map(x=>`<th>${esc(x.n)}</th>`).join('')}</tr>${r.ids.map((id,i)=>{const q=byId.get(id);return`<tr><td>${i+1}</td><td>${keyStr(q)}</td>${r.rows.map(x=>{const s=r.pk[id][x.n];if(!s)return'<td>–</td>';const g=gradeOf(q,{sel:s})==='correct';return`<td style="color:var(--${g?'ok':'bad'});font-weight:700">${lab(q,s)} ${g?'✓':'✗'}</td>`;}).join('')}</tr>`;}).join('')}</table></div>`;
  $('lbBackdrop').hidden=false;}
 function showRoom(){const H=LIVE;if(!H||H.ph!=='lobby'){$('roomBackdrop').hidden=true;return;}const ns=H.host?names():(H.players||[]),c=H.cfg||{};
  $('roomBody').innerHTML=`<div class="rcode" onclick="navigator.clipboard&&navigator.clipboard.writeText('${H.code}');toast('Code copied')">${esc(H.code)}</div><p style="margin:0;text-align:center">Friends tap Join room and enter this code.</p><p style="margin:8px 0 0;text-align:center;font-size:13px">${c.mode==='exam'?'Exam':'Practice'} · ${c.n||'?'} questions · ${c.qsec||'?'}s per question</p><h3>Players (${ns.length})</h3>`+ns.map((n,i)=>`<div class="mine"><span><b>${esc(n)}</b>${i===0?' <span class="chip">host</span>':''}</span></div>`).join('')+(H.host?'':'<p class="dnote">Waiting for the host to start…</p>');
  $('roomStart').hidden=!H.host;$('roomBackdrop').hidden=false;}
-function liveLeave(){const H=LIVE;if(!H)return;LIVE=null;clearInterval(H.iv);try{H.peer&&H.peer.destroy();}catch(e){}$('roomBackdrop').hidden=true;$('lbBackdrop').hidden=true;paint();if(DATA)render();}
+function liveLeave(){const H=LIVE;if(!H)return;LIVE=null;try{localStorage.removeItem('qm-room');localStorage.removeItem('qm-host');}catch(e){}clearInterval(H.iv);try{H.peer&&H.peer.destroy();}catch(e){}$('roomBackdrop').hidden=true;$('lbBackdrop').hidden=true;paint();if(DATA)render();}
 async function joinRoom(){
  const code=$('mkCode').value.trim().toUpperCase();if(code.length<4){toast('Enter the room code.');return;}
- store.set('qm-name',myName());if(!await loadPeer()){toast('Could not connect to live rooms.');return;}
- const peer=new Peer(),H=LIVE={host:0,peer,code,name:myName(),ph:'lobby',players:[],cfg:null,ci:-1,last:''};H.show=mkShow(H);H.iv=setInterval(liveTick,250);
- peer.on('open',()=>{const c=peer.connect('qm-'+code,{reliable:true});H.conn=c;c.on('open',()=>c.send({t:'hi',name:H.name}));c.on('data',guestMsg);
-  c.on('close',()=>{if(LIVE===H&&H.ph!=='over'){toast('The host left the room.');liveLeave();}});
-  setTimeout(()=>{if(LIVE===H&&!H.cfg){toast('Could not reach that room.');liveLeave();}},12000);});
- peer.on('error',e=>{if(LIVE!==H)return;toast(e.type==='peer-unavailable'?'Room not found — check the code.':'Connection problem.');liveLeave();});}
+ store.set('qm-name',myName());await startGuest(code,myName(),false);}
+async function startGuest(code,name,rj){
+ if(!await loadPeer()){toast('Could not connect to live rooms.');return;}
+ const H=LIVE={host:0,peer:new Peer(),code,name,ph:rj?'wait':'lobby',players:[],cfg:null,ci:-1,last:'',back:0};H.show=mkShow(H);H.iv=setInterval(liveTick,250);connectGuest(H,rj);}
+function connectGuest(H,rj){const peer=H.peer;
+ peer.on('open',()=>{const c=peer.connect('qm-'+H.code,{reliable:true});H.conn=c;c.on('open',()=>c.send({t:'hi',name:H.name,rj:rj?1:0}));c.on('data',guestMsg);
+  c.on('close',()=>{if(LIVE===H&&H.ph!=='over'&&H.conn===c){H.conn=null;reconnect(H);}});
+  setTimeout(()=>{if(LIVE===H&&!H.cfg&&!H.back){toast('Could not reach that room.');liveLeave();}},12000);});
+ peer.on('error',e=>{if(LIVE!==H||H.back||H.rc)return;toast(e.type==='peer-unavailable'?'Room not found — check the code.':'Connection problem.');liveLeave();});}
+function reconnect(H){if(H.rc)return;H.rc=1;H.back=0;let n=0;toast('Connection lost — reconnecting…');
+ const t=setInterval(()=>{if(LIVE!==H||H.ph==='over'){clearInterval(t);return;}
+  if(H.back){clearInterval(t);H.rc=0;return;}
+  if(++n>30){clearInterval(t);H.rc=0;toast('Could not reconnect. Your answers are kept — you can submit them.');liveLeave();return;}
+  try{H.peer.destroy();}catch(e){}H.peer=new Peer();connectGuest(H,true);},3000);}
+const rejoin=s=>startGuest(s.code,s.name,true);
 function guestMsg(m){const H=LIVE;if(!H||!m)return;H.ch=(H.ch||Promise.resolve()).then(async()=>{if(LIVE!==H)return;
- if(m.t==='me')H.name=m.name;
- else if(m.t==='lobby'){H.players=m.players;H.cfg=m.cfg;$('mockBackdrop').hidden=true;showRoom();}
+ const keep=()=>{try{localStorage.setItem('qm-room',JSON.stringify({role:'g',code:H.code,name:H.name,t:Date.now()}));}catch(e){}};
+ if(m.t==='me'){H.name=m.name;keep();}
+ else if(m.t==='lobby'){H.back=1;H.players=m.players;H.cfg=m.cfg;$('mockBackdrop').hidden=true;showRoom();}
  else if(m.t==='start')await liveBegin(m.cfg);
- else if(m.t==='ph')onPh(m);
+ else if(m.t==='rj'){H.back=1;H.rc=0;await liveBegin(m.cfg);if(LIVE!==H)return;restoreMine(m.mine||{});H.players=m.names||[];H.ph='wait';onPh(m.ph);toast('Back in the room.');}
+ else if(m.t==='ph'){H.back=1;keep();onPh(m);}
  else if(m.t==='end')liveEnd(m.res);
  else if(m.t==='err'){toast(m.m);liveLeave();}});}
 async function liveBegin(cfg){
  const H=LIVE;if(!SUBJECTS.some(s=>s.id===cfg.subj)){toast('You don’t have this subject — import the same subject file first.');liveLeave();return;}
  if(SUBJ.id!==cfg.subj)await openSubject(cfg.subj);if(LIVE!==H)return;
  if(!cfg.ids.every(id=>byId.has(id))){toast('Your copy of this subject differs from the host’s. Import the same file.');liveLeave();return;}
- logSession(submitted?'submitted':'ended');stopClock();answers.clear();flags.clear();spent.clear();submitted=false;elapsed=0;mode=cfg.mode;paused=false;document.body.classList.remove('paused');
+ logSession(submitted?'submitted':'ended');stopClock();answers.clear();flags.clear();spent.clear();submitted=false;elapsed=0;FORCE.clear();mode=cfg.mode;paused=false;document.body.classList.remove('paused');
  sess={eb:0,lim:0,neg:cfg.neg,mock:1,live:1,ids:cfg.ids};retryIds=new Set(cfg.ids);H.cfg=cfg;H.ph='wait';H.ci=-1;H.last='';
  ['roomBackdrop','mockBackdrop','summaryBackdrop'].forEach(i=>$(i).hidden=true);$('testSubmit').textContent='Submit';setTab('quiz');applyFilters();setOrder(cfg.ids);paint();}
 $('roomStart').addEventListener('click',async()=>{const H=LIVE;if(!H||!H.host||H.ph!=='lobby')return;H.ph='wait';H.i=-1;cast({t:'start',cfg:H.cfg});await liveBegin(H.cfg);setTimeout(()=>{if(LIVE===H)nextQ();},1800);});
 $('roomLeave').addEventListener('click',liveLeave);$('lbClose').addEventListener('click',liveLeave);$('lbSum').addEventListener('click',showSummary);
-function liveAns(){const H=L();if(!H||H.ph!=='live')return;const q=currentQ(),a=q&&answers.get(q.id);if(!a||(mode==='practice'&&a.grade==='pending'))return;
+function liveAns(){const H=L();if(!H||H.ph!=='live'||H.pz)return;const q=currentQ(),a=q&&answers.get(q.id);if(!a||(mode==='practice'&&a.grade==='pending'))return;
  const sel=selKeys(a),k=q.id+sel.join(',');if(H.last===k)return;H.last=k;const m={t:'a',qid:q.id,sel,ms:Date.now()-(H.qs||Date.now())};H.host?recPick(H.name,m):H.conn.send(m);}
-const _pick=pick;pick=function(k){const H=L();if(H&&H.ph!=='live'){toast(H.ph==='reveal'?'Time is up for this question.':'Waiting for the first question…');return;}_pick(k);liveAns();};
+const _pick=pick;pick=function(k){const H=L();if(H&&(H.ph!=='live'||H.pz)){toast(H.pz?'Paused by the host.':H.ph==='reveal'?'Time is up for this question.':'Waiting for the first question…');return;}_pick(k);liveAns();};
 const _cm=checkMulti;checkMulti=function(){_cm();liveAns();};
-const _sb=syncBar;syncBar=function(q){_sb(q);if(L()){['prevBtn','nextBtn','clearBtn','testSubmit','pauseBtn'].forEach(i=>$(i).disabled=true);}};
+const _sb=syncBar;syncBar=function(q){_sb(q);const H=L();if(!H)return;['prevBtn','clearBtn','testSubmit'].forEach(i=>$(i).disabled=true);
+ $('nextBtn').disabled=!(H.host&&(H.ph==='live'||H.ph==='reveal'));if(H.host)$('nextBtn').classList.add('primary');
+ const p=$('pauseBtn');p.disabled=!H.host;p.textContent=H.pz?'▶':'❚❚';p.title=H.host?(H.pz?'Resume for everyone':'Pause for everyone'):'Only the host can pause';};
+const _sp=setPaused;setPaused=function(p){if(L())return;_sp(p);};
+$('pauseBtn').addEventListener('click',e=>{const H=L();if(!H)return;e.stopImmediatePropagation();if(H.host)hostPause();},true);
+$('nextBtn').addEventListener('click',e=>{const H=L();if(!H)return;e.stopImmediatePropagation();if(H.host){if(H.ph==='reveal')nextQ();else if(H.ph==='live')toReveal();}},true);
 const _rn=render;render=function(){_rn();liveUI();};
 function liveUI(){const H=L(),q=currentQ();if(!H||!H.cfg||!H.cfg.ids||!q||H.ci<0)return;
  const mine=answers.get(q.id),done=revealed(mine),prac=H.cfg.mode==='practice',pk=H.cpicks||{},nm=H.host?names():H.players;
  const rows=nm.map(n=>{const s=pk[n];let v;if(!s)v=`<span style="color:var(--muted)">${H.ph==='reveal'?'no answer':'thinking…'}</span>`;
   else if(!prac||!(done||H.ph==='reveal'))v='✔ answered';else{const ok=gradeOf(q,{sel:s})==='correct';v=`<b style="color:var(--${ok?'ok':'bad'})">${lab(q,s)} ${ok?'✓':'✗'}</b>`;}
   return`<div class="mine"><span>${esc(n)}${n===H.name?' (you)':''}</span><span>${v}</span></div>`;}).join('');
- const ex=prac&&H.ph==='reveal'&&!done?`<p style="margin:8px 0 0;font-size:13px"><b>Time’s up · correct: ${keyStr(q)}</b></p>${q.explanation?`<div class="explain" style="font-size:14px;padding:4px 0">${esc(rf(q.explanation))}</div>`:''}`:'';
+ const ex='';
  const p=document.createElement('div');p.id='livePanel';p.className='lpanel';
- p.innerHTML=`<div class="lhead"><b>Room ${esc(H.code)}</b><span>Question ${H.ci+1} / ${H.cfg.ids.length}</span><span id="lcd">${H.show()}</span></div>${prac?'':'<p class="dnote" style="margin:0 0 6px">Exam: friends’ answers stay hidden until the end.</p>'}${rows}${ex}${H.host&&H.ph==='reveal'?'<button class="btn primary" id="lNext" type="button">Next question →</button>':''}`;
- card.append(p);const nb=$('lNext');if(nb)nb.onclick=nextQ;}
+ p.innerHTML=`<div class="lhead"><b>Room ${esc(H.code)}</b><span>Question ${H.ci+1} / ${H.cfg.ids.length}</span><span id="lcd">${H.show()}</span></div>${prac?'':'<p class="dnote" style="margin:0 0 6px">Exam: friends’ answers stay hidden until the end.</p>'}${H.pz?'<p style="margin:0 0 6px;font-weight:700">⏸ Test paused by the host</p>':''}${rows}${ex}`;
+ card.append(p);}
+function hostPause(){const H=LIVE;if(!H||!H.host)return;if(H.pz){H.pz=0;H.end=Date.now()+H.pr;}else{H.pr=Math.max(0,H.end-Date.now());H.pz=1;}castPh();}
 
 /* ===== v5: sync hooks · reports · shared banks ===== */
-{const ks=kv.set.bind(kv);kv.set=async(k,v)=>{const r=await ks(k,v);QM.dirty&&QM.dirty();return r;};const ss=store.set;store.set=(k,v)=>{ss(k,v);if(/^(pq-state|qm-state)/.test(k)&&QM.dirty)QM.dirty();};}
-const _rn3=render;render=function(){_rn3();const q=currentQ(),hd=card.querySelector('.qhead');if(q&&hd&&!$('rptBtn')){const b=document.createElement('button');b.id='rptBtn';b.type='button';b.className='btn flagbtn';b.textContent='🚩';b.title='Report a wrong answer or typo';b.setAttribute('aria-label','Report this question');b.onclick=()=>{$('rptBackdrop').hidden=false;};hd.append(b);}};
+{const ks=kv.set.bind(kv);kv.set=async(k,v)=>{const r=await ks(k,v);QM.touch&&QM.touch(k);return r;};const ss=store.set;store.set=(k,v)=>{ss(k,v);if(/^(pq-state|qm-state)/.test(k)&&QM.dirty)QM.dirty();};}
+const _rn3=render;render=function(){_rn3();{const nt=$('navToggle');if(nt)nt.innerHTML='☷ <b>'+(order.length?current+1:0)+'/'+order.length+'</b>';}const q=currentQ(),hd=card.querySelector('.qhead');if(q&&hd&&!$('rptBtn')){const b=document.createElement('button');b.id='rptBtn';b.type='button';b.className='btn flagbtn';b.textContent='🚩';b.title='Report a wrong answer or typo';b.setAttribute('aria-label','Report this question');b.onclick=()=>{$('rptBackdrop').hidden=false;};hd.append(b);}};
 $('rptCancel').addEventListener('click',()=>$('rptBackdrop').hidden=true);
 $('rptSend').addEventListener('click',async()=>{const q=currentQ();if(!q)return;const ok=await QM.report({subject_id:SUBJ.id,subject_name:SUBJ.name,qid:q.id,chapter:q.chapter,qno:q.chapterNo+'.'+q.number,prompt:String(q.prompt).slice(0,400),reason:$('rptReason').value,note:$('rptNote').value.trim().slice(0,500)});
  $('rptBackdrop').hidden=true;$('rptNote').value='';toast(ok?'Thanks — report sent to the mentor.':'Saved. It will be sent when you are signed in and online.');});
@@ -1001,6 +1044,44 @@ $('mySubj').addEventListener('click',async e=>{const b=e.target.closest('[data-s
  const s=SUBJECTS.find(x=>x.id===b.dataset.sh);await ensureData(s);const slug=s.id+'-'+Math.random().toString(36).slice(2,6);
  const{error}=await QM.client().from('shared_subjects').insert({slug,title:s.name,data:s.data});if(error){toast('Could not share: '+error.message);return;}
  const u=new URL('index.html?bank='+slug,location.href).href;try{await navigator.clipboard.writeText(u);}catch(x){}toast('Share link copied: '+u);});
+const _os=openSubject;openSubject=async function(...a){const r=await _os(...a);let ch=0;for(const id in NOTES)if(!NTS[id]){NTS[id]=nMeta(id);ch=1;}if(ch)persistSoon();return r;};
+document.addEventListener('visibilitychange',()=>{if(document.hidden){try{flushPersist()}catch(e){}}});
+function parseMatch(p){
+ if(!p||!/List[\s-]*I\b/i.test(p))return null;
+ const lines=String(p).replace(/\r/g,'').split('\n');const LR=/^\(?([A-Fa-f]|[P-Sp-s])[.)]\s*(.*)$/,RR=/^\(?(\d{1,2}|i{1,3}|iv|vi{0,3}|v)[.)]\s*(.*)$/i;
+ const pre=[],L=[],R=[];let tgt=null,started=false,stop=false;
+ for(const raw of lines){if(stop)break;const ln=raw.trim();if(!ln)continue;
+  if(/^Codes?\s*[:–-]?\s*$|^Codes?\s*[:–-]/i.test(ln)&&started){stop=true;break}
+  const parts=ln.split(/\t+/).map(s=>s.trim()).filter(Boolean);let hit=false;
+  for(const part of parts){let m;
+   if((m=part.match(LR))){L.push({k:m[1].toUpperCase(),t:m[2]});tgt=L;hit=true;started=true;}
+   else if(started&&(m=part.match(RR))){R.push({k:m[1],t:m[2]});tgt=R;hit=true;}
+   else if(started&&tgt){const a=tgt[tgt.length-1];a.t=(a.t+' '+part).trim();}
+  }
+  if(parts.length>1&&L.length&&R.length)tgt=L;
+  if(!started)pre.push(ln);
+ }
+ if(L.length<3||R.length<3)return null;
+ // header / intro / subheads
+ let hi=pre.findIndex(l=>/^List[\s-]*I\b/i.test(l)&&!/\bwith\b|\bmatch\b/i.test(l));
+ const intro=(hi<0?pre:pre.slice(0,hi)).join(' ').replace(/\s+/g,' ').trim();
+ let subL='',subR='';
+ if(hi>=0){const sub=pre.slice(hi+1).filter(l=>!/^List[\s-]*I{1,2}\s*$/i.test(l));const sg=[];
+  for(const l of sub){const ps=l.split(/\t+/).map(s=>s.trim()).filter(Boolean);if(ps.length>=2){subL+=' '+ps[0];subR+=' '+ps[1]}else sg.push(l)}
+  if(!subL&&!subR&&sg.length===2){subL=sg[0];subR=sg[1]}else if(!subL&&!subR&&sg.length)subL=sg.join(' ');
+ }
+ const tidy=a=>a.map(x=>({k:x.k,t:x.t.replace(/\s+/g,' ').trim()}));
+ return{intro,subL:subL.trim(),subR:subR.trim(),L:tidy(L),R:tidy(R)};
+}
+function mapOpt(t,m){if(!m)return null;const s=String(t||'');const pr=[...s.matchAll(/([A-F]|[P-S])\s*[-–→:]?\s*\(?(\d{1,2}|[ivx]+)\)?/g)].map(x=>[x[1],x[2]]);
+ if(pr.length===m.L.length&&pr.every((p,i)=>p[0]===m.L[i].k))return pr;
+ const tk=s.split(/[\s,;]+/).filter(Boolean);if(tk.length===m.L.length&&tk.every(x=>/^(\d{1,2}|[ivx]+)$/i.test(x)))return tk.map((x,i)=>[m.L[i].k,x]);return null}
+
+
+function matchHTML(m){const c=(a,b)=>`<td>${a?'<b>'+esc(a.k)+'.</b>':''}</td><td>${a?esc(a.t):''}</td>`,sh=t=>t?`<small>${esc(t.replace(/^\(|\)$/g,''))}</small>`:'';let r='';
+ for(let i=0;i<Math.max(m.L.length,m.R.length);i++)r+='<tr>'+c(m.L[i])+c(m.R[i])+'</tr>';
+ return(m.intro?`<p class="prompt">${esc(m.intro)}</p>`:'')+`<div class="mtf"><table><thead><tr><th colspan="2">List I${sh(m.subL)}</th><th colspan="2">List II${sh(m.subR)}</th></tr></thead><tbody>${r}</tbody></table></div>`;}
+const optMatch=(t,m)=>{const p=mapOpt(t,m);return p?p.map(x=>`<b>${esc(x[0])}</b>→${esc(x[1])}`).join('<i></i>'):null;};
 /* ---------- storage health + error safety net ---------- */
 (function(){let ok=true;try{localStorage.setItem('qm-probe','1');ok=localStorage.getItem('qm-probe')==='1';localStorage.removeItem('qm-probe');}catch(e){ok=false;}
  if(!ok){const w=$('warnBar');w.textContent='⚠ This browser is not letting the app save data (private mode or a restricted viewer). Progress will be lost when you close the page — open the file normally in Safari or Chrome.';w.hidden=false;}
@@ -1016,9 +1097,12 @@ new ResizeObserver(()=>document.documentElement.style.setProperty('--topH',$('to
  SUBJECTS.push({id:'polity',name:'Indian Polity & Governance',builtin:true,reflow:true,sourceHtml:POLITY_SRC},
   {id:'history',name:'Indian History',builtin:true,reflow:true,sourceHtml:'<b>Source:</b> Indian History — Complete Booklet (consolidated exam papers, printed pages B9–B760). Question text, options, answer key and explanations are extracted from the supplied booklet; questions with no printed answer key are not scored.'});
  for(const k of await kv.keys('subj:')){const d=await kv.get(k);if(d&&d.questions)SUBJECTS.push({id:k.slice(5),name:d.title,builtin:false,data:d,sourceHtml:'<b>Source:</b> '+esc(d.source||'Imported subject')+'. Imported on this device.'});}
+ const applyRows=rows=>{for(const r of rows){const i=SUBJECTS.findIndex(s=>s.id===r.id);if(r.status==='hidden'){if(i>=0&&SUBJECTS[i].builtin)SUBJECTS.splice(i,1);continue}if(r.status!=='live'||!r.path)continue;const o={id:r.id,name:r.name,builtin:false,cloud:r,sourceHtml:'<b>Source:</b> '+esc(r.subtitle||r.name)};if(i>=0)SUBJECTS[i]=o;else SUBJECTS.push(o)}};
+ try{const c0=await QM.kvGet('cache:subjects');applyRows(c0||await QM.subjects());const w=new URLSearchParams(location.search).get('s');if(c0&&w&&!SUBJECTS.some(s=>s.id===w))applyRows(await QM.subjects());else QM.subjects();}catch(e){}
  SESS=(await kv.get('sessions'))||[];DAILY=(await kv.get('daily'))||{};Object.assign(PREFS,(await kv.get('prefs'))||{});
- const qp=new URLSearchParams(location.search),last=qp.get('s')||store.get(LS_LAST);await openSubject(SUBJECTS.some(s=>s.id===last)?last:'polity',true);buildSubjectSelect();
- if(qp.get('add'))openAdd();if(qp.get('join')){who='join';openCustom();$('mkCode').value=qp.get('join').toUpperCase();}else if(qp.get('custom')){openCustom();}
+ const qp=new URLSearchParams(location.search),last=qp.get('s')||store.get(LS_LAST);await openSubject(SUBJECTS.some(s=>s.id===last)?last:(SUBJECTS[0]||{}).id,true);buildSubjectSelect();
+ if(qp.get('add')){if(QM.isAdmin)openAdd();else toast('Only admins can add subjects.');}if(qp.get('join')){who='join';openCustom();$('mkCode').value=qp.get('join').toUpperCase();}else if(qp.get('custom')){openCustom();}
+ try{const rs=JSON.parse(localStorage.getItem('qm-room')||'null');if(rs&&Date.now()-rs.t<4*36e5&&!qp.get('join')){if(rs.role==='g'&&rs.name){toast('Rejoining room '+rs.code+'…');rejoin(rs);}else if(rs.role==='h'){const hs=JSON.parse(localStorage.getItem('qm-host')||'null');if(hs&&hs.code===rs.code){toast('Restoring your room…');hostRestore(hs);}}}}catch(e){}
  if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 
@@ -1043,4 +1127,4 @@ new ResizeObserver(()=>document.documentElement.style.setProperty('--topH',$('to
  c.addEventListener('touchend',e=>{if(x0==null)return;const t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;x0=null;if(Math.abs(dx)>90&&Math.abs(dy)<45&&Date.now()-t0<600&&!paused&&tab==='quiz')go(current+(dx<0?1:-1));},{passive:true});
 })();
 </script>
-</body></html>
+<p style="text-align:center;font-size:12px;color:var(--muted);padding:14px 14px calc(14px + env(safe-area-inset-bottom))"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="mailto:support@mypyq.online">Contact</a></p></body></html>

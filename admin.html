@@ -1,0 +1,210 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Admin · My PYQ Online</title><meta name="robots" content="noindex"><link rel="icon" href="icon.svg">
+<style>
+:root{--bg:#f1f3f9;--s:#fff;--s2:#f6f7fc;--ink:#121a30;--mut:#5b6684;--line:#dde1ee;--br:#2f4fd8;--bi:#fff;--soft:#e7ebff;--sa:#e9822b;--ok:#13794a;--bad:#c2323a;--sh:0 1px 2px rgba(19,26,48,.05),0 12px 32px -12px rgba(30,45,110,.18);--ui:"Plus Jakarta Sans",system-ui,sans-serif;--rd:"Newsreader",Georgia,serif;color-scheme:light}
+body.dark{--bg:#080b16;--s:#111730;--s2:#0d1226;--ink:#edf0fb;--mut:#96a1c6;--line:#232b4c;--br:#8da6ff;--bi:#0a1030;--soft:#1a2352;--sa:#f2a05a;--ok:#56d38d;--bad:#ff8087;--sh:0 16px 40px -16px rgba(0,0,0,.7);color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ui);line-height:1.5;-webkit-font-smoothing:antialiased;padding-top:env(safe-area-inset-top)}
+[hidden]{display:none!important}a{color:inherit;text-decoration:none}button,select,input{font:inherit;color:inherit}button{cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:40px;padding:0 16px;border:1px solid var(--line);border-radius:12px;background:var(--s);font-size:13px;font-weight:600;transition:.15s;white-space:nowrap}.btn:hover{border-color:var(--br);background:var(--soft)}.btn.p{background:var(--br);border-color:var(--br);color:var(--bi)}.btn.p:hover{filter:brightness(1.08)}.btn.d{color:var(--bad)}
+.w{max-width:1180px;margin:auto;padding:0 20px}
+nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--s) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}nav .w{display:flex;align-items:center;gap:14px;height:62px}
+.lg{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em}.lg img{width:32px;height:32px;border-radius:10px}.sp{flex:1}.nl{display:flex;gap:4px}.nl a{padding:8px 12px;border-radius:10px;font-size:13px;font-weight:600;color:var(--mut)}.nl a:hover{background:var(--soft);color:var(--ink)}
+.hero{padding:64px 0 36px;text-align:center;background:radial-gradient(900px 340px at 50% -80px,var(--soft),transparent)}
+.hero h1{font-size:clamp(34px,6vw,60px);letter-spacing:-.045em;line-height:1.05;margin:0 auto 14px;max-width:780px}.hero h1 em{font:italic 600 1em var(--rd);color:var(--br)}.hero p{color:var(--mut);max-width:560px;margin:0 auto 26px;font-size:17px}
+.cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.join{display:flex;gap:6px}.join input{height:40px;width:130px;border:1px solid var(--line);border-radius:12px;padding:0 12px;background:var(--s);letter-spacing:.15em;text-transform:uppercase;font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:38px 0 0}.st{background:var(--s);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--sh)}.st b{display:block;font-size:34px;letter-spacing:-.04em;line-height:1.1;font-variant-numeric:tabular-nums}.st span{font-size:12px;color:var(--mut);font-weight:600}
+section{padding:30px 0}h2{font-size:24px;letter-spacing:-.03em;margin:0 0 4px}.sub{color:var(--mut);font-size:14px;margin:0 0 18px}.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}.card{background:var(--s);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh)}
+.sc{padding:20px;display:flex;flex-direction:column;gap:12px}.sc h3{margin:0;font-size:18px;letter-spacing:-.02em}.sc small{color:var(--mut);font-size:12px}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--s2);border:1px solid var(--line);color:var(--mut)}.chip.b{background:var(--soft);color:var(--br);border-color:transparent}
+.tr{height:6px;border-radius:9px;background:var(--line);overflow:hidden}.tr i{display:block;height:100%;background:linear-gradient(90deg,var(--br),var(--sa));border-radius:9px}.row{display:flex;gap:8px;flex-wrap:wrap}.row .btn{flex:1}.pm{display:flex;justify-content:space-between;font-size:12px;color:var(--mut)}
+.add{border-style:dashed;align-items:center;justify-content:center;text-align:center;color:var(--mut);min-height:180px}
+.pg{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}.goal{display:flex;gap:18px;align-items:center;padding:18px;flex-wrap:wrap;margin-bottom:12px}.goal .t{flex:1;min-width:200px}.goal b{font-size:18px}.goal p{margin:4px 0 0;color:var(--mut);font-size:13px}
+.ch2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}.ch2 .card{padding:14px 16px}.ch2 h3{margin:0 0 8px;font-size:13px}.ch2 svg{width:100%;height:auto}
+select{height:38px;border:1px solid var(--line);border-radius:11px;background:var(--s);padding:0 10px;font-size:13px}
+.tb{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}th{font-size:11px;color:var(--mut);background:var(--s2)}td small{color:var(--mut)}
+.empty{padding:40px;text-align:center;color:var(--mut)}.note{font-size:12px;color:var(--mut)}
+footer{padding:34px 0 60px;color:var(--mut);font-size:12px;text-align:center}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:13px;font-size:13px;font-weight:600;z-index:50}
+.av{width:30px;height:30px;border-radius:50%;background:var(--br);color:var(--bi);display:grid;place-items:center;font-weight:800;font-size:12px}
+@media(max-width:760px){.stats,.pg{grid-template-columns:1fr 1fr}.ch2{grid-template-columns:1fr}.nl{display:none}.hero{padding:40px 0 20px}.btn{height:44px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.foot{border-top:1px solid var(--line);background:var(--s);padding:28px 20px;font-size:14px;margin-top:30px}.fw{max-width:1180px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:24px}.foot a,.foot span{display:block;color:var(--mut);margin:3px 0}.foot a:hover{color:var(--br)}.foot p{margin:4px 0;color:var(--mut)}.fine{max-width:1180px;margin:20px auto 0!important;font-size:12px}@media(max-width:640px){.fw{grid-template-columns:1fr}}
+.srch{height:38px;border:1px solid var(--line);border-radius:11px;background:var(--s);padding:0 12px;min-width:170px}.ngrp{padding:18px 20px;margin-bottom:14px}.ngrp h3{margin:0 0 6px;font-size:17px}.nch{margin:16px 0 4px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--mut)}.note-i{border-top:1px solid var(--line);padding:12px 0}.nm{display:flex;gap:8px;align-items:center;color:var(--mut)}.np{margin:4px 0;font-size:13px;color:var(--mut)}.nt{white-space:pre-wrap}.ned{width:100%;border:1px solid var(--line);border-radius:11px;padding:10px;background:var(--s2);color:var(--ink);font:inherit}
+
+.tabs{display:flex;gap:6px;margin:22px 0 16px}.tabs button.on{background:var(--br);color:var(--bi);border-color:var(--br)}.act{display:flex;gap:6px}.act .btn{height:34px;padding:0 12px}.frm{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;padding:16px;align-items:end}.frm label{font-size:12px;font-weight:600;color:var(--mut);display:grid;gap:4px}.frm input,.frm select{height:40px;border:1px solid var(--line);border-radius:11px;background:var(--s);padding:0 10px}.gate{padding:40px;text-align:center;margin-top:30px}h3.t{margin:22px 0 8px}
+</style><script src="config.js"></script><script src="shared.js"></script></head><body>
+<nav><div class="w"><a class="lg" href="index.html"><img src="icon.svg" alt="">Admin</a><div class="nl"><a href="index.html">← Home</a></div><span class="sp"></span><span id="acct"></span></div></nav>
+<main class="w"><div class="card gate" id="gate">Loading…</div>
+<div id="app" hidden><div class="tabs"><button class="btn on" data-t="subs">Subjects</button><button class="btn" data-t="rep">Reports</button><button class="btn" data-t="ov">Overview</button></div>
+<section id="t-subs"><h2>Subjects</h2><p class="sub">Add subjects from an Excel file. Live subjects appear for everyone. “Upcoming” ones show as coming soon. Changing a file bumps its version so devices refresh once.</p>
+<div class="card frm"><label>Name (optional with a file)<input id="aN" placeholder="e.g. Indian Geography"></label><label>Subtitle<input id="aS" placeholder="Edition / source"></label><label>Status<select id="aSt"><option>live</option><option>upcoming</option><option>hidden</option></select></label><label>ETA (upcoming)<input id="aE" placeholder="e.g. Dec 2026"></label><label>Excel file (.xlsx)<input id="aF" type="file" accept=".xlsx,.xlsm,.csv"></label><button class="btn p" id="aGo">Add subject</button><button class="btn" id="aT" type="button">Download template</button></div>
+<div class="card tb" style="margin-top:14px" id="subT"></div><h3 class="t">Imported on this device (via Excel)</h3><div class="card tb" id="locT"></div><input type="file" id="rF" accept=".xlsx,.xlsm,.csv" hidden></section>
+<section id="t-rep" hidden><div class="hd"><div><h2>Question reports</h2><p class="sub" id="repSub"></p></div><button class="btn" id="repCsv">Export CSV</button></div><div class="card tb" id="repT"></div></section>
+<section id="t-ov" hidden><h2>Overview</h2><div class="pg" id="ov"></div></section></div></main><div class="toast" id="toast" hidden></div>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const toast=m=>{const t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,4500)};
+const sb=()=>QM.client(),slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');let ROWS=[],REP=[],MAN=[],PICK=null;
+document.querySelector('.tabs').onclick=e=>{const b=e.target.closest('[data-t]');if(!b)return;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));['subs','rep','ov'].forEach(t=>$('t-'+t).hidden=t!==b.dataset.t)};
+async function boot(){await QM.init(15000);const g=$('gate');$('app').hidden=true;g.hidden=false;
+ if(!QM.enabled){g.textContent='Supabase is not configured in config.js.';return}
+ $('acct').innerHTML=QM.user?'<button class="btn" id="so">Sign out</button>':'';if($('so'))$('so').onclick=()=>QM.signOut();
+ if(!QM.user){g.innerHTML='<b>Admin sign-in</b><br>Use the Google account that was made admin.<br><br><button class="btn p" id="gsi">Continue with Google</button>';$('gsi').onclick=()=>QM.signIn();return}
+ if(!QM.isAdmin){g.innerHTML='<b>Not an admin account</b><br>'+esc(QM.user.email)+' has no admin access. Run the admin SQL for this email in Supabase.';return}
+ g.hidden=true;$('app').hidden=false;await loadAll()}
+async function loadAll(){try{MAN=(await(await fetch('data/manifest.json')).json()).subjects}catch(e){MAN=[]}
+ const[s,r,st]=await Promise.all([sb().from('subjects').select('*').order('sort').order('created_at'),sb().from('reports').select('*').order('created_at',{ascending:false}).limit(1000),sb().rpc('admin_stats')]);
+ ROWS=s.data||[];REP=r.data||[];await drawSubs();drawRep();const d=st.data||{},c=k=>ROWS.filter(x=>x.status===k).length;
+ $('ov').innerHTML=[['Users with synced data',d.users??'–'],['Open reports',d.reports_open??'–'],['Live subjects',c('live')+MAN.filter(m=>!ROWS.some(x=>x.id===m.id)).length],['Upcoming',c('upcoming')]].map(([k,v])=>`<div class="st"><b style="font-size:28px">${v}</b><span>${k}</span></div>`).join('')}
+async function drawSubs(){
+ const cl=ROWS.map(r=>`<tr data-id="${esc(r.id)}"><td><b>${esc(r.name)}</b><br><small>${esc(r.subtitle||'')}${r.eta?' · ETA '+esc(r.eta):''}</small></td><td><select data-st>${['live','upcoming','hidden'].map(x=>`<option ${x===r.status?'selected':''}>${x}</option>`).join('')}</select></td><td>${r.chapters||0} ch · ${(r.questions||0).toLocaleString()} q · ${(r.pyq||0).toLocaleString()} PYQ</td><td>v${r.version}</td><td class="act"><button class="btn" data-ed>Edit</button><button class="btn" data-up>Replace file</button><button class="btn d" data-rm>Delete</button></td></tr>`).join('');
+ const bi=MAN.filter(m=>!ROWS.some(r=>r.id===m.id)).map(m=>`<tr data-b="${esc(m.id)}"><td><b>${esc(m.name)}</b><br><small>Built-in · served from GitHub</small></td><td><span class="chip">live</span></td><td>${m.chapters} ch · ${m.questions.toLocaleString()} q · ${m.pyq.toLocaleString()} PYQ</td><td>repo</td><td class="act"><button class="btn" data-mv>Move to cloud</button><button class="btn d" data-hd>Hide</button></td></tr>`).join('');
+ $('subT').innerHTML=`<table><tr><th>Subject</th><th>Status</th><th>Content</th><th>Ver</th><th></th></tr>${cl}${bi}</table>`;
+ const loc=await QM.kvKeys('subj:'),rows=[];for(const k of loc){const d=await QM.kvGet(k);if(d&&d.questions)rows.push(`<tr data-k="${esc(k)}"><td><b>${esc(d.title||k)}</b></td><td>${d.chapters.length} ch · ${d.questions.length.toLocaleString()} q</td><td class="act"><button class="btn p" data-pub>Publish to library</button></td></tr>`)}
+ $('locT').innerHTML=rows.length?`<table>${rows.join('')}</table>`:'<div class="empty">Nothing imported on this device. Import an Excel file via <a href="test.html?add=1"><u>the test portal</u></a>, then publish it here.</div>'}
+async function publish({id,name,subtitle,status,eta,data}){const row=ROWS.find(r=>r.id===id);
+ if(!data||!Array.isArray(data.chapters)||!Array.isArray(data.questions)){toast('Not a valid question bank.');return false}
+ const path=id+'.json',pyq=data.questions.filter(q=>q.examTags&&q.examTags.length).length;
+ const up=await sb().storage.from('banks').upload(path,new Blob([JSON.stringify(data)],{type:'application/json'}),{upsert:true,contentType:'application/json'});if(up.error){toast(/row-level security|policy/i.test(up.error.message)?'Storage permission missing — run supabase/storage-fix.sql in Supabase, then retry.':'Upload failed: '+up.error.message);return false}
+ const{error}=await sb().from('subjects').upsert({id,name,subtitle:subtitle||'',status,eta:eta||null,chapters:data.chapters.length,questions:data.questions.length,pyq,version:row?row.version+1:1,path,updated_at:new Date().toISOString()});
+ if(error){toast(error.message);return false}toast('Published “'+name+'”.');await loadAll();return true}
+/* ---- Excel importer (same converter as the test portal) ---- */
+async function inflateRaw(u8){const ds=new DecompressionStream('deflate-raw'),w=ds.writable.getWriter();w.write(u8);w.close();return new Uint8Array(await new Response(ds.readable).arrayBuffer());}
+function unzip(buf){const u8=new Uint8Array(buf),dv=new DataView(buf);let e=u8.length-22;while(e>=0&&dv.getUint32(e,true)!==0x06054b50)e--;if(e<0)throw new Error('This is not a valid .xlsx file.');
+ const n=dv.getUint16(e+10,true);let p=dv.getUint32(e+16,true);const files={},dec=new TextDecoder();
+ for(let i=0;i<n&&dv.getUint32(p,true)===0x02014b50;i++){const meth=dv.getUint16(p+10,true),csz=dv.getUint32(p+20,true),nl=dv.getUint16(p+28,true),el=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true),off=dv.getUint32(p+42,true),name=dec.decode(u8.subarray(p+46,p+46+nl));p+=46+nl+el+cl;
+  const st=off+30+dv.getUint16(off+26,true)+dv.getUint16(off+28,true);files[name]={meth,data:u8.subarray(st,st+csz)};}
+ return files;}
+const fileText=async f=>new TextDecoder().decode(f.meth===0?f.data:await inflateRaw(f.data));
+const unent=s=>s.indexOf('&')<0?s:s.replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos);/gi,(m,e)=>{e=e.toLowerCase();return e==='amp'?'&':e==='lt'?'<':e==='gt'?'>':e==='quot'?'"':e==='apos'?"'":String.fromCodePoint(e[1]==='x'?parseInt(e.slice(2),16):+e.slice(1));});
+const tText=x=>{let o='',m;const re=/<t\b[^>]*?(?:\/>|>([\s\S]*?)<\/t>)/g;x=x.replace(/<rPh\b[\s\S]*?<\/rPh>/g,'');while((m=re.exec(x)))o+=m[1]||'';return unent(o);};
+function parseSheet(x,ss){
+ const rows=[],re=/<c\b([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g;let m;
+ while((m=re.exec(x))){const at=m[1],r=/\br="([A-Z]+)(\d+)"/.exec(at);if(!r)continue;let ci=0;for(const ch of r[1])ci=ci*26+ch.charCodeAt(0)-64;ci--;
+  const ty=(/\bt="(\w+)"/.exec(at)||[])[1],body=m[2]||'';let v='';
+  if(ty==='inlineStr')v=tText(body);else{const vm=/<v[^>]*>([\s\S]*?)<\/v>/.exec(body);v=vm?unent(vm[1]):'';if(ty==='s')v=ss[+v]??'';else if(ty==='b')v=v==='1'?'TRUE':'FALSE';}
+  (rows[+r[2]-1]||(rows[+r[2]-1]=[]))[ci]=v;}
+ return Array.from(rows,r=>r||[]);}
+async function parseXlsx(buf){
+ const z=unzip(buf),X=n=>z[n]?fileText(z[n]):Promise.resolve(null),dp=new DOMParser(),P=s=>dp.parseFromString(s,'application/xml');
+ const wbx=await X('xl/workbook.xml');if(!wbx)throw new Error('This is not a valid Excel workbook.');
+ const wb=P(wbx),rels=P(await X('xl/_rels/workbook.xml.rels')),sst=await X('xl/sharedStrings.xml');
+ const ss=sst?(sst.match(/<si\b[\s\S]*?<\/si>|<si\s*\/>/g)||[]).map(tText):[];const out=[];
+ for(const sh of wb.getElementsByTagName('sheet')){
+  const rid=sh.getAttribute('r:id'),rel=[...rels.getElementsByTagName('Relationship')].find(r=>r.getAttribute('Id')===rid);if(!rel)continue;
+  let t=rel.getAttribute('Target');t=t.startsWith('/')?t.slice(1):'xl/'+t.replace(/^\.\//,'');if(!z[t])continue;
+  out.push({name:sh.getAttribute('name')||'Sheet',rows:parseSheet(await X(t),ss)});}
+ if(!out.length)throw new Error('No sheets were found in this workbook.');return out;}
+function parseCsv(t){
+ t=t.replace(/^\uFEFF/,'');const first=t.split('\n',1)[0],d=[',',';','\t'].map(x=>[x,first.split(x).length]).sort((a,b)=>b[1]-a[1])[0][0],rows=[];let r=[],f='',q=false;
+ for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++;}else q=false;}else f+=c;}
+  else if(c==='"')q=true;else if(c===d){r.push(f);f='';}else if(c==='\n'||c==='\r'){if(c==='\r'&&t[i+1]==='\n')i++;r.push(f);f='';rows.push(r);r=[];}else f+=c;}
+ if(f!==''||r.length){r.push(f);rows.push(r);}return rows;}
+
+/* ---------- sheet rows → subject ---------- */
+function rowsToRaw(rows,info){
+ const h=rows.findIndex(r=>r&&r.some(c=>String(c??'').trim()));if(h<0)return{err:['The sheet is empty.']};
+ const head=rows[h].map(c=>String(c??'').trim().toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()),find=(...k)=>head.findIndex(x=>k.includes(x));
+ const col={ch:find('chapter','chapter name','topic','unit'),gr:find('group','era','category','branch','section'),q:find('question','questions','q','prompt'),an:find('answer','correct answer','correct','ans','key','correct option'),ex:find('explanation','solution','rationale','explain'),exam:find('exam','exams','exam tag','source','previous year','pyq'),yr:find('year')};
+ const oi='abcdef'.split('').map(L=>find(L,'option '+L,'opt '+L,'options '+L,'choice '+L));
+ const err=[];if(col.q<0)err.push('No “Question” column found — the first row must hold the column headings (Chapter, Question, Option A …).');if(oi[0]<0||oi[1]<0)err.push('Columns “Option A” and “Option B” are required.');
+ if(err.length)return{err};
+ const qs=[];let lastCh='',lastGr='';
+ for(let i=h+1;i<rows.length;i++){const r=rows[i]||[];if(!r.some(c=>String(c??'').trim()))continue;const g=k=>k<0?'':String(r[k]??'').trim();
+  const ch=g(col.ch)||lastCh,gr=g(col.gr)||(g(col.ch)?'':lastGr);lastCh=ch;lastGr=gr||lastGr;if(g(col.ch)&&!g(col.gr))lastGr='';
+  const opts=oi.map(g);let n=opts.length;while(n>0&&!opts[n-1])n--;
+  const ans=g(col.an).toLowerCase().replace(/[().]/g,'').split(/[\s,;&\/]+/).filter(x=>x&&x!=='and').map(x=>/^[1-6]$/.test(x)?'abcdef'[+x-1]:x);
+  let ex=g(col.exam).split(/[;|\n]+/).map(s=>s.trim()).filter(Boolean);const y=g(col.yr).match(/(?:19|20)\d{2}/);
+  if(y)ex=ex.length?ex.map(s=>/(?:19|20)\d{2}/.test(s)?s:s+' '+y[0]):['PYQ '+y[0]];
+  qs.push({_row:i+1,chapter:ch||undefined,group:gr,question:g(col.q),options:opts.slice(0,n),answer:ans,explanation:g(col.ex),exams:ex});}
+ return{raw:{subject:info.subject||'',subtitle:info.subtitle||'',groupLabel:info.groupLabel||'',questions:qs}};}
+async function readFileToRaw(f){
+ const ext=(f.name.split('.').pop()||'').toLowerCase(),stem=f.name.replace(/\.[^.]+$/,'');
+ if(ext==='json')return{raw:JSON.parse(await f.text()),stem};
+ let sheets;
+ if(['csv','tsv','txt'].includes(ext))sheets=[{name:'Questions',rows:parseCsv(await f.text())}];
+ else if(['xlsx','xlsm'].includes(ext)){if(typeof DecompressionStream==='undefined')throw new Error('This browser cannot open .xlsx directly. In Excel use File ▸ Save As ▸ CSV UTF-8 and import that file instead.');sheets=await parseXlsx(await f.arrayBuffer());}
+ else throw new Error('Unsupported file type “.'+ext+'”. Please use .xlsx, .csv or .json.');
+ const q=sheets.find(s=>/question/i.test(s.name))||sheets[0],info={},is=sheets.find(s=>s!==q&&/^(info|about|subject|settings)/i.test(s.name));
+ if(is)for(const r of is.rows){const k=String(r&&r[0]||'').toLowerCase().replace(/[^a-z]/g,''),v=String(r&&r[1]||'').trim();if(['subject','subjectname','name'].includes(k))info.subject=v;else if(k==='subtitle')info.subtitle=v;else if(['grouplabel','filterlabel'].includes(k))info.groupLabel=v;}
+ const t=rowsToRaw(q.rows,info);if(t.err)throw new Error(t.err.join(' '));return{raw:t.raw,stem};}
+
+/* ---------- Excel writing ---------- */
+const crcT=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
+const crc32=u=>{let c=-1;for(let i=0;i<u.length;i++)c=crcT[(c^u[i])&255]^(c>>>8);return(~c)>>>0;};
+function zipStore(files){
+ const enc=new TextEncoder(),parts=[],cd=[];let off=0;
+ for(const [name,txt] of files){const nb=enc.encode(name),d=enc.encode(txt),crc=crc32(d);
+  const lh=new DataView(new ArrayBuffer(30));lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0x0800,true);lh.setUint32(14,crc,true);lh.setUint32(18,d.length,true);lh.setUint32(22,d.length,true);lh.setUint16(26,nb.length,true);
+  parts.push(new Uint8Array(lh.buffer),nb,d);
+  const ch=new DataView(new ArrayBuffer(46));ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);ch.setUint16(8,0x0800,true);ch.setUint32(16,crc,true);ch.setUint32(20,d.length,true);ch.setUint32(24,d.length,true);ch.setUint16(28,nb.length,true);ch.setUint32(42,off,true);
+  cd.push(new Uint8Array(ch.buffer),nb);off+=30+nb.length+d.length;}
+ const cl=cd.reduce((n,x)=>n+x.length,0),en=new DataView(new ArrayBuffer(22));en.setUint32(0,0x06054b50,true);en.setUint16(8,files.length,true);en.setUint16(10,files.length,true);en.setUint32(12,cl,true);en.setUint32(16,off,true);
+ return new Blob([...parts,...cd,new Uint8Array(en.buffer)],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});}
+const xe=s=>String(s??'').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const colL=i=>{let s='';i++;while(i>0){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26);}return s;};
+const NS='http://schemas.openxmlformats.org/spreadsheetml/2006/main',XH='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+function sheetXml(sh){
+ const rows=sh.rows.map((r,i)=>`<row r="${i+1}">`+r.map((v,j)=>v===''||v==null?'':`<c r="${colL(j)}${i+1}" t="inlineStr" s="${sh.header&&i===0?1:2}"><is><t xml:space="preserve">${xe(v)}</t></is></c>`).join('')+'</row>').join('');
+ return`${XH}<worksheet xmlns="${NS}"><sheetViews><sheetView workbookViewId="0">${sh.header?'<pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/>':''}</sheetView></sheetViews>${sh.widths?'<cols>'+sh.widths.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('')+'</cols>':''}<sheetData>${rows}</sheetData></worksheet>`;}
+function xlsxBlob(sheets){
+ const R='http://schemas.openxmlformats.org/officeDocument/2006/relationships',n=sheets.length;
+ const styles=`${XH}<styleSheet xmlns="${NS}"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF2F4FD8"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1" applyAlignment="1"><alignment vertical="center"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+ const files=[['[Content_Types].xml',`${XH}<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sheets.map((s,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`],
+  ['_rels/.rels',`${XH}<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="${R}/officeDocument" Target="xl/workbook.xml"/></Relationships>`],
+  ['xl/workbook.xml',`${XH}<workbook xmlns="${NS}" xmlns:r="${R}"><sheets>${sheets.map((s,i)=>`<sheet name="${xe(s.name)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets></workbook>`],
+  ['xl/_rels/workbook.xml.rels',`${XH}<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((s,i)=>`<Relationship Id="rId${i+1}" Type="${R}/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')}<Relationship Id="rId${n+1}" Type="${R}/styles" Target="styles.xml"/></Relationships>`],
+  ['xl/styles.xml',styles],...sheets.map((s,i)=>[`xl/worksheets/sheet${i+1}.xml`,sheetXml(s)])];
+ return zipStore(files);}
+function dlBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.append(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1500);}
+const QHEAD=['Chapter','Group','Question','Option A','Option B','Option C','Option D','Option E','Option F','Answer','Explanation','Exam'],QW=[28,14,70,26,26,26,26,22,22,10,60,28];
+function templateBlob(){
+ const info=[['Subject','General Science'],['Subtitle','NCERT based · Class 6–10'],['Group label','Branch'],[''],['HOW TO USE THIS TEMPLATE'],['1. Keep the headings in row 1 of the “Questions” sheet. Add one row per question.'],['2. Chapter: type the chapter name. You may leave it blank on following rows of the same chapter.'],['3. Group (optional): e.g. Physics / Chemistry or Ancient / Medieval / Modern. It becomes an extra filter named “Group label” above.'],['4. Options: fill Option A–F (2 to 6 options). Leave unused option columns empty.'],['5. Answer: the correct letter, e.g. B. For several correct answers write A, C. Leave blank for an unscored question.'],['6. Explanation and Exam (e.g. UPSC CSE 2019) are optional. Separate several exams with ;'],['7. Change the Subject name above, save as .xlsx (or .csv) and import it from Subject ▸ Add subject. Re-importing the same subject name updates it and keeps student progress on unchanged questions.']];
+ const q=[QHEAD,['Motion and Force','Physics','The SI unit of force is –','Joule','Newton','Watt','Pascal','','','B','Force is measured in newton (N).','UPSC CSE (Pre) 2019'],['','','Select all vector quantities.','Speed','Velocity','Displacement','Mass','','','B, C','Velocity and displacement have direction.',''],['Acids, Bases and Salts','Chemistry','Which of the following are acids?\n1. HCl\n2. NaOH\n3. H2SO4','1 and 2','2 only','1 and 3','1, 2 and 3','','','C','NaOH is a base.','SSC CGL 2021; UPSC CSE (Pre) 2018']];
+ return xlsxBlob([{name:'Questions',rows:q,header:true,widths:QW},{name:'Info',rows:info,widths:[18,90]}]);}
+
+function normalizeImport(raw){
+ const err=[];if(!raw||typeof raw!=='object'||Array.isArray(raw))return{err:['The file must contain a JSON object or an Excel sheet with a heading row.']};
+ const name=String(raw.subject||raw.name||'').trim()||'Imported subject';
+ if(!Array.isArray(raw.questions)||!raw.questions.length)return{err:['No questions were found in the file.']};
+ const chs=[],byNo=new Map(),byT=new Map(),explicit=Array.isArray(raw.chapters)&&raw.chapters.length>0;
+ const addCh=(no,title,group)=>{const c={no,title:String(title),group:group||''};chs.push(c);byNo.set(no,c);byT.set(c.title.toLowerCase(),c);return c;};
+ (explicit?raw.chapters:[]).forEach((c,i)=>{const o=c&&typeof c==='object'?c:{title:c};addCh(+o.no||i+1,o.title||o.name||'Chapter '+(i+1),String(o.group||o.category||''));});
+ const qs=[],cnt=new Map(),seen=new Set();
+ raw.questions.forEach((r,i)=>{const at=(r&&r._row?'Row '+r._row:'Question #'+(i+1))+': ';if(!r||typeof r!=='object'){err.push(at+'not an object.');return;}
+  const text=String(r.question??r.prompt??'').trim();if(!text){err.push(at+'the Question cell is empty.');return;}
+  let opts=r.options;if(!Array.isArray(opts)||opts.length<2||opts.length>6){err.push(at+'needs 2 to 6 options (found '+(Array.isArray(opts)?opts.length:0)+').');return;}
+  opts=opts.map(o=>String(o&&typeof o==='object'?o.text??'':o??'').trim());if(opts.some(o=>!o)){err.push(at+'an option cell is empty between filled options.');return;}
+  const keys='abcdef'.slice(0,opts.length).split('');let a=r.answer??r.correct;a=a==null||a===''?[]:Array.isArray(a)?a:String(a).split(/[\s,;&\/]+/);
+  a=[...new Set(a.map(x=>String(x).trim().toLowerCase().replace(/[().]/g,'')).filter(Boolean))];if(a.some(x=>!keys.includes(x))){err.push(at+'Answer “'+(Array.isArray(r.answer)?r.answer.join(','):r.answer)+'” must be one of '+keys.map(k=>k.toUpperCase()).join(', ')+'.');return;}
+  const cr=r.chapter;let ch;
+  if(cr==null||cr==='')ch=chs[0]||addCh(1,'General','');
+  else{ch=typeof cr==='number'?byNo.get(cr):(byT.get(String(cr).trim().toLowerCase())||byNo.get(+cr));
+   if(!ch){if(typeof cr==='number'&&explicit){err.push(at+'chapter '+cr+' is not listed in "chapters".');return;}ch=addCh(typeof cr==='number'?cr:(chs.reduce((m,c)=>Math.max(m,c.no),0)+1),typeof cr==='number'?'Chapter '+cr:String(cr).trim(),'');}}
+  if(!ch.group&&(r.group||r.category))ch.group=String(r.group||r.category).trim();
+  const n=(cnt.get(ch.no)||0)+1;cnt.set(ch.no,n);let id='U'+h32(ch.title+'|'+text),dd=0;while(seen.has(id))id='U'+h32(ch.title+'|'+text)+'_'+(++dd);seen.add(id);
+  const ex=Array.isArray(r.exams)?r.exams:r.exams?[r.exams]:[];
+  qs.push({id,chapterNo:ch.no,chapter:ch.title,number:n,pdfPage:'',bookPage:r.page?String(r.page):'',prompt:text,options:opts.map((t,j)=>({key:keys[j],sourceLabel:keys[j],text:t})),correct:a,answerRaw:a.length?'Ans. ('+a.join(' & ')+')':'',type:a.length>1?'Multiple answer':'Multiple choice',explanation:String(r.explanation||''),examTags:ex.filter(Boolean).map(examTag),attemptable:true,gradeable:a.length>0,reviewFlags:[]});});
+ if(!qs.length)return{err:err.length?err:['No valid questions were found.']};
+ qs.sort((x,y)=>x.chapterNo-y.chapterNo);const used=new Set(qs.map(q=>q.chapterNo));
+ const data={title:name,subtitle:String(raw.subtitle||''),groupLabel:String(raw.groupLabel||'').trim()||'Category',chapters:chs.filter(c=>used.has(c.no)).sort((x,y)=>x.no-y.no),questions:qs,source:String(raw.source||'Imported subject'),stats:{total:qs.length}};
+ return{data,skipped:err,ungraded:qs.filter(q=>!q.gradeable).length};}
+
+async function readBank(f){const{raw,stem}=await readFileToRaw(f);raw.subject=String(raw.subject||raw.name||'').trim()||stem.replace(/[_-]+/g,' ');const r=normalizeImport(raw);if(r.err)throw new Error(r.err.slice(0,3).join(' · '));if(r.skipped&&r.skipped.length)toast(r.skipped.length+' row(s) skipped — check the file.');return r.data}
+$('aT').onclick=()=>dlBlob(templateBlob(),'subject-template.xlsx');
+$('aGo').onclick=async()=>{let name=$('aN').value.trim();const f=$('aF').files[0];if(!name&&!f)return toast('Enter a name or choose an Excel file.');let id=slug(name);
+ if(!f){const{error}=await sb().from('subjects').upsert({id,name,subtitle:$('aS').value.trim(),status:'upcoming',eta:$('aE').value.trim()||null});if(error)return toast(error.message);toast('Added as upcoming (no file yet).');await loadAll();return}
+ try{toast('Reading file…');const data=await readBank(f);name=name||data.title;id=slug(name);data.title=name;const ok=await publish({id,name,subtitle:$('aS').value.trim()||data.subtitle||'',status:$('aSt').value,eta:$('aE').value.trim(),data});if(ok){['aN','aS','aE'].forEach(i=>$(i).value='');$('aF').value=''}}catch(e){toast(e.message||'Could not read that Excel file.')}};
+$('subT').onclick=async e=>{const tr=e.target.closest('tr');if(!tr)return;const id=tr.dataset.id,r=ROWS.find(x=>x.id===id);
+ if(e.target.closest('[data-ed]')){const name=prompt('Name',r.name);if(name==null)return;const sub=prompt('Subtitle',r.subtitle||''),eta=prompt('ETA (for upcoming)',r.eta||''),so=prompt('Sort order (lower = earlier)',r.sort??100);const{error}=await sb().from('subjects').update({name:name.trim()||r.name,subtitle:sub||'',eta:eta||null,sort:+so||100,updated_at:new Date().toISOString()}).eq('id',id);if(error)toast(error.message);else loadAll()}
+ else if(e.target.closest('[data-up]')){PICK=r;$('rF').click()}
+ else if(e.target.closest('[data-rm]')){if(!confirm('Delete “'+r.name+'” for everyone? Users keep their own progress, but the subject disappears.'))return;if(r.path)await sb().storage.from('banks').remove([r.path]);const{error}=await sb().from('subjects').delete().eq('id',id);if(error)toast(error.message);else{toast('Deleted.');loadAll()}}
+ else if(e.target.closest('[data-mv]')){const m=MAN.find(x=>x.id===tr.dataset.b);toast('Uploading…');try{await publish({id:m.id,name:m.name,subtitle:m.subtitle,status:'live',data:await(await fetch('data/'+m.id+'.json')).json()})}catch(x){toast('Could not read the built-in file.')}}
+ else if(e.target.closest('[data-hd]')){const m=MAN.find(x=>x.id===tr.dataset.b);if(!confirm('Hide “'+m.name+'” from everyone?'))return;const{error}=await sb().from('subjects').upsert({id:m.id,name:m.name,subtitle:m.subtitle,status:'hidden'});if(error)toast(error.message);else loadAll()}};
+$('subT').onchange=async e=>{if(!e.target.matches('[data-st]'))return;const id=e.target.closest('tr').dataset.id,{error}=await sb().from('subjects').update({status:e.target.value,updated_at:new Date().toISOString()}).eq('id',id);if(error)toast(error.message);else{toast('Status updated.');loadAll()}};
+$('rF').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f||!PICK)return;try{toast('Reading file…');const data=await readBank(f);data.title=PICK.name;await publish({id:PICK.id,name:PICK.name,subtitle:PICK.subtitle,status:PICK.status,eta:PICK.eta,data})}catch(x){toast(x.message||'Could not read that Excel file.')}};
+$('locT').onclick=async e=>{const tr=e.target.closest('tr');if(!tr||!e.target.closest('[data-pub]'))return;const d=await QM.kvGet(tr.dataset.k);const name=d.title||tr.dataset.k.slice(5);await publish({id:slug(name),name,subtitle:d.subtitle||d.source||'',status:'live',data:d})};
+function drawRep(){$('repSub').textContent=`${REP.filter(r=>r.status==='open').length} open · ${REP.length} total`;
+ $('repT').innerHTML=REP.length?`<table><tr><th>When</th><th>Subject</th><th>Q</th><th>Issue</th><th>Note</th><th>Question</th><th>Status</th><th></th></tr>${REP.map(r=>`<tr><td>${new Date(r.created_at).toLocaleDateString()}</td><td>${esc(r.subject_name)}</td><td>${esc(r.qno)}</td><td>${esc(r.reason)}</td><td style="white-space:normal;max-width:240px">${esc(r.note)}</td><td style="white-space:normal;max-width:300px"><small>${esc(r.prompt)}</small></td><td><span class="chip ${r.status==='open'?'b':''}">${r.status}</span></td><td><button class="btn" data-r="${r.id}">${r.status==='open'?'Resolve':'Reopen'}</button></td></tr>`).join('')}</table>`:'<div class="empty">No reports yet.</div>'}
+$('repT').onclick=async e=>{const b=e.target.closest('[data-r]');if(!b)return;const r=REP.find(x=>x.id==b.dataset.r);await sb().from('reports').update({status:r.status==='open'?'resolved':'open'}).eq('id',r.id);loadAll()};
+$('repCsv').onclick=()=>{const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"',c=['created_at','status','subject_name','chapter','qno','reason','note','prompt','qid'],t=[c.join(','),...REP.map(r=>c.map(k=>q(r[k])).join(','))].join('\n'),a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+t],{type:'text/csv'}));a.download='reports.csv';a.click()};
+QM.listen(e=>{if(e==='auth')boot()});boot();
+</script></body></html>
