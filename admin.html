@@ -159,8 +159,8 @@ async function readFileToRaw(f){
  else throw new Error('Unsupported file type “.'+ext+'”. Please use .xlsx, .xls or .csv.');
  const hs=r=>{const x=(r||[]).map(c=>String(c??'').trim().toLowerCase().replace(/[^a-z0-9]+/g,' ').trim());return x.some(v=>['question','questions','q','prompt'].includes(v))&&x.some(v=>['a','option a','opt a','options a','choice a'].includes(v))};
  const q=sheets.filter(s=>s.rows.slice(0,25).some(hs)).sort((x,y)=>y.rows.length-x.rows.length)[0]||sheets.find(s=>/question/i.test(s.name))||sheets[0],info={},is=sheets.find(s=>s!==q&&/^(info|about|subject|settings)/i.test(s.name));
- if(is)for(const r of is.rows){const k=String(r&&r[0]||'').toLowerCase().replace(/[^a-z]/g,''),v=String(r&&r[1]||'').trim();if(['subject','subjectname','name'].includes(k))info.subject=v;else if(k==='subtitle')info.subtitle=v;else if(['grouplabel','filterlabel'].includes(k))info.groupLabel=v;}
- const t=rowsToRaw(q.rows,info);if(t.err)throw new Error(t.err.join(' '));return{raw:t.raw,stem};}
+ if(is)for(const r of is.rows){const k=String(r&&r[0]||'').toLowerCase().replace(/[^a-z]/g,''),v=String(r&&r[1]||'').trim();if(['subject','subjectname','name'].includes(k))info.subject=v;else if(k==='subjectid')info.subjectId=v;else if(k==='updatemode')info.updateMode=v;else if(k==='subtitle')info.subtitle=v;else if(['grouplabel','filterlabel'].includes(k))info.groupLabel=v;}
+ const t=rowsToRaw(q.rows,info);if(t.err)throw new Error(t.err.join(' '));Object.assign(t.raw,{subjectId:info.subjectId,updateMode:info.updateMode});return{raw:t.raw,stem};}
 
 /* ---------- Excel writing ---------- */
 const crcT=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
@@ -251,7 +251,57 @@ function normalizeImport(raw){
  const data={title:name,subtitle:String(raw.subtitle||''),groupLabel:String(raw.groupLabel||'').trim()||'Category',chapters:chs.filter(c=>used.has(c.no)).sort((x,y)=>x.no-y.no),questions:qs,source:String(raw.source||'Imported subject'),stats:{total:qs.length}};
  return{data,skipped:err,ungraded:qs.filter(q=>!q.gradeable).length};}
 
-async function readBank(f){const{raw,stem}=await readFileToRaw(f);raw.subject=String(raw.subject||raw.name||'').trim()||stem.replace(/[_-]+/g,' ');
+function applyExplanationRows(bank, rows) {
+ const revised = new Map();
+ for (const row of rows) {
+  if (!row.questionId || !row.explanation || revised.has(row.questionId)) throw Error('Each explanation needs a unique Question ID and text.');
+  revised.set(row.questionId,row.explanation);
+ }
+ const ids = new Set(bank.questions.map(q=>q.id));
+ if (ids.size!==bank.questions.length || ids.size!==revised.size || [...ids].some(id=>!revised.has(id))) throw Error('These question IDs do not match the existing subject. No changes were saved.');
+ return {...bank,questions:bank.questions.map(q=>({...q,explanation:revised.get(q.id)}))};
+}
+async function updateExplanationBank(raw, selectedId) {
+ const id=raw.subjectId;
+ if (!id || (selectedId && selectedId!==id)) throw Error('This workbook targets '+(id||'an unspecified subject')+'. Select the original subject.');
+ const {data:row,error}=await sb().from('subjects').select('*').eq('id',id).maybeSingle();
+ if(error)throw error;
+ const built=MAN.find(m=>m.id===id);
+ if(!row&&!built)throw Error('The original subject could not be found.');
+ let bank;
+ if(row?.path){
+  const download=await sb().storage.from('banks').download(row.path);
+  if(download.error)throw download.error;
+  bank=JSON.parse(await download.data.text());
+ }else{
+  if(!built)throw Error('The original subject has no question bank.');
+  const res=await fetch('data/'+encodeURIComponent(id)+'.json',{cache:'no-store'});
+  if(!res.ok)throw Error('Could not load the original questions.');
+  bank=await res.json();
+ }
+ const data=applyExplanationRows(bank,raw.questions);
+ const path=id+'-'+crypto.randomUUID()+'.json';
+ const storage=sb().storage.from('banks');
+ const uploaded=await storage.upload(path,new Blob([JSON.stringify(data)],{type:'application/json'}),{contentType:'application/json'});
+ if(uploaded.error)throw uploaded.error;
+ let result;
+ if(row){
+  const change={path,version:(row.version||0)+1,updated_at:new Date().toISOString()};
+  let query=sb().from('subjects').update(change).eq('id',id);
+  query=row.path?query.eq('path',row.path):query.is('path',null);
+  if(row.updated_at)query=query.eq('updated_at',row.updated_at);
+  result=await query.select('id').single();
+ }else{
+  result=await sb().from('subjects').insert({id,name:built.name,subtitle:built.subtitle,status:'live',path,version:1,chapters:data.chapters.length,questions:data.questions.length,pyq:data.questions.filter(q=>q.examTags?.length).length});
+ }
+ if(result.error)throw Error('Could not update the original subject. Reload Admin and retry. '+result.error.message);
+ await loadAll();toast('Updated '+data.questions.length+' explanations in '+(row?.name||built.name)+'.');
+}
+async function readBank(f, selectedId){const{raw,stem}=await readFileToRaw(f);raw.subject=String(raw.subject||raw.name||'').trim()||stem.replace(/[_-]+/g,' ');
+ if(raw.updateMode){
+  if(raw.updateMode!=='Explanations only')throw Error('Unknown workbook update mode.');
+  await updateExplanationBank(raw,selectedId);return 'updatedExisting';
+ }
  const r=normalizeImport(raw);if(!r.data&&!(raw.questions||[]).length)throw new Error((r.err||[]).join(' '));
  let data=r.data;if(((r.skipped&&r.skipped.length?r.skipped:r.err)||[]).length){data=await askReview(raw,r);if(!data)return null}
  data.groups=[...new Set(data.chapters.map(c=>c.group).filter(Boolean))];return data}
@@ -288,7 +338,7 @@ async function attachImages(data,id,files){const need=new Set();data.questions.f
 $('aT').onclick=()=>dlBlob(templateBlob(),'subject-template.xlsx');
 $('aGo').onclick=async()=>{let name=$('aN').value.trim();const f=$('aF').files[0];if(!name&&!f)return toast('Enter a name or choose an Excel file.');let id=slug(name);
  if(!f){const{error}=await sb().from('subjects').upsert({id,name,subtitle:$('aS').value.trim(),status:'upcoming',eta:$('aE').value.trim()||null});if(error)return toast(error.message);toast('Added as upcoming (no file yet).');await loadAll();return}
- try{toast('Reading file…');const data=await readBank(f);if(!data){toast('Cancelled — nothing was published.');return}name=name||data.title;id=slug(name);data.title=name;await attachImages(data,id,$('aI').files);const ok=await publish({id,name,subtitle:$('aS').value.trim()||data.subtitle||'',status:$('aSt').value,eta:$('aE').value.trim(),data});if(ok){['aN','aS','aE'].forEach(i=>$(i).value='');$('aF').value='';$('aI').value=''}}catch(e){toast(e.message||'Could not read that Excel file.')}};
+ try{toast('Reading file…');const data=await readBank(f);if(data==='updatedExisting')return;if(!data){toast('Cancelled — nothing was published.');return}name=name||data.title;id=slug(name);data.title=name;await attachImages(data,id,$('aI').files);const ok=await publish({id,name,subtitle:$('aS').value.trim()||data.subtitle||'',status:$('aSt').value,eta:$('aE').value.trim(),data});if(ok){['aN','aS','aE'].forEach(i=>$(i).value='');$('aF').value='';$('aI').value=''}}catch(e){toast(e.message||'Could not read that Excel file.')}};
 $('subT').onclick=async e=>{const tr=e.target.closest('tr');if(!tr)return;const id=tr.dataset.id,r=ROWS.find(x=>x.id===id);
  if(e.target.closest('[data-ed]'))openEd(r);
  else if(e.target.closest('[data-up]')){PICK=r;$('rF').click()}
@@ -296,7 +346,7 @@ $('subT').onclick=async e=>{const tr=e.target.closest('tr');if(!tr)return;const 
  else if(e.target.closest('[data-mv]')){const m=MAN.find(x=>x.id===tr.dataset.b);toast('Uploading…');try{await publish({id:m.id,name:m.name,subtitle:m.subtitle,status:'live',data:await(await fetch('data/'+m.id+'.json')).json()})}catch(x){toast('Could not read the built-in file.')}}
  else if(e.target.closest('[data-hd]')){const m=MAN.find(x=>x.id===tr.dataset.b);if(!confirm('Hide “'+m.name+'” from everyone?'))return;const{error}=await sb().from('subjects').upsert({id:m.id,name:m.name,subtitle:m.subtitle,status:'hidden'});if(error)toast(error.message);else loadAll()}};
 $('subT').onchange=async e=>{if(!e.target.matches('[data-st]'))return;const id=e.target.closest('tr').dataset.id,{error}=await sb().from('subjects').update({status:e.target.value,updated_at:new Date().toISOString()}).eq('id',id);if(error)toast(error.message);else{toast('Status updated.');loadAll()}};
-$('rF').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f||!PICK)return;try{toast('Reading file…');const data=await readBank(f);if(!data){toast('Cancelled — nothing was published.');return}data.title=PICK.name;await attachImages(data,PICK.id,$('aI').files);await publish({id:PICK.id,name:PICK.name,subtitle:PICK.subtitle,status:PICK.status,eta:PICK.eta,data})}catch(x){toast(x.message||'Could not read that Excel file.')}};
+$('rF').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f||!PICK)return;try{toast('Reading file…');const data=await readBank(f,PICK.id);if(data==='updatedExisting')return;if(!data){toast('Cancelled — nothing was published.');return}data.title=PICK.name;await attachImages(data,PICK.id,$('aI').files);await publish({id:PICK.id,name:PICK.name,subtitle:PICK.subtitle,status:PICK.status,eta:PICK.eta,data})}catch(x){toast(x.message||'Could not read that Excel file.')}};
 $('locT').onclick=async e=>{const tr=e.target.closest('tr');if(!tr)return;if(e.target.closest('[data-rmk]')){if(!confirm('Remove this draft from this device?'))return;await QM.kvDel(tr.dataset.k);toast('Draft removed.');drawSubs();return}if(!e.target.closest('[data-pub]'))return;const d=await QM.kvGet(tr.dataset.k);const name=d.title||tr.dataset.k.slice(5);await publish({id:slug(name),name,subtitle:d.subtitle||d.source||'',status:'live',data:d})};
 function drawRep(){$('repSub').textContent=`${REP.filter(r=>r.status==='open').length} open · ${REP.length} total`;
  $('repT').innerHTML=REP.length?`<table><tr><th>When</th><th>Subject</th><th>Q</th><th>Issue</th><th>Note</th><th>Question</th><th>Status</th><th></th></tr>${REP.map(r=>`<tr><td>${new Date(r.created_at).toLocaleDateString()}</td><td>${esc(r.subject_name)}</td><td>${esc(r.qno)}</td><td>${esc(r.reason)}</td><td style="white-space:normal;max-width:240px">${esc(r.note)}</td><td style="white-space:normal;max-width:300px"><small>${esc(r.prompt)}</small></td><td><span class="chip ${r.status==='open'?'b':''}">${r.status}</span></td><td><button class="btn" data-r="${r.id}">${r.status==='open'?'Resolve':'Reopen'}</button></td></tr>`).join('')}</table>`:'<div class="empty">No reports yet.</div>'}
