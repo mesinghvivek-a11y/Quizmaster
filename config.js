@@ -1,2 +1,4 @@
-// Fill these two from Supabase → Project Settings → API. The anon key is public by design (RLS protects data).
-window.QM_CONFIG={SUPABASE_URL:"https://oiydxynwbytgzwbujpta.supabase.co",SUPABASE_ANON_KEY:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9peWR4eW53Ynl0Z3p3YnVqcHRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ5NTUxMjIsImV4cCI6MjExMDUzMTEyMn0.uwy9pcJjfZkB9n4r2TNRo4GnSgIPgE1ko4HxLJJVgl4"};
+window.QM_CONFIG={
+SUPABASE_URL:"https://oiydxynwbytgzwbujpta.supabase.co",
+SUPABASE_ANON_KEY:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9peWR4eW53Ynl0Z3p3YnVqcHRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ5NTUxMjIsImV4cCI6MjExMDUzMTEyMn0.uwy9pcJjfZkB9n4r2TNRo4GnSgIPgE1ko4HxLJJVgl4"
+};

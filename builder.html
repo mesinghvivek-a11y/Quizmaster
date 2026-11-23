@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>My PYQ Online · Test portal</title>
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="theme-color" content="#2f4fd8"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon-192.png"><script src="config.js"></script><script src="shared.js"></script><script src="live-room.js"></script><script>try{var __s=new URLSearchParams(location.search).get("s")||localStorage.getItem("qm-last")||"polity";if(__s==="polity"||__s==="history")window.__pre={id:__s,p:fetch("data/"+__s+".json").then(function(r){return r.json()})}}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="portal.css">
+</head>
+<body data-stage="setup">
+<div class="warnbar" id="warnBar" hidden></div>
+<header class="top" id="top">
+ <div class="bar bar1"><a class="btn" href="index.html" title="Back to home" aria-label="Home">⌂<span class="lbl2"> Home</span></a>
+  <label class="sel subj" hidden><span>Subject</span><select id="subjectSel" aria-label="Select subject"></select></label>
+  <div class="brand"><div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M12 3v7M12 14v7M3 12h7M14 12h7M5.6 5.6l5 5M13.4 13.4l5 5M18.4 5.6l-5 5M10.6 13.4l-5 5"/></svg></div><div class="btxt"><b id="brandTitle">Indian Polity &amp; Governance</b><small id="brandSub">Master test · 42 chapters</small></div></div>
+  <span class="spacer"></span>
+  <div class="seg" id="tabSeg" hidden role="group" aria-label="View"><button type="button" data-tab="quiz" class="on">Quiz</button><button type="button" data-tab="perf"><span class="lbl2">Performance</span><span class="only-s">Stats</span></button></div>
+  <button class="btn" id="fToggle" type="button" aria-label="Filters and options"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg><span class="lbl2"> Filters</span><span class="cnt" id="fCount" hidden>0</span></button>
+  <div class="sizer" role="group" aria-label="Text size"><button class="btn" id="fontDown" type="button" aria-label="Decrease text size">A−</button><button class="btn" id="fontUp" type="button" aria-label="Increase text size">A+</button></div>
+  <button class="btn icon" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">☾</button>
+ </div>
+ <div class="bar bar2">
+  <div class="timer" id="timerBox"><i></i><span id="stopwatch">00:00:00</span><button class="pbtn" id="pauseBtn" type="button" aria-label="Pause test" title="Pause (P)">❚❚</button></div>
+  <div class="where"><p><span id="filterSummary">Loading…</span><b id="positionPill">Question 1</b></p><div class="track"><span id="progressBar"></span></div></div>
+  <div class="seg" id="modeSeg" role="group" aria-label="Test mode"><button type="button" data-mode="practice" class="on" title="Check each answer as you go">Practice</button><button type="button" data-mode="exam" title="Mock test: results appear after you submit">Exam</button></div>
+  <button class="btn" id="resetTest" type="button">Reset</button>
+  <a class="btn" id="backChapters" hidden>Chapters</a><button class="btn primary" id="testSubmit" type="button">Submit</button>
+ </div>
+</header>
+<div class="fscrim" id="fScrim"></div>
+<section class="fbar" id="fbar" aria-label="Filters and options">
+ <div class="setuphead"><div><h2>Build your test</h2><button class="btn" hidden id="portalRetry">Retry loading</button><p id="poolCount" aria-live="polite">Loading questions…</p></div><div class="setupActions"><a class="btn" id="examAnalysis" href="analysis.html" hidden>Analysis</a><button type="button" class="btn primary" id="startPortal">Start test →</button></div></div><div class="fhead"><b>Filters &amp; options</b><button class="btn primary" id="fDone" type="button">Done</button></div>
+ <div class="filters"><label class="sel" id="groupWrap"><span id="groupLbl">Era</span><select id="groupFilter"><option value="all">All</option></select></label>
+   <label class="sel"><span>Exam</span><select id="examFilter"><option value="all">All exams</option></select></label>
+   <label class="sel" id="yearWrap"><span>Year</span><select id="yearFilter"><option value="all">All years</option></select></label>
+   <details class="chapterBox"><summary>Chapters <span id="chSummary">All chapters</span></summary><div class="dhead" style="margin-top:12px;align-items:center"><b style="font-size:13px">Chapters <small style="font-weight:500;color:var(--muted)">· select any combination</small></b><span><button class="btn" id="mkAll" type="button" style="height:30px">All</button> <button class="btn" id="mkNone" type="button" style="height:30px">None</button></span></div>
+ <div class="chpick" id="mkChs"></div></details>
+   <label class="sel" id="viewWrap"><span>Show</span><select id="viewFilter"><option value="all">All questions</option><option value="unattempted">Unattempted</option><option value="incorrect">Incorrect</option><option value="flagged">Flagged</option><option value="due">Due for revision</option><option value="everwrong">Missed before</option><option value="weak">Weak: under 60%</option><option value="new">Never attempted</option><option value="noted">With my notes</option></select></label>
+   <input class="search" id="searchBox" type="search" placeholder="Search questions…" aria-label="Search questions and explanations">
+   <button class="btn" id="shuffleBtn" type="button" title="Shuffle the questions in this view" aria-label="Reshuffle">⇄<span class="lbl"> Reshuffle</span></button>
+   <button class="btn" id="fClear" type="button">Clear filters</button>
+   <button class="btn" id="reviseBtn" type="button">↻ Revise due</button><button class="btn primary" id="hostBtn" type="button" style="font-weight:700">▶ Host test</button><button class="btn" id="joinBtn" type="button" style="font-weight:700;border-color:var(--brand);color:var(--brand)">⌁ Join test</button></div>
+ <div class="fextra"><div class="fgrp"><small>SESSION</small><div id="slotMode"></div></div><div class="fgrp"><small>DISPLAY</small><div id="slotTools"></div></div></div>
+</section>
+
+<section id="chapterShelf" aria-labelledby="chapterHeading"><div id="sectionRail" role="group" aria-label="Browse chapters by section"></div><h2 id="chapterHeading">Chapters</h2><p>Track questions practised and see your latest result in each chapter.</p><div class="chapterControls"><input id="chapterQuery" type="search" placeholder="Find a chapter or section" aria-label="Find a chapter or section"><select id="chapterStatus" aria-label="Chapter progress"><option value="all">All progress</option><option>Remaining</option><option>In progress</option><option>Complete</option></select></div><div id="chapterList"></div></section>
+<div class="backdrop" id="summaryBackdrop" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="summaryTitle">
+ <div class="dhead"><div><h2 id="summaryTitle">Test summary</h2><p id="summaryTime">Completed in 00:00:00</p></div><button class="btn" id="closeSummary" type="button">Close</button></div>
+ <div class="result"><div class="ring"><svg width="150" height="150" viewBox="0 0 150 150"><circle class="bg" cx="75" cy="75" r="64"/><circle class="fg" id="ringFg" cx="75" cy="75" r="64" stroke-dasharray="402.1" stroke-dashoffset="402.1"/></svg><div><b id="ringPct">0%</b><small>accuracy</small></div></div>
+ <div class="sgrid"><div class="sstat good"><span>Correct</span><b id="summaryCorrect">0</b></div><div class="sstat bad"><span>Incorrect</span><b id="summaryIncorrect">0</b></div><div class="sstat"><span>Unattempted</span><b id="summaryUnattempted">0</b></div><div class="sstat"><span>Ungraded attempts</span><b id="summaryUngraded">0</b></div><div class="sstat"><span>Avg time / question</span><b id="summaryAvg">–</b></div><div class="sstat"><span id="summarySlowQ">Slowest question</span><b id="summarySlow">–</b></div></div></div>
+ <h3>By chapter · weakest first</h3><div class="chrows" id="chapterRows"></div><p class="weak" id="weakNote" hidden></p>
+ <h3>Incorrect questions <span id="incorrectCountSummary">(0)</span></h3><div class="wlist" id="incorrectList"></div><div class="dfoot"><button class="btn primary" id="retryBtn" type="button">Retry missed questions</button></div>
+ <div id="reviewBox"></div>
+ <p class="dnote">Only questions with a source-supported answer key are counted as correct or incorrect. Unkeyed questions are listed separately. Tap an incorrect question to review its explanation.</p>
+</section></div>
+
+<div class="shell" id="shell">
+ <main class="main"><div class="pause" id="pauseOverlay"><div><b>Test paused</b><p>The timer is stopped and the question is hidden.</p><button class="btn primary" id="resumeBtn" type="button">▶ Resume</button></div></div>
+  <section class="card" id="questionCard" aria-live="polite"></section>
+  <p class="source" id="sourceNote"><b>Source:</b> Preview: Indian Polity and Governance, Part 4 (10th Edition, 2026). Question text, options, answer key and explanations are extracted from the supplied booklet. The original answer key marker “(*)” is treated as unkeyed; no answer is guessed.</p>
+ </main>
+ <aside class="nav card" id="navigator" aria-label="Question navigator"><div class="navhead"><div><b>Question navigator</b><small id="navSummary">All questions</small></div><button class="btn icon navtoggle" id="navCollapse" type="button" aria-expanded="true" aria-label="Collapse navigator" title="Collapse (N)">›</button><span class="navrail">Questions</span></div><div class="navlist" id="navList"></div>
+  <div class="navfoot"><span><i style="background:var(--brand)"></i>Current</span><span><i style="background:var(--ok)"></i>Correct</span><span><i style="background:var(--bad)"></i>Incorrect</span><span><i style="background:var(--warn)"></i>Ungraded</span><span><i style="background:var(--saffron);border-radius:50%"></i>Flagged</span></div></aside>
+</div>
+
+<section class="perf" id="perfView" aria-label="Performance">
+ <div class="phead"><div><h2>Performance</h2><p>Every practice session and test is saved automatically on this device. Tap a row for its summary.</p></div>
+  <div class="pact"><label class="sel"><span>Subject</span><select id="pfSubj"><option value="all">All subjects</option></select></label><label class="sel"><span>Type</span><select id="pfMode"><option value="all">Practice &amp; tests</option><option value="practice">Practice only</option><option value="exam">Tests only</option></select></label>
+  <button class="btn" id="bkExport" type="button" title="Download a backup file of all progress">Export backup</button><button class="btn" id="bkImport" type="button">Import backup</button><input type="file" id="bkFile" accept=".json,application/json" hidden><button class="btn danger" id="resetAcct" type="button">Reset account</button></div></div>
+ <div class="pstats" id="pStats"></div><div id="pExtra"></div><p class="dnote" id="bkNote" style="margin:0 0 12px"></p><div class="card ptable" id="pList"></div>
+</section>
+<footer class="bottom"><div class="bar">
+ <div class="navbtns"><button class="btn" id="prevBtn" type="button" aria-label="Previous question">←<span class="lbl2"> Prev</span></button><button class="btn" id="clearBtn" type="button" title="Clear this answer"><span class="lbl2">Clear</span><span class="only-s">✕</span></button><button class="btn" id="nextBtn" type="button" aria-label="Next question"><span id="nextAction">Next →</span><small id="nextTime" hidden></small></button><button class="btn mobile-only" id="navToggle" type="button">☷</button></div>
+ <div class="stats"><span class="stat good">Correct <b id="correctCount">0</b></span><span class="stat bad">Incorrect <b id="incorrectCount">0</b></span><span class="stat neutral">Ungraded <b id="ungradedCount">0</b></span><span class="stat">Attempted <b id="attemptedCount">0</b></span></div>
+ <span class="acc" id="scorePercent">Not started</span>
+</div></footer>
+
+<div class="backdrop" id="confirmBackdrop" hidden style="z-index:90"><section class="dialog confirm" role="alertdialog" aria-modal="true" aria-labelledby="cTitle"><h2 id="cTitle"></h2><p id="cMsg"></p><div class="row"><button class="btn" id="cNo" type="button">Cancel</button><button class="btn primary" id="cOk" type="button">OK</button></div></section></div>
+<div class="backdrop" id="subjBackdrop" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="addT">
+ <div class="dhead"><div><h2 id="addT">Subjects</h2><p>Add a subject from an Excel sheet. It is saved on this device.</p></div><button class="btn" id="closeSubj" type="button">Close</button></div>
+ <ol><li>Download the <b>Excel template</b> — it has a sample and instructions.</li><li>Fill one row per question: chapter, question, options A–F, answer, explanation.</li><li>Choose your finished file (<b>.xlsx</b>, .csv or .json), then press <b>Import &amp; save</b>.</li></ol>
+ <div class="dfoot" style="margin:0 0 10px"><button class="btn" id="tplBtn" type="button">⬇ Excel template</button><label class="btn" style="cursor:pointer">Choose file…<input type="file" id="impFile" accept=".xlsx,.xlsm,.csv,.tsv,.json,text/csv,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden></label></div>
+ <div id="impMsg"></div>
+ <div class="impname" id="impNameWrap" hidden><label>Subject name<input id="impName" type="text" maxlength="60" autocomplete="off"></label></div>
+ <div class="dfoot"><button class="btn primary" id="impGo" type="button" disabled>Import &amp; save</button></div>
+ <details class="guide" style="margin-top:12px"><summary style="cursor:pointer;font-weight:700;font-size:13px">Column guide</summary><table>
+  <tr><th>Column</th><th>What to write</th></tr>
+  <tr><td><b>Chapter</b></td><td>Chapter name. May be left blank on the following rows of the same chapter.</td></tr>
+  <tr><td>Group</td><td>Optional, e.g. Physics / Chemistry or Ancient / Medieval / Modern — becomes an extra filter.</td></tr>
+  <tr><td><b>Question</b></td><td>The question text (line breaks are kept).</td></tr>
+  <tr><td><b>Option A–F</b></td><td>2 to 6 options. Leave unused columns empty.</td></tr>
+  <tr><td>Answer</td><td>Correct letter, e.g. B. Several correct: A, C. Blank = unscored.</td></tr>
+  <tr><td>Explanation</td><td>Shown after answering.</td></tr>
+  <tr><td>Exam</td><td>Optional, e.g. UPSC CSE 2019. Separate several with ;</td></tr>
+ </table><p class="dnote">Optional “Info” sheet: Subject, Subtitle, Group label. Re-importing a subject with the same name updates it and keeps progress on unchanged questions.</p></details>
+ <div id="mySubj"></div>
+</section></div>
+<dialog id="routeDialog"><button id="routeClose" class="btn" aria-label="Close">×</button><h2 id="routeTitle">Start test</h2><div class="routeChoices"><button class="btn" id="routeA"></button><button class="btn primary" id="routeB"></button></div></dialog>
+<div class="backdrop" id="mockBackdrop" hidden style="z-index:88"><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="mkT0">
+ <div class="dhead"><div><h2 id="mkT0">Custom session</h2><p>Pick chapters, practice or exam, and play solo or with friends.</p></div><button class="btn" id="mkCancel" type="button">Close</button></div>
+ <div class="mockgrid" style="margin-bottom:6px"><div class="seg" id="mkWho" hidden><button type="button" data-w="host" class="on">Host room</button><button type="button" data-w="join">Join room</button></div><div class="seg" id="mkModeSeg"><button type="button" data-m="practice" class="on">Practice</button><button type="button" data-m="exam">Exam</button></div></div>
+ <div id="mkJoin" hidden><div class="impname"><label>Room code<input id="mkCode" maxlength="8" autocapitalize="characters" autocomplete="off" placeholder="e.g. K7M2Q"></label></div></div>
+ <div class="impname" id="mkNameW"><label>Your name<input id="mkName" maxlength="16" autocomplete="off" placeholder="Shown to friends"></label></div>
+ <div id="mkCfg"><p class="dnote" id="mkAvail" style="margin:6px 0 0"></p>
+ <div class="mockgrid">
+  <label class="sel"><span>Questions</span><select id="mkN"><option>10</option><option selected>25</option><option>50</option><option>100</option><option>200</option><option value="9999">All available</option></select></label>
+  <label class="sel"><span>Draw from</span><select id="mkSrc"><option value="all">Any question</option><option value="new">Unattempted</option><option value="due">Due for revision</option><option value="wrong">Missed before</option><option value="weak">Weak: under 60%</option></select></label>
+  <label class="sel solo-only"><span>Time limit</span><select id="mkT"><option value="0">No limit</option><option value="10">10 min</option><option value="20">20 min</option><option value="30" selected>30 min</option><option value="60">60 min</option><option value="120">120 min</option></select></label>
+  <label class="sel" id="qsecSetting"><span>Seconds per question</span><select id="mkQS"><option>20</option><option>30</option><option selected>40</option><option>45</option><option>60</option><option>90</option><option>120</option></select></label>
+  <label class="sel"><span>Marks per correct answer</span><input id="mkMarks" type="number" min="0.01" step="0.01" value="1"></label><label class="sel"><span>Deduction per wrong answer</span><input id="mkNeg" type="number" min="0" step="0.01" value="0"></label>
+ </div>
+ <label class="chk"><input type="checkbox" id="mkShuf" checked><span>Shuffle question order</span></label><label class="chk"><input type="checkbox" id="mkBal"><span>Balance across chapters (equal share from each)</span></label></div>
+ <label class="chk" id="mkAloneW" hidden><input type="checkbox" id="mkAlone"><span>Just me — no room needed (works offline)</span></label><div class="dfoot" style="justify-content:flex-end"><button class="btn primary" id="mkGo" type="button">Start session</button></div>
+</section></div>
+<div class="backdrop" id="roomBackdrop" hidden style="z-index:89"><section class="dialog confirm" role="dialog" aria-modal="true"><h2>Room lobby</h2><div id="roomBody"></div><div class="row" style="margin-top:16px"><button class="btn" id="roomLeave" type="button">Leave</button><button class="btn primary" id="roomStart" type="button">Start for everyone</button></div></section></div>
+<div class="backdrop" id="lbBackdrop" hidden style="z-index:79"><section class="dialog"><div class="dhead"><div><h2>Results</h2><p>Winner list and everyone’s responses</p></div></div><div id="lbBody"></div><div class="dfoot"><button class="btn primary" id="lbSum" type="button">My summary</button><button class="btn" id="lbClose" type="button">Close room</button></div></section></div>
+<div class="backdrop" id="rptBackdrop" hidden style="z-index:90"><section class="dialog confirm" role="dialog" aria-modal="true"><h2>Report this question</h2><p>A mentor reviews every report and corrects the data.</p><div class="mockgrid" style="grid-template-columns:1fr"><label class="sel"><span>What is wrong?</span><select id="rptReason"><option>Wrong answer key</option><option>Typo in question</option><option>Option text wrong</option><option>Explanation wrong</option><option>Duplicate question</option><option>Other</option></select></label></div><div class="impname"><label>Details (optional)<textarea id="rptNote" maxlength="500" rows="3" style="width:100%;margin-top:5px;border:1px solid var(--line);border-radius:11px;padding:10px;background:var(--surface);color:var(--ink);font:inherit"></textarea></label></div><div class="row" style="margin-top:14px"><button class="btn" id="rptCancel" type="button">Cancel</button><button class="btn primary" id="rptSend" type="button">Send report</button></div></section></div>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script src="portal.js"></script>
+<p style="text-align:center;font-size:12px;color:var(--muted);padding:14px 14px calc(14px + env(safe-area-inset-bottom))"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="mailto:support@mypyq.online">Contact</a></p></body></html>

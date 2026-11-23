@@ -31,15 +31,20 @@ footer{padding:34px 0 60px;color:var(--mut);font-size:12px;text-align:center}.to
 .foot{border-top:1px solid var(--line);background:var(--s);padding:28px 20px;font-size:14px;margin-top:30px}.fw{max-width:1180px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:24px}.foot a,.foot span{display:block;color:var(--mut);margin:3px 0}.foot a:hover{color:var(--br)}.foot p{margin:4px 0;color:var(--mut)}.fine{max-width:1180px;margin:20px auto 0!important;font-size:12px}@media(max-width:640px){.fw{grid-template-columns:1fr}}
 .srch{height:38px;border:1px solid var(--line);border-radius:11px;background:var(--s);padding:0 12px;min-width:170px}.ngrp{padding:18px 20px;margin-bottom:14px}.ngrp h3{margin:0 0 6px;font-size:17px}.nch{margin:16px 0 4px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--mut)}.note-i{border-top:1px solid var(--line);padding:12px 0}.nm{display:flex;gap:8px;align-items:center;color:var(--mut)}.np{margin:4px 0;font-size:13px;color:var(--mut)}.nt{white-space:pre-wrap}.ned{width:100%;border:1px solid var(--line);border-radius:11px;padding:10px;background:var(--s2);color:var(--ink);font:inherit}
 .pop{position:fixed;top:68px;right:16px;z-index:40;width:min(300px,calc(100vw - 32px));background:var(--s);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh);padding:14px;display:grid;gap:10px}.pp{display:flex;gap:10px;align-items:center}.pp small{color:var(--mut);word-break:break-all}.pr{display:flex;gap:8px}button.av{border:0;cursor:pointer}.av.big{width:40px;height:40px;font-size:16px;flex:none}
-</style><script src="config.js"></script><script src="shared.js"></script></head><body>
-<nav><div class="w"><a class="lg" href="#top"><img src="icon.svg" alt="">My PYQ Online</a><div class="nl"><a href="#subjects">Subjects</a><a href="#performance">Performance</a><a href="admin.html" id="navAdmin" hidden>Admin</a><a href="#notes">Notes</a></div><span class="sp"></span><span class="note" id="syncSt"></span><button class="btn" id="theme" aria-label="Toggle dark mode">☾</button><span id="acct"></span></div></nav>
+.note-i{padding:16px 18px}.note-i .chips,.note-i details{margin:10px 0}.attemptLink{background:none;border:0;color:var(--br);font:inherit;text-decoration:underline;cursor:pointer}tr[data-run]{cursor:pointer}tr[data-run]:hover{background:var(--s2)}#attemptDialog{width:min(760px,92vw);max-height:85vh;overflow:auto;border:1px solid var(--line);border-radius:18px;padding:24px;background:var(--s);color:var(--ink)}#attemptDialog form{float:right}#attemptBody details{padding:12px 0;border-bottom:1px solid var(--line)}#attemptBody summary{cursor:pointer}#attemptBody img{max-width:100%}
+.attemptList{border-spacing:0 8px;border-collapse:separate}.attemptList td{border:0;background:var(--s2);padding:14px 12px}.attemptList td:first-child{border-radius:12px 0 0 12px}.attemptList td:last-child{border-radius:0 12px 12px 0;color:var(--br);font-size:22px}.attemptList small,.attemptLink span{display:block;color:var(--mut);font-size:12px;margin-top:4px}.attemptLink{color:var(--ink);text-decoration:none;text-align:left;padding:4px;font-size:15px}.attemptList tr:hover td,.attemptList tr:focus-within td{background:var(--line)}#tbl{background:transparent;border:0;box-shadow:none}
+@media(max-width:700px){.attemptList,.attemptList tbody{display:block}.attemptList tr{display:grid;grid-template-columns:1fr auto;gap:8px;background:var(--s2);border:1px solid var(--line);border-radius:13px;padding:12px;margin-bottom:8px}.attemptList td{background:transparent;padding:0;white-space:normal}.attemptList td:last-child{display:none}.attemptList td:nth-child(even){text-align:right}}
+#bookmarks img{max-width:100%;max-height:320px}.bmPrompt{white-space:pre-wrap}#bookmarks details{margin:12px 0}#bookmarks summary{cursor:pointer}
+@media(max-width:760px){nav .w{flex-wrap:wrap;height:auto;padding-block:5px}.nl{display:flex;order:1;width:100%;overflow-x:auto;gap:16px;white-space:nowrap}.nl a{padding:5px 0}}
+.studyBlock{white-space:pre-wrap;margin:.75em 0}.studyNote{border-left:3px solid var(--br);padding:8px 12px;background:var(--s2)}</style><script src="config.js"></script><script src="shared.js"></script></head><body>
+<nav><div class="w"><a class="lg" href="#top"><img src="icon.svg" alt="">My PYQ Online</a><div class="nl"><a href="#subjects">Subjects</a><a href="#performance">Performance</a><a href="admin.html" id="navAdmin" hidden>Admin</a><a href="#notes">Notes</a><a href="#bookmarks">Bookmarks</a></div><span class="sp"></span><span class="note" id="syncSt"></span><button class="btn" id="theme" aria-label="Toggle dark mode">☾</button><span id="acct"></span></div></nav>
 <div class="pop" id="acctPop" hidden></div><header class="hero" id="top"><div class="w"><h1>Practise every subject.<br><em>Master every PYQ.</em></h1><p>Chapter-wise practice, timed mock exams and live quizzes with friends — your progress follows you across devices.</p>
-<div class="cta"><a class="btn p" href="#subjects">Choose a subject →</a><form class="join" id="joinF"><input id="joinC" maxlength="8" placeholder="ROOM CODE" aria-label="Room code"><button class="btn" type="submit">Join live</button></form></div>
-<p class="note" style="margin-top:14px">By signing in with Google you agree to the <a href="/terms" style="text-decoration:underline">Terms</a> and <a href="/privacy" style="text-decoration:underline">Privacy Policy</a>. 18+ only.</p><div class="stats"><div class="st"><b data-n="subjects">0</b><span>Subjects</span></div><div class="st"><b data-n="chapters">0</b><span>Topics &amp; chapters</span></div><div class="st"><b data-n="questions">0</b><span>Questions</span></div><div class="st"><b data-n="pyq">0</b><span>Previous-year questions</span></div></div></div></header>
-<main class="w"><section id="subjects"><div class="hd"><div><h2>Subjects</h2><p class="sub">Pick one to enter the test portal.</p></div></div><div class="grid" id="subs"></div></section>
+<div class="cta"><a class="btn p" href="#subjects">Choose a subject →</a><a class="btn" id="returnRoom" hidden href="test.html?resume=1">Resume hosted test</a><form class="join" id="joinF"><input id="joinC" maxlength="8" placeholder="ROOM CODE" aria-label="Room code"><button class="btn" type="submit">Join live</button></form></div>
+<p class="note" style="margin-top:14px">By signing in with Google you agree to the <a href="/terms" style="text-decoration:underline">Terms</a> and <a href="/privacy" style="text-decoration:underline">Privacy Policy</a>. 18+ only.</p><div class="stats"><div class="st"><b data-n="subjects">…</b><span>Subjects</span></div><div class="st"><b data-n="chapters">…</b><span>Topics &amp; chapters</span></div><div class="st"><b data-n="questions">…</b><span>Questions</span></div><div class="st"><b data-n="pyq">…</b><span>Previous-year questions</span></div></div></div></header>
+<main class="w"><section id="subjects"><div class="hd"><div><h2>Subjects</h2><p class="sub">Pick one to enter the test portal.</p></div></div><div id="homeStatus" role="status"></div><div class="grid" id="subs"></div></section>
 <section id="performance"><div class="hd"><div><h2>Your performance</h2><p class="sub">Every practice session and test, saved automatically<span id="cloudNote"></span>.</p></div><div class="row"><select id="pfS" aria-label="Subject"></select><select id="pfM" aria-label="Type"><option value="all">Practice &amp; tests</option><option value="practice">Practice</option><option value="exam">Tests</option></select><button class="btn" id="bkE">Export backup</button><button class="btn" id="bkI">Import</button><input type="file" id="bkF" accept=".json" hidden><button class="btn d" id="rst">Reset</button></div></div>
-<div id="goal"></div><div class="pg" id="pst"></div><div class="ch2" id="chs"></div><div class="card tb" id="tbl"></div></section>
-<section id="notes"><div class="hd"><div><h2>My notes</h2><p class="sub">Every note you write during practice, organised by subject. <b id="nCount"></b></p></div><div class="row"><input id="nQ" type="search" class="srch" placeholder="Search notes" aria-label="Search notes"><select id="nSub" aria-label="Subject"></select><select id="nSort" aria-label="Sort"><option value="chapter">Sort: Chapter</option><option value="date">Sort: Date modified</option></select><button class="btn" id="nExp">Export</button></div></div><div id="nList"></div></section></main>
+<div id="goal"></div><div class="pg" id="pst"></div><div class="ch2" id="chs"></div><div class="hd"><h3>Test history</h3><select id="attemptSort" aria-label="Sort test history"><option value="recent">Most recent</option><option value="low">Lowest accuracy</option><option value="high">Highest accuracy</option></select></div><div class="card tb" id="tbl"></div></section>
+<section id="notes"><div class="hd"><div><h2>My notes</h2><p class="sub">Your saved notes, newest edits first. <b id="nCount"></b></p></div><div class="row"><input id="nQ" type="search" class="srch" placeholder="Search notes" aria-label="Search notes"><select id="nSub" aria-label="Subject"></select><select id="nSort" aria-label="Sort"><option value="chapter">Sort: Chapter</option><option value="date" selected>Sort: Date modified</option></select><button class="btn" id="nExp">Export</button></div></div><div id="nList"></div></section><section id="bookmarks"><div class="hd"><h2>Bookmarks</h2><span class="note" id="bmCount"></span></div><div id="bmList"></div></section></main><dialog id="attemptDialog"><form method="dialog"><button class="btn" autofocus>Close</button></form><div id="attemptBody"></div></dialog>
 <footer class="foot" id="foot"><div class="fw"><div><b>My PYQ Online</b><p>Chapter-wise PYQ practice, mock tests and live quizzes.</p></div><div><b>Legal</b><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div><div><b>Contact</b><a href="mailto:support@mypyq.online">support@mypyq.online</a><span>Grievance Officer: [GRIEVANCE OFFICER NAME]</span></div></div><p class="fine">© 2026 My PYQ Online. Not affiliated with, endorsed by or sponsored by UGC, NTA, UPSC or any exam authority. Question content is provided for practice; names of exams are used only to describe the content.</p></footer><p class="fine" style="margin:0 auto;padding:0 20px 20px;max-width:1180px;font-size:12px;color:var(--mut)"><a href="#" id="delA" hidden style="color:var(--bad)">Delete my account</a> <span id="cfgNote"></span></p><div class="toast" id="toast" hidden></div>
 <script>
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -48,28 +53,50 @@ const pad=n=>String(n).padStart(2,'0'),fmt=s=>`${pad(Math.floor(s/3600))}:${pad(
 const th=d=>{document.body.classList.toggle('dark',d);$('theme').textContent=d?'☀':'☾';try{localStorage.setItem('pq-theme',d?'dark':'light')}catch(e){}};
 let sv=null;try{sv=localStorage.getItem('pq-theme')}catch(e){}th(sv?sv==='dark':matchMedia('(prefers-color-scheme:dark)').matches);$('theme').onclick=()=>th(!document.body.classList.contains('dark'));
 let SUBS=[],SESS=[],DAILY={},PREFS={goal:30},UP=[];
-function count(el,to){const t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/900);el.textContent=Math.round(to*(1-Math.pow(1-p,3))).toLocaleString();if(p<1)requestAnimationFrame(f)})(t0);setTimeout(()=>el.textContent=to.toLocaleString(),1100)}
+let manifestRefresh=null;
+function refreshManifest(){
+ if(manifestRefresh)return manifestRefresh;
+ manifestRefresh=QM.deadline(fetch('data/manifest.json').then(r=>r.json()),15000).then(man=>{
+  if(!Array.isArray(man.subjects))throw Error('Invalid manifest');
+  try{localStorage.setItem('qm-home-manifest',JSON.stringify(man))}catch{}
+  return man;
+ }).finally(()=>manifestRefresh=null);return manifestRefresh;
+}
+function count(el,to){el.textContent=to.toLocaleString()}
 const adminCard=()=>'<a class="card sc add" href="admin.html"><b style="font-size:28px">＋</b><b>Manage subjects</b><small>Add, edit or remove subjects (admin)</small></a>';
 const soonCard=()=>UP.length?`<div class="card sc add"><b>Coming soon</b>${UP.slice(0,4).map(u=>`<div style="display:flex;justify-content:space-between;gap:10px;width:100%;font-size:13px"><b>${esc(u.name)}</b><span class="chip">${esc(u.eta||'Soon')}</span></div>`).join('')}<small>New subjects are added regularly</small></div>`:'<div class="card sc add"><b>More subjects coming soon</b><small>Check back — new banks are added regularly</small></div>';
+function showCatalogPreview(){
+ if(SUBS.length)return;
+ let subjects;
+ try{subjects=JSON.parse(sessionStorage.getItem('qm-subject-preview'))}catch{}
+ if(!Array.isArray(subjects)){try{subjects=JSON.parse(localStorage.getItem('qm-home-manifest')).subjects}catch{}}
+ if(!Array.isArray(subjects)||!subjects.length)return;
+ for(const el of document.querySelectorAll('[data-n]')){
+  const k=el.dataset.n;count(el,k==='subjects'?subjects.length:subjects.reduce((n,s)=>n+(Number(s[k])||0),0));
+ }
+ $('subs').innerHTML=subjects.map(s=>`<article class="card sc"><h3>${esc(s.name)}</h3><div class="chips"><span class="chip">${Number(s.chapters)||0} chapters</span><span class="chip">${Number(s.questions)||0} questions</span></div><a class="btn p" href="builder.html?s=${encodeURIComponent(s.id)}">Open chapters</a><a class="btn" href="analysis.html?s=${encodeURIComponent(s.id)}">Analysis</a></article>`).join('');
+}
 let _lp=null,_lq=false;
-function load(){if(_lp){_lq=true;return _lp}_lp=loadOnce().catch(()=>{}).finally(()=>{_lp=null;if(_lq){_lq=false;load()}});return _lp}
+function load(){if(_lp){_lq=true;return _lp}_lp=loadOnce().catch(()=>{$('homeStatus').innerHTML='<button class="btn" onclick="load()">Could not load subjects · Retry</button>'}).finally(()=>{_lp=null;if(_lq){_lq=false;load()}});return _lp}
 let _rs=0;
 async function refreshSubjects(force){if(!QM.enabled)return;if(!force&&Date.now()-_rs<30000)return;_rs=Date.now();const b=JSON.stringify((await QM.kvGet('cache:subjects'))||[]);await QM.subjects();const a=JSON.stringify((await QM.kvGet('cache:subjects'))||[]);if(a!==b)load()}
 async function loadOnce(){
- let man={subjects:[]};try{man=await(await fetch('data/manifest.json')).json()}catch(e){}
+ showCatalogPreview();
+ let man;try{man=JSON.parse(localStorage.getItem('qm-home-manifest'))}catch{}
+ if(!Array.isArray(man?.subjects)){man=await refreshManifest();showCatalogPreview();}
  const subs=man.subjects.map(s=>({...s,built:1})),up=[],upIds=new Set();
  const put=o=>{const i=subs.findIndex(z=>z.id===o.id);if(i>=0)subs[i]={...subs[i],...o};else subs.push(o)};
  for(const r of ((await QM.kvGet('cache:subjects'))||[])){if(r.status==='hidden'){const i=subs.findIndex(z=>z.id===r.id);if(i>=0)subs.splice(i,1);continue}
-  if(r.status==='upcoming'){if(!upIds.has(r.id)){upIds.add(r.id);up.push(r)}continue}
-  if(r.path)put({id:r.id,name:r.name,subtitle:r.subtitle||'',chapters:r.chapters,questions:r.questions,pyq:r.pyq,cloud:1})}
- for(const k of await QM.kvKeys('subj:')){const id=k.slice(5),d=await QM.kvGet(k);if(!d||!d.questions)continue;const nm=String(d.title||id).toLowerCase();if(subs.some(z=>z.id===id||String(z.name).toLowerCase()===nm))continue;subs.push({id,name:d.title,subtitle:d.subtitle||'Imported subject',chapters:d.chapters.length,questions:d.questions.length,pyq:d.questions.filter(q=>q.examTags&&q.examTags.length).length})}
+  if(r.status==='upcoming'){const i=subs.findIndex(z=>z.id===r.id);if(i>=0)subs.splice(i,1);if(!upIds.has(r.id)){upIds.add(r.id);up.push(r)}continue}
+  if(r.path)put({id:r.id,name:r.name,subtitle:r.subtitle||'',chapters:Number(r.chapters)||0,questions:Number(r.questions)||0,pyq:Number(r.pyq)||0,cloud:1})}
  const[sess,daily,prefs]=await Promise.all([QM.kvGet('sessions'),QM.kvGet('daily'),QM.kvGet('prefs')]);
  await Promise.all(subs.map(async s=>{const qs=(await QM.kvGet('qs:'+s.id))||{},v=Object.values(qs);s.att=v.length;s.a=v.reduce((n,z)=>n+z.c+z.w,0);s.c=v.reduce((n,z)=>n+z.c,0);s.due=v.filter(z=>z.d<=Date.now()).length}));
- SUBS=subs;UP=up;SESS=sess||[];DAILY=daily||{};Object.assign(PREFS,prefs||{});
+ try{sessionStorage.setItem('qm-subject-preview',JSON.stringify(subs.map(({id,name,questions,chapters,pyq})=>({id,name,questions,chapters,pyq}))))}catch{}
+ $('homeStatus').textContent='';SUBS=subs;UP=up;SESS=sess||[];DAILY=daily||{};Object.assign(PREFS,prefs||{});
  const T={subjects:SUBS.length,chapters:0,questions:0,pyq:0};SUBS.forEach(s=>{T.chapters+=s.chapters;T.questions+=s.questions;T.pyq+=s.pyq});
  document.querySelectorAll('[data-n]').forEach(e=>count(e,T[e.dataset.n]));
- $('subs').innerHTML=SUBS.map(s=>{const p=Math.round(s.att/s.questions*100),ac=s.a?Math.round(s.c/s.a*100)+'%':'–';return`<article class="card sc"><div><h3>${esc(s.name)}</h3><small>${esc(s.subtitle)}</small></div><div class="chips"><span class="chip b">${s.chapters} chapters</span><span class="chip">${s.questions.toLocaleString()} questions</span><span class="chip">${s.pyq.toLocaleString()} PYQ</span></div><div><div class="pm"><span>${s.att.toLocaleString()} attempted · accuracy ${ac}</span><span>${p}%</span></div><div class="tr"><i style="width:${p}%"></i></div></div><div class="row"><a class="btn p" href="test.html?s=${encodeURIComponent(s.id)}">Practice</a><a class="btn" href="test.html?s=${encodeURIComponent(s.id)}&custom=1">Host · Join live</a>${s.due?`<span class="chip b" style="align-self:center">${s.due} due</span>`:''}</div></article>`}).join('')+(QM.isAdmin?adminCard():soonCard());
- const sf=$('pfS').value||'all';$('pfS').innerHTML='<option value="all">All subjects</option>'+SUBS.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');$('pfS').value=SUBS.some(s=>s.id===sf)?sf:'all';perf();notes();if(!window._pf){window._pf=1;(window.requestIdleCallback||setTimeout)(()=>{if(navigator.connection&&navigator.connection.saveData)return;SUBS.filter(s=>s.built).forEach(s=>fetch('data/'+s.id+'.json').catch(()=>{}))})}}
+ $('subs').innerHTML=SUBS.map(s=>{const p=Math.round(s.att/s.questions*100),ac=s.a?Math.round(s.c/s.a*100)+'%':'–';return`<article class="card sc"><div><h3>${esc(s.name)}</h3><small>${esc(s.subtitle)}</small></div><div class="chips"><span class="chip b">${s.chapters} chapters</span><span class="chip">${s.questions.toLocaleString()} questions</span><span class="chip">${s.pyq.toLocaleString()} PYQ</span></div><div><div class="pm"><span>${s.att.toLocaleString()} attempted · accuracy ${ac}</span><span>${p}%</span></div><div class="tr"><i style="width:${p}%"></i></div></div><div class="row"><a class="btn p" href="builder.html?s=${encodeURIComponent(s.id)}">Open chapters</a><a class="btn" href="analysis.html?s=${encodeURIComponent(s.id)}">Analysis</a><a class="btn" href="builder.html?s=${encodeURIComponent(s.id)}&custom=1">Host · Join live</a>${s.due?`<span class="chip b" style="align-self:center">${s.due} due</span>`:''}</div></article>`}).join('')+(QM.isAdmin?adminCard():soonCard());
+ const sf=$('pfS').value||'all';$('pfS').innerHTML='<option value="all">All subjects</option>'+SUBS.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');$('pfS').value=SUBS.some(s=>s.id===sf)?sf:'all';perf();notes();loadBookmarks();if(!window._pf){window._pf=1;(window.requestIdleCallback||setTimeout)(()=>{if(navigator.connection&&navigator.connection.saveData)return;SUBS.filter(s=>s.built).forEach(s=>fetch('data/'+s.id+'.json').catch(()=>{}))})}}
 const acc=r=>r.c+r.w?Math.round(r.c/(r.c+r.w)*100):null;
 function perf(){
  const sf=$('pfS').value,mf=$('pfM').value,rows=SESS.filter(r=>(sf==='all'||r.subj===sf)&&(mf==='all'||r.mode===mf)).sort((a,b)=>b.en-a.en);
@@ -83,7 +110,44 @@ function perf(){
  const fin=rows.filter(r=>r.c+r.w>0).sort((a,b)=>a.st-b.st).slice(-20),pts=fin.map((r,i)=>[fin.length>1?i/(fin.length-1)*320+10:170,86-acc(r)/100*76,acc(r)]);
  const line=pts.length>1?`<polyline fill="none" stroke="var(--br)" stroke-width="2.5" points="${pts.map(q=>q[0]+','+q[1]).join(' ')}"/>`+pts.map(q=>`<circle cx="${q[0]}" cy="${q[1]}" r="3.5" fill="var(--br)"><title>${q[2]}%</title></circle>`).join(''):'<text x="170" y="52" text-anchor="middle" font-size="12" fill="var(--mut)">Finish two sessions to see a trend</text>';
  $('chs').innerHTML=`<div class="card"><h3>Questions per day · last 14 days</h3><svg viewBox="0 0 340 100">${bars}</svg></div><div class="card"><h3>Accuracy trend</h3><svg viewBox="0 0 340 100">${line}</svg></div>`;
- $('tbl').innerHTML=rows.length?`<table><tr><th>Date</th><th>Subject</th><th>Type</th><th>Answered</th><th>Score</th><th>Accuracy</th><th>Time</th></tr>${rows.slice(0,100).map(r=>`<tr><td>${new Date(r.st).toLocaleString([],{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</td><td><b>${esc(r.subjName)}</b><br><small>${esc(r.filt||'')}</small></td><td><span class="chip ${r.mode==='exam'?'b':''}">${r.mock?'Custom':r.mode==='exam'?'Test':'Practice'}</span></td><td>${r.att}/${r.total}</td><td><b style="color:var(--ok)">${r.c}✓</b> <b style="color:var(--bad)">${r.w}✗</b></td><td>${acc(r)==null?'–':acc(r)+'%'}</td><td>${fmt(r.dur)}</td></tr>`).join('')}</table>`:'<div class="empty"><b>No sessions yet</b><br>Open a subject and answer a few questions — they appear here.</div>'}
+ const history=rows.slice(),sort=$('attemptSort').value;
+ if(sort!=='recent')history.sort((a,b)=>{
+  const x=acc(a),y=acc(b);if(x===null)return y===null?0:1;if(y===null)return -1;return sort==='low'?x-y:y-x;
+ });
+ $('tbl').innerHTML=history.length?`<table class="attemptList" aria-label="Test history"><tbody>${history.map(r=>{
+  const score=acc(r),n=(r.rows||[]).length,title=n===1?r.rows[0].t:n+' chapters';
+  return `<tr data-run="${esc(r.id)}"><td><button type="button" class="attemptLink"><b>${esc(r.subjName)}</b><span>${esc(title)} · ${r.mode==='exam'?'Exam':'Practice'}</span></button></td><td><strong>${score===null?'—':score+'%'}</strong><small>Accuracy</small></td><td><span>${r.c} correct · ${r.w} wrong</span><small>${r.att}/${r.total} answered</small></td><td><span>${new Date(r.st).toLocaleDateString([],{day:'numeric',month:'short',year:'numeric'})}</span><small>${fmt(r.dur)}</small></td><td aria-hidden="true">›</td></tr>`;
+ }).join('')}</tbody></table>`:'<div class="empty"><b>No matching attempts</b><p>Your saved tests appear here.</p></div>';
+}
+$('attemptSort').onchange=perf;
+let openedAttempt=0;
+$('tbl').onclick=async e=>{
+ const row=e.target.closest('[data-run]');if(!row)return;
+ const rec=SESS.find(r=>String(r.id)===row.dataset.run);if(!rec)return;
+ const version=++openedAttempt,box=$('attemptBody'),dialog=$('attemptDialog');
+ box.innerHTML=`<h2>${esc(rec.subjName)}</h2><p>${rec.c} correct · ${rec.w} wrong · ${rec.total-rec.att} skipped</p><p>${(rec.rows||[]).map(r=>esc(r.t)).join(' · ')}</p>`;
+ dialog.showModal();
+ if(rec.wrong?.length)box.insertAdjacentHTML('beforeend',`<a class="btn p" href="builder.html?s=${encodeURIComponent(rec.subj)}&retry=${encodeURIComponent(rec.id)}">Retry missed questions</a>`);
+ try{
+  const catalog=await QM.kvGet('cache:subjects')||[],published=catalog.find(r=>r.id===rec.subj&&r.path&&r.status==='live');
+  const bank=published?await QM.bank(published):SUBS.some(s=>s.id===rec.subj&&s.built)?await (await fetch('data/'+encodeURIComponent(rec.subj)+'.json')).json():await QM.kvGet('subj:'+rec.subj);
+  if(version!==openedAttempt)return;
+  const questions=new Map(bank.questions.map(q=>[q.id,q])),items=new Map((rec.items||[]).map(x=>[x[0],x]));
+  const ids=rec.questionIds||[...items.keys()];
+  if(!rec.questionIds&&rec.total>ids.length)box.insertAdjacentHTML('beforeend','<p>This older attempt recorded only answered questions.</p>');
+  if(rec.w){const label=document.createElement('label');label.style.display='block';label.innerHTML='<input type="checkbox"> Wrong answers only';box.append(label);
+   label.onchange=()=>box.querySelectorAll('details').forEach(el=>el.hidden=label.firstChild.checked&&el.dataset.grade!=='wrong');}
+  for(const [i,id] of ids.entries()){
+   const q=questions.get(id),item=items.get(id),detail=document.createElement('details');
+   detail.dataset.grade=item?.[2]||'skipped';
+   detail.innerHTML=`<summary>Q${i+1} · ${esc(item?.[2]||'Skipped')} · ${esc(QM.readingText(q?.prompt||'Question unavailable'))}</summary>`;
+   detail.ontoggle=()=>{if(!detail.open||detail.dataset.loaded||!q)return;detail.dataset.loaded='1';
+    const picks=new Set((item?.[1]||'').split(','));
+    detail.insertAdjacentHTML('beforeend',(q.images||[]).map(url=>`<img loading="lazy" alt="Question figure" src="${esc(url)}">`).join('')+(q.options||[]).map(o=>`<p><b>${esc(o.sourceLabel)}</b> ${esc(o.text)} ${picks.has(o.key)?' · Your answer':''}${q.correct?.includes(o.sourceLabel)?' · Correct answer':''}</p>`).join('')+`<div>${QM.studyHTML(q.explanation,esc)}</div>`);};
+   box.append(detail);
+  }
+ }catch{if(version===openedAttempt)box.insertAdjacentHTML('beforeend','<p>The question bank could not be loaded. Close and reopen this attempt to retry.</p>');}
+};
 $('pfS').onchange=$('pfM').onchange=perf;
 $('bkE').onclick=async()=>{const d=await QM.all(),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({qmBackup:3,data:d})],{type:'application/json'}));a.download='quizmaster-backup-'+dk()+'.json';a.click();toast('Backup downloaded.')};
 $('bkI').onclick=()=>$('bkF').click();
@@ -91,7 +155,7 @@ $('bkF').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)re
  for(const k in d)await QM.put(k,d[k]);QM.dirty();toast('Backup restored.');load()}catch(x){toast('That is not a My PYQ Online backup.')}};
 $('rst').onclick=async()=>{if(!confirm('Reset all progress and sessions on this device'+(QM.user?' and in your cloud account':'')+'? Imported subjects are kept.'))return;
  for(const k of await QM.kvKeys('')){if(/^(sessions|daily|prefs|qs:|notes:)/.test(k))await QM.kvDel(k)}try{Object.keys(localStorage).filter(k=>/^(pq-state|qm-state)/.test(k)).forEach(k=>localStorage.removeItem(k))}catch(e){}
- if(QM.user)await QM.client().from('user_data').delete().eq('user_id',QM.user.id).not('k','like','subj:%');toast('Progress reset.');load()};
+ if(QM.user)await QM.client().from('user_data').delete().eq('user_id',QM.user.id).not('k','like','subj:%').not('k','like','bookmark:%');toast('Progress reset.');load()};
 $('joinF').onsubmit=e=>{e.preventDefault();const c=$('joinC').value.trim();if(c)location.href='test.html?join='+encodeURIComponent(c)};
 /* account + reports */
 function acct(){const u=QM.user;const ini=z=>(z.user_metadata&&z.user_metadata.full_name||z.email||'?')[0].toUpperCase();
@@ -100,17 +164,39 @@ function acct(){const u=QM.user;const ini=z=>(z.user_metadata&&z.user_metadata.f
  if($('avBtn'))$('avBtn').onclick=e=>{e.stopPropagation();$('acctPop').hidden=!$('acctPop').hidden};
  if($('si'))$('si').onclick=()=>QM.signIn();if($('so'))$('so').onclick=()=>QM.signOut();$('cloudNote').textContent=u?' and synced to your account':QM.enabled?' on this device — sign in to sync':'';
  $('navAdmin').hidden=!QM.isAdmin;$('delA').hidden=!u;if(!!QM.isAdmin!==window._ad){window._ad=!!QM.isAdmin;load()}}
-let NT=[],NS={q:'',sub:'all',sort:'chapter'};
+let bookmarkLoad=0;
+async function loadBookmarks(){
+ const generation=++bookmarkLoad;
+ try{
+  // Earlier versions kept flags only in the latest test draft.
+  let pendingLegacy=false;
+  for(const subject of SUBS){try{
+   const legacy=QM.legacyFlags(subject.id);if(!legacy.length)continue;
+   const existing=await Promise.all(legacy.map(id=>QM.kvGet(QM.bookmarkKey(subject.id,id))));
+   const missing=legacy.filter((id,i)=>!existing[i]);if(!missing.length)continue;
+   const catalog=await QM.kvGet('cache:subjects')||[],row=catalog.find(x=>x.id===subject.id&&x.path&&x.status==='live');
+   const bank=row?await QM.bank(row):subject.built?await(await fetch('data/'+encodeURIComponent(subject.id)+'.json')).json():await QM.kvGet('subj:'+subject.id);
+   if(bank?.questions)await QM.importFlags(subject,bank.questions,missing);
+  }catch{pendingLegacy=true;}}
+  const keys=await QM.kvKeys('bookmark:'),saved=(await Promise.all(keys.map(k=>QM.kvGet(k)))).filter(b=>b&&!b.deleted).sort((a,b)=>b.ts-a.ts);
+  if(generation!==bookmarkLoad)return;
+  $('bmCount').textContent=saved.length+' saved'+(pendingLegacy?' · Earlier flags will be checked when the subject is available.':'');
+  $('bmList').innerHTML=saved.map(b=>`<article class="card ngrp"><div class="chips"><span class="chip b">${esc(b.subject)}</span><span class="chip">${esc(b.chapter)}</span><span class="chip">Q ${esc(b.number)}</span></div><p class="bmPrompt">${esc(QM.readingText(b.prompt))}</p>${(b.images||[]).map(url=>`<img loading="lazy" alt="Question figure" src="${esc(url)}">`).join('')}<details><summary>Review options and answer</summary>${(b.options||[]).map(o=>`<p><b>${esc(o.sourceLabel)}.</b> ${esc(o.text)}</p>`).join('')}<b>Answer · ${esc((b.correct||[]).join(', ').toUpperCase()||'Unkeyed')}</b><div>${QM.studyHTML(b.explanation,esc)}</div></details><button type="button" class="btn" data-remove-bookmark="${esc(QM.bookmarkKey(b.sid,b.id))}">Remove bookmark</button></article>`).join('')||'<div class="card empty">Tap the bookmark icon on a test question to save it here.</div>';
+ }catch{if(generation===bookmarkLoad)$('bmList').innerHTML='<button class="btn" onclick="loadBookmarks()">Retry loading bookmarks</button>';}
+}
+$('bmList').onclick=async e=>{
+ const b=e.target.closest('[data-remove-bookmark]');if(!b)return;b.disabled=true;
+ try{await QM.kvSet(b.dataset.removeBookmark,{ts:Date.now(),deleted:true});await loadBookmarks();}
+ catch{b.disabled=false;toast('Could not remove the bookmark. Please try again.');}
+};
+let NT=[],NS={q:'',sub:'all',sort:'date'};
 let _np=null;async function notes(){if(_np)return _np;return _np=(async()=>{const nt=[],seen=new Set();for(const s of [...SUBS]){const n=(await QM.kvGet('notes:'+s.id))||{},m=(await QM.kvGet('nts:'+s.id))||{};for(const id in n){const z=m[id]||{};{const dk=s.id+'|'+id;if(seen.has(dk))continue;seen.add(dk)}nt.push({sid:s.id,sn:s.name,id,t:typeof n[id]==='string'?n[id]:(n[id].t||''),ts:z.ts||0,c:z.c||0,ch:z.ch||'',qn:z.n||'',p:z.p||''})}}
  NT=nt;$('nSub').innerHTML='<option value="all">All subjects</option>'+SUBS.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('');$('nSub').value=NS.sub;drawNotes()})().finally(()=>{_np=null})}
 function drawNotes(){const q=NS.q.toLowerCase(),L=NT.filter(n=>(NS.sub==='all'||n.sid===NS.sub)&&(!q||(n.t+n.p+n.ch+n.sn).toLowerCase().includes(q)));
  $('nCount').textContent=NT.length+' note'+(NT.length===1?'':'s');
- if(!L.length){$('nList').innerHTML='<div class="card empty"><b>No notes yet</b><br>Open a question in the test portal and tap “Add a note”. Your notes appear here, grouped by subject.</div>';return}
- const by={};L.forEach(n=>(by[n.sid]=by[n.sid]||[]).push(n));
- $('nList').innerHTML=Object.values(by).map(g=>{NS.sort==='date'?g.sort((a,b)=>b.ts-a.ts):g.sort((a,b)=>a.c-b.c||(parseFloat(a.qn)||0)-(parseFloat(b.qn)||0));let last=null,h='';
-  g.forEach(n=>{if(NS.sort==='chapter'&&n.c!==last){last=n.c;h+=`<h4 class="nch">${n.c?String(n.c).padStart(2,'0')+' · '+esc(n.ch):'Chapter unknown'}</h4>`}
-   h+=`<div class="note-i" data-k="${esc(n.sid)}|${esc(n.id)}"><div class="nm">${NS.sort==='date'&&n.ch?`<span class="chip b">${esc(n.ch)}</span>`:''}<small>Q${esc(n.qn)}${n.ts?' · '+new Date(n.ts).toLocaleDateString([],{day:'numeric',month:'short',year:'numeric'}):''}</small></div><p class="np">${esc(n.p)}</p><div class="nt">${esc(n.t)}</div><div class="row" style="margin-top:8px"><a class="btn" href="test.html?s=${encodeURIComponent(n.sid)}">Open subject</a><button class="btn" data-e>Edit</button><button class="btn d" data-d>Delete</button></div></div>`});
-  return`<div class="card ngrp"><h3>${esc(g[0].sn)} <span class="chip">${g.length}</span></h3>${h}</div>`}).join('')}
+ if(!L.length){$('nList').innerHTML='<div class="card empty"><b>No notes yet</b><br>Open a question in the test portal and tap “Add a note”. Your saved notes appear here.</div>';return}
+ L.sort(NS.sort==='date'?(a,b)=>b.ts-a.ts:(a,b)=>a.sn.localeCompare(b.sn)||a.c-b.c);
+ $('nList').innerHTML=L.map(n=>`<article class="card ngrp note-i" data-k="${esc(n.sid)}|${esc(n.id)}"><div class="nt">${esc(n.t)}</div><div class="chips"><span class="chip b">${esc(n.sn)}</span><span class="chip">${esc(n.ch||'Chapter '+(n.c||'unknown'))}</span><span class="chip">Q ${esc(n.qn||n.id)}</span></div><details><summary>Linked question</summary><p>${esc(n.p||'Question preview unavailable')}</p></details><div class="row"><button class="btn" data-e>Edit</button><button class="btn d" data-d>Delete</button></div></article>`).join('')}
 $('nQ').oninput=e=>{NS.q=e.target.value;drawNotes()};$('nSub').onchange=e=>{NS.sub=e.target.value;drawNotes()};$('nSort').onchange=e=>{NS.sort=e.target.value;drawNotes()};
 $('nList').onclick=async e=>{const el=e.target.closest('.note-i');if(!el)return;const[sid,id]=el.dataset.k.split('|'),n=NT.find(z=>z.sid===sid&&z.id===id);if(!n)return;
  const get=async()=>[(await QM.kvGet('notes:'+sid))||{},(await QM.kvGet('nts:'+sid))||{}];
@@ -124,7 +210,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('#acctPop'))$('acctPo
 QM.listen(e=>{if(e==='auth')acct();if(e==='pulled')load();if(e==='resume'){load();refreshSubjects()}if(e==='sync:ok')$('syncSt').textContent='☁ Synced';if(e==='sync:error')$('syncSt').textContent='⚠ Sync failed'});
 (async()=>{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
  if(!QM.enabled)$('cfgNote').textContent='· Cloud features are off: add Supabase keys in config.js';
- acct();load().then(()=>{if(location.hash){const el=document.querySelector(location.hash);el&&el.scrollIntoView()}});
- QM.init(0).then(()=>{acct();refreshSubjects(true)}).catch(()=>{});
+ load();refreshManifest().then(load).catch(()=>{});addEventListener('pageshow',()=>load());acct();await QM.init(0).catch(()=>{});acct();if(QM.user){QM.client().rpc('qm_host_room',{room_code:null}).then(({data})=>{$('returnRoom').hidden=!data;});}await QM.subjects();load().then(()=>{if(location.hash){const el=document.querySelector(location.hash);el&&el.scrollIntoView()}});
+ addEventListener('online',()=>refreshSubjects(true));
 })();
 </script></body></html>

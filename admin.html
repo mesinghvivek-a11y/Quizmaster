@@ -30,18 +30,22 @@ footer{padding:34px 0 60px;color:var(--mut);font-size:12px;text-align:center}.to
 .srch{height:38px;border:1px solid var(--line);border-radius:11px;background:var(--s);padding:0 12px;min-width:170px}.ngrp{padding:18px 20px;margin-bottom:14px}.ngrp h3{margin:0 0 6px;font-size:17px}.nch{margin:16px 0 4px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--mut)}.note-i{border-top:1px solid var(--line);padding:12px 0}.nm{display:flex;gap:8px;align-items:center;color:var(--mut)}.np{margin:4px 0;font-size:13px;color:var(--mut)}.nt{white-space:pre-wrap}.ned{width:100%;border:1px solid var(--line);border-radius:11px;padding:10px;background:var(--s2);color:var(--ink);font:inherit}
 
 .tabs{display:flex;gap:6px;margin:22px 0 16px}.tabs button.on{background:var(--br);color:var(--bi);border-color:var(--br)}.act{display:flex;gap:6px}.act .btn{height:34px;padding:0 12px}.frm{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;padding:16px;align-items:end}.frm label{font-size:12px;font-weight:600;color:var(--mut);display:grid;gap:4px}.frm input,.frm select{height:40px;border:1px solid var(--line);border-radius:11px;background:var(--s);padding:0 10px}.gate{padding:40px;text-align:center;margin-top:30px}h3.t{margin:22px 0 8px}
+.bk{position:fixed;inset:0;background:rgba(8,12,30,.55);display:grid;place-items:center;z-index:60;padding:16px}.ed{width:min(680px,100%);max-height:90vh;overflow:auto;padding:20px}.chr{display:grid;grid-template-columns:34px 1fr 150px;gap:8px;align-items:center;margin:6px 0}.chr input{height:38px;border:1px solid var(--line);border-radius:10px;background:var(--s);padding:0 10px;min-width:0}
+.rvc{border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0;background:var(--s2)}.rvc .bad{color:var(--bad);font-size:12px;font-weight:700;margin-bottom:6px}.rvc textarea{width:100%;min-height:60px;border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--s);color:var(--ink);font:inherit}.rvo{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:center;margin:5px 0}.rvo input{height:36px;border:1px solid var(--line);border-radius:10px;background:var(--s);color:var(--ink);padding:0 10px;min-width:0}
 </style><script src="config.js"></script><script src="shared.js"></script></head><body>
 <nav><div class="w"><a class="lg" href="index.html"><img src="icon.svg" alt="">Admin</a><div class="nl"><a href="index.html">← Home</a></div><span class="sp"></span><span id="acct"></span></div></nav>
 <main class="w"><div class="card gate" id="gate">Loading…</div>
 <div id="app" hidden><div class="tabs"><button class="btn on" data-t="subs">Subjects</button><button class="btn" data-t="rep">Reports</button><button class="btn" data-t="ov">Overview</button></div>
 <section id="t-subs"><h2>Subjects</h2><p class="sub">Add subjects from an Excel file. Live subjects appear for everyone. “Upcoming” ones show as coming soon. Changing a file bumps its version so devices refresh once.</p>
-<div class="card frm"><label>Name (optional with a file)<input id="aN" placeholder="e.g. Indian Geography"></label><label>Subtitle<input id="aS" placeholder="Edition / source"></label><label>Status<select id="aSt"><option>live</option><option>upcoming</option><option>hidden</option></select></label><label>ETA (upcoming)<input id="aE" placeholder="e.g. Dec 2026"></label><label>Excel file (.xlsx)<input id="aF" type="file" accept=".xlsx,.xlsm,.csv"></label><button class="btn p" id="aGo">Add subject</button><button class="btn" id="aT" type="button">Download template</button></div>
-<div class="card tb" style="margin-top:14px" id="subT"></div><h3 class="t">Imported on this device (via Excel)</h3><div class="card tb" id="locT"></div><input type="file" id="rF" accept=".xlsx,.xlsm,.csv" hidden></section>
+<div class="card frm"><label>Name (optional with a file)<input id="aN" placeholder="e.g. Indian Geography"></label><label>Subtitle<input id="aS" placeholder="Edition / source"></label><label>Status<select id="aSt"><option>live</option><option>upcoming</option><option>hidden</option></select></label><label>ETA (upcoming)<input id="aE" placeholder="e.g. Dec 2026"></label><label>Excel file (.xlsx)<input id="aF" type="file" accept=".xlsx,.xlsm,.xls,.csv"></label><label>Pictures (optional, used by Add and Replace)<input id="aI" type="file" accept="image/*" multiple></label><button class="btn p" id="aGo">Add subject</button><button class="btn" id="aT" type="button">Download template</button></div>
+<div class="card tb" style="margin-top:14px" id="subT"></div><h3 class="t">Drafts on this device (not visible to students)</h3><div class="card tb" id="locT"></div><input type="file" id="rF" accept=".xlsx,.xlsm,.xls,.csv" hidden></section>
 <section id="t-rep" hidden><div class="hd"><div><h2>Question reports</h2><p class="sub" id="repSub"></p></div><button class="btn" id="repCsv">Export CSV</button></div><div class="card tb" id="repT"></div></section>
-<section id="t-ov" hidden><h2>Overview</h2><div class="pg" id="ov"></div></section></div></main><div class="toast" id="toast" hidden></div>
+<section id="t-ov" hidden><h2>Overview</h2><div class="pg" id="ov"></div></section></div></main><div class="bk" id="edB" hidden><div class="card ed"><h2 style="margin-bottom:12px">Edit subject</h2><div class="frm" style="padding:0"><label>Name<input id="edN"></label><label>Subtitle<input id="edS"></label><label>Status<select id="edSt"><option>live</option><option>upcoming</option><option>hidden</option></select></label><label>ETA (upcoming)<input id="edE"></label><label>Sort order (lower first)<input id="edO" type="number"></label></div><div style="margin:14px 0 6px"><button class="btn" id="edCL" type="button">Edit chapter names &amp; sections</button></div><div id="edC"></div><div class="act" style="margin-top:16px;justify-content:flex-end"><button class="btn" id="edX" type="button">Cancel</button><button class="btn p" id="edSave" type="button">Save changes</button></div></div></div>
+<div class="bk" id="rvB" hidden><div class="card ed" style="width:min(820px,100%)"><h2 style="margin-bottom:6px">Check your file</h2><p class="sub" id="rvS" style="margin-bottom:8px"></p><div id="rvSum" style="margin-bottom:8px"></div><div id="rvL"></div><div class="act" style="margin-top:14px;justify-content:flex-end;flex-wrap:wrap"><button class="btn" id="rvX" type="button">Cancel</button><button class="btn" id="rvA" type="button">Apply fixes</button><button class="btn p" id="rvP" type="button">Publish without problem rows</button></div></div></div>
+<div class="toast" id="toast" hidden></div>
 <script>
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const toast=m=>{const t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,4500)};
+const toast=m=>{const t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,Math.min(14000,3500+String(m).length*70))};
 const sb=()=>QM.client(),slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');let ROWS=[],REP=[],MAN=[],PICK=null;
 document.querySelector('.tabs').onclick=e=>{const b=e.target.closest('[data-t]');if(!b)return;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));['subs','rep','ov'].forEach(t=>$('t-'+t).hidden=t!==b.dataset.t)};
 async function boot(){await QM.init(15000);const g=$('gate');$('app').hidden=true;g.hidden=false;
@@ -58,15 +62,31 @@ async function drawSubs(){
  const cl=ROWS.map(r=>`<tr data-id="${esc(r.id)}"><td><b>${esc(r.name)}</b><br><small>${esc(r.subtitle||'')}${r.eta?' · ETA '+esc(r.eta):''}</small></td><td><select data-st>${['live','upcoming','hidden'].map(x=>`<option ${x===r.status?'selected':''}>${x}</option>`).join('')}</select></td><td>${r.chapters||0} ch · ${(r.questions||0).toLocaleString()} q · ${(r.pyq||0).toLocaleString()} PYQ</td><td>v${r.version}</td><td class="act"><button class="btn" data-ed>Edit</button><button class="btn" data-up>Replace file</button><button class="btn d" data-rm>Delete</button></td></tr>`).join('');
  const bi=MAN.filter(m=>!ROWS.some(r=>r.id===m.id)).map(m=>`<tr data-b="${esc(m.id)}"><td><b>${esc(m.name)}</b><br><small>Built-in · served from GitHub</small></td><td><span class="chip">live</span></td><td>${m.chapters} ch · ${m.questions.toLocaleString()} q · ${m.pyq.toLocaleString()} PYQ</td><td>repo</td><td class="act"><button class="btn" data-mv>Move to cloud</button><button class="btn d" data-hd>Hide</button></td></tr>`).join('');
  $('subT').innerHTML=`<table><tr><th>Subject</th><th>Status</th><th>Content</th><th>Ver</th><th></th></tr>${cl}${bi}</table>`;
- const loc=await QM.kvKeys('subj:'),rows=[];for(const k of loc){const d=await QM.kvGet(k);if(d&&d.questions)rows.push(`<tr data-k="${esc(k)}"><td><b>${esc(d.title||k)}</b></td><td>${d.chapters.length} ch · ${d.questions.length.toLocaleString()} q</td><td class="act"><button class="btn p" data-pub>Publish to library</button></td></tr>`)}
+ const loc=await QM.kvKeys('subj:'),rows=[];for(const k of loc){const d=await QM.kvGet(k);if(d&&d.questions)rows.push(`<tr data-k="${esc(k)}"><td><b>${esc(d.title||k)}</b></td><td>${d.chapters.length} ch · ${d.questions.length.toLocaleString()} q</td><td class="act"><button class="btn p" data-pub>Publish to library</button><button class="btn d" data-rmk>Remove</button></td></tr>`)}
  $('locT').innerHTML=rows.length?`<table>${rows.join('')}</table>`:'<div class="empty">Nothing imported on this device. Import an Excel file via <a href="test.html?add=1"><u>the test portal</u></a>, then publish it here.</div>'}
+let ED=null;
+function openEd(r){ED={r,data:null};$('edN').value=r.name;$('edS').value=r.subtitle||'';$('edSt').value=r.status;$('edE').value=r.eta||'';$('edO').value=r.sort??100;$('edC').innerHTML='';$('edCL').hidden=!r.path;$('edB').hidden=false}
+$('edX').onclick=()=>$('edB').hidden=true;
+$('edCL').onclick=async()=>{try{toast('Loading chapters…');ED.data=await QM.bank(ED.r)}catch(e){return toast('Could not load the question bank.')}
+ $('edC').innerHTML='<p class="note" style="margin:0 0 6px">Section = optional group (e.g. Physics, Ancient). Renaming a chapter updates all its questions.</p>'+ED.data.chapters.map(c=>`<div class="chr"><b>${String(c.no).padStart(2,'0')}</b><input data-t value="${esc(c.title)}"><input data-g value="${esc(c.group||'')}" placeholder="Section"></div>`).join('');$('edCL').hidden=true};
+$('edSave').onclick=async()=>{const r=ED.r,name=$('edN').value.trim();if(!name)return toast('Name is required.');
+ const upd={name,subtitle:$('edS').value.trim(),status:$('edSt').value,eta:$('edE').value.trim()||null,sort:+$('edO').value||100,updated_at:new Date().toISOString()};
+ if(ED.data){const d=ED.data;[...$('edC').querySelectorAll('.chr')].forEach((el,i)=>{const c=d.chapters[i];c.title=el.querySelector('[data-t]').value.trim()||c.title;c.group=el.querySelector('[data-g]').value.trim()});
+  d.questions.forEach(q=>{const c=d.chapters.find(z=>z.no===q.chapterNo);if(c)q.chapter=c.title});d.groups=[...new Set(d.chapters.map(c=>c.group).filter(Boolean))];d.title=name;d.subtitle=upd.subtitle;
+  const up=await sb().storage.from('banks').upload(r.path,new Blob([JSON.stringify(d)],{type:'application/json'}),{upsert:true,contentType:'application/json'});if(up.error)return toast('Could not save chapters: '+up.error.message);upd.version=r.version+1}
+ const{error}=await sb().from('subjects').update(upd).eq('id',r.id);if(error)return toast(error.message);$('edB').hidden=true;toast('Saved.');loadAll()};
 async function publish({id,name,subtitle,status,eta,data}){const row=ROWS.find(r=>r.id===id);
  if(!data||!Array.isArray(data.chapters)||!Array.isArray(data.questions)){toast('Not a valid question bank.');return false}
- const path=id+'.json',pyq=data.questions.filter(q=>q.examTags&&q.examTags.length).length;
+ const path=id+'-'+crypto.randomUUID()+'.json',pyq=data.questions.filter(q=>q.examTags&&q.examTags.length).length;
  const up=await sb().storage.from('banks').upload(path,new Blob([JSON.stringify(data)],{type:'application/json'}),{upsert:true,contentType:'application/json'});if(up.error){toast(/row-level security|policy/i.test(up.error.message)?'Storage permission missing — run supabase/storage-fix.sql in Supabase, then retry.':'Upload failed: '+up.error.message);return false}
  const{error}=await sb().from('subjects').upsert({id,name,subtitle:subtitle||'',status,eta:eta||null,chapters:data.chapters.length,questions:data.questions.length,pyq,version:row?row.version+1:1,path,updated_at:new Date().toISOString()});
- if(error){toast(error.message);return false}toast('Published “'+name+'”.');await loadAll();return true}
+ if(error){toast(error.message);return false}const sectionCount=new Set(data.chapters.map(c=>c.group).filter(Boolean)).size;toast('Published “'+name+'” · '+sectionCount+' sections · '+data.chapters.length+' chapters · '+data.questions.length+' questions.');await loadAll();return true}
 /* ---- Excel importer (same converter as the test portal) ---- */
+const h32=s=>{let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return(h>>>0).toString(36);};
+function examTag(l){const ys=new Set();String(l).replace(/\b((?:19|20)\d{2})\b/g,(_,y)=>ys.add(+y));
+ const fam=String(l).replace(/\b(?:19|20)\d{2}\b/g,' ').replace(/\b\d+(?:st|nd|rd|th)\b/gi,' ').replace(/\b(?:Pre|Prelims?|Mains?|Spl|Special|Re-?Exam)\b\.?/gi,' ').replace(/[()\[\],;:-]+/g,' ').replace(/\s+/g,' ').trim();
+ return{label:String(l),family:fam||String(l),stage:'',year:ys.size?[...ys][0]:0,years:[...ys]};}
+
 async function inflateRaw(u8){const ds=new DecompressionStream('deflate-raw'),w=ds.writable.getWriter();w.write(u8);w.close();return new Uint8Array(await new Response(ds.readable).arrayBuffer());}
 function unzip(buf){const u8=new Uint8Array(buf),dv=new DataView(buf);let e=u8.length-22;while(e>=0&&dv.getUint32(e,true)!==0x06054b50)e--;if(e<0)throw new Error('This is not a valid .xlsx file.');
  const n=dv.getUint16(e+10,true);let p=dv.getUint32(e+16,true);const files={},dec=new TextDecoder();
@@ -75,24 +95,30 @@ function unzip(buf){const u8=new Uint8Array(buf),dv=new DataView(buf);let e=u8.l
  return files;}
 const fileText=async f=>new TextDecoder().decode(f.meth===0?f.data:await inflateRaw(f.data));
 const unent=s=>s.indexOf('&')<0?s:s.replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos);/gi,(m,e)=>{e=e.toLowerCase();return e==='amp'?'&':e==='lt'?'<':e==='gt'?'>':e==='quot'?'"':e==='apos'?"'":String.fromCodePoint(e[1]==='x'?parseInt(e.slice(2),16):+e.slice(1));});
-const tText=x=>{let o='',m;const re=/<t\b[^>]*?(?:\/>|>([\s\S]*?)<\/t>)/g;x=x.replace(/<rPh\b[\s\S]*?<\/rPh>/g,'');while((m=re.exec(x)))o+=m[1]||'';return unent(o);};
+const tText=x=>{let o='',m;const re=/<(?:\w+:)?t\b[^>]*?(?:\/>|>([\s\S]*?)<\/(?:\w+:)?t>)/g;x=x.replace(/<(?:\w+:)?rPh\b[\s\S]*?<\/(?:\w+:)?rPh>/g,'');while((m=re.exec(x)))o+=m[1]||'';return unent(o);};
 function parseSheet(x,ss){
- const rows=[],re=/<c\b([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g;let m;
+ const rows=[],re=/<(?:\w+:)?c\b([^>]*?)(?:\/>|>([\s\S]*?)<\/(?:\w+:)?c>)/g;let m;
  while((m=re.exec(x))){const at=m[1],r=/\br="([A-Z]+)(\d+)"/.exec(at);if(!r)continue;let ci=0;for(const ch of r[1])ci=ci*26+ch.charCodeAt(0)-64;ci--;
   const ty=(/\bt="(\w+)"/.exec(at)||[])[1],body=m[2]||'';let v='';
-  if(ty==='inlineStr')v=tText(body);else{const vm=/<v[^>]*>([\s\S]*?)<\/v>/.exec(body);v=vm?unent(vm[1]):'';if(ty==='s')v=ss[+v]??'';else if(ty==='b')v=v==='1'?'TRUE':'FALSE';}
+  if(ty==='inlineStr')v=tText(body);else{const vm=/<(?:\w+:)?v\b[^>]*>([\s\S]*?)<\/(?:\w+:)?v>/.exec(body);v=vm?unent(vm[1]):'';if(ty==='s')v=ss[+v]??'';else if(ty==='b')v=v==='1'?'TRUE':'FALSE';else if(ty==='e')v='';}
   (rows[+r[2]-1]||(rows[+r[2]-1]=[]))[ci]=v;}
  return Array.from(rows,r=>r||[]);}
-async function parseXlsx(buf){
- const z=unzip(buf),X=n=>z[n]?fileText(z[n]):Promise.resolve(null),dp=new DOMParser(),P=s=>dp.parseFromString(s,'application/xml');
+async function parseXlsx0(buf){
+ const z0=unzip(buf),z={};for(const k in z0)z[k.replace(/\\/g,'/').toLowerCase()]=z0[k];
+ const X=n=>z[n.toLowerCase()]?fileText(z[n.toLowerCase()]):Promise.resolve(null),at=(s,k)=>{const m=new RegExp('\\b'+k+'="([^"]*)"').exec(s);return m?unent(m[1]):''};
+ const norm=p=>{const o=[];p.split('/').forEach(s=>{if(s==='..')o.pop();else if(s&&s!=='.')o.push(s)});return o.join('/')};
  const wbx=await X('xl/workbook.xml');if(!wbx)throw new Error('This is not a valid Excel workbook.');
- const wb=P(wbx),rels=P(await X('xl/_rels/workbook.xml.rels')),sst=await X('xl/sharedStrings.xml');
- const ss=sst?(sst.match(/<si\b[\s\S]*?<\/si>|<si\s*\/>/g)||[]).map(tText):[];const out=[];
- for(const sh of wb.getElementsByTagName('sheet')){
-  const rid=sh.getAttribute('r:id'),rel=[...rels.getElementsByTagName('Relationship')].find(r=>r.getAttribute('Id')===rid);if(!rel)continue;
-  let t=rel.getAttribute('Target');t=t.startsWith('/')?t.slice(1):'xl/'+t.replace(/^\.\//,'');if(!z[t])continue;
-  out.push({name:sh.getAttribute('name')||'Sheet',rows:parseSheet(await X(t),ss)});}
- if(!out.length)throw new Error('No sheets were found in this workbook.');return out;}
+ const relx=(await X('xl/_rels/workbook.xml.rels'))||'',sst=await X('xl/sharedStrings.xml');
+ const ss=sst?(sst.match(/<(?:\w+:)?si\b[\s\S]*?<\/(?:\w+:)?si>|<(?:\w+:)?si\s*\/>/g)||[]).map(tText):[];
+ const rels={};(relx.match(/<(?:\w+:)?Relationship\b[^>]*>/g)||[]).forEach(t=>{rels[at(t,'Id')]=at(t,'Target')});
+ const out=[],used=new Set();
+ for(const t of (wbx.match(/<(?:\w+:)?sheet\b[^>]*>/g)||[])){const rid=(/\b(?:\w+:)?id="([^"]*)"/.exec(t)||[])[1],tg=rels[rid];if(!tg)continue;
+  const p=tg.startsWith('/')?norm(tg.slice(1)):norm('xl/'+tg);if(!z[p.toLowerCase()])continue;used.add(p.toLowerCase());
+  out.push({name:at(t,'name')||'Sheet',rows:parseSheet(await X(p),ss)});}
+ if(!out.length){const ws=Object.keys(z).filter(k=>/^xl\/worksheets\/[^\/]+\.xml$/.test(k)).sort((x,y)=>x.localeCompare(y,undefined,{numeric:true}));
+  for(let i=0;i<ws.length;i++)out.push({name:'Sheet'+(i+1),rows:parseSheet(await X(ws[i]),ss)});}
+ if(!out.length)throw new Error('No sheets were found in this workbook (files inside: '+Object.keys(z0).slice(0,8).join(', ')+').');return out;}
+
 function parseCsv(t){
  t=t.replace(/^\uFEFF/,'');const first=t.split('\n',1)[0],d=[',',';','\t'].map(x=>[x,first.split(x).length]).sort((a,b)=>b[1]-a[1])[0][0],rows=[];let r=[],f='',q=false;
  for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++;}else q=false;}else f+=c;}
@@ -100,30 +126,39 @@ function parseCsv(t){
  if(f!==''||r.length){r.push(f);rows.push(r);}return rows;}
 
 /* ---------- sheet rows → subject ---------- */
+function normAns(s,opts){let t=String(s||'').trim();if(!t)return[];if(/^[^A-Za-z0-9]+$/.test(t)||/^(n\/?a|nil|tbd)$/i.test(t))return[];const low=t.toLowerCase(),i=opts.findIndex(o=>o&&String(o).trim().toLowerCase()===low);if(i>=0)return['abcdef'[i]];
+ t=low.replace(/^(?:correct\s+)?(?:answer|ans|option|opt|key)\s*[:\-–.]?\s*/,'').replace(/[().\[\]:]/g,' ');
+ return t.split(/[\s,;&\/|]+/).filter(x=>x&&x!=='and'&&x!=='or').map(x=>/^[1-6]$/.test(x)?'abcdef'[+x-1]:x.replace(/[^a-z0-9]/g,'')).filter(Boolean);}
 function rowsToRaw(rows,info){
- const h=rows.findIndex(r=>r&&r.some(c=>String(c??'').trim()));if(h<0)return{err:['The sheet is empty.']};
+ const nm=c=>String(c??'').trim().toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(),isH=r=>{const x=(r||[]).map(nm);return x.some(v=>['question','questions','q','prompt'].includes(v))&&x.some(v=>['a','option a','opt a','options a','choice a'].includes(v))};
+ let h=rows.slice(0,25).findIndex(isH);if(h<0)h=rows.findIndex(r=>r&&r.some(c=>String(c??'').trim()));if(h<0)return{err:['The sheet is empty.']};
  const head=rows[h].map(c=>String(c??'').trim().toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()),find=(...k)=>head.findIndex(x=>k.includes(x));
- const col={ch:find('chapter','chapter name','topic','unit'),gr:find('group','era','category','branch','section'),q:find('question','questions','q','prompt'),an:find('answer','correct answer','correct','ans','key','correct option'),ex:find('explanation','solution','rationale','explain'),exam:find('exam','exams','exam tag','source','previous year','pyq'),yr:find('year')};
- const oi='abcdef'.split('').map(L=>find(L,'option '+L,'opt '+L,'options '+L,'choice '+L));
- const err=[];if(col.q<0)err.push('No “Question” column found — the first row must hold the column headings (Chapter, Question, Option A …).');if(oi[0]<0||oi[1]<0)err.push('Columns “Option A” and “Option B” are required.');
+ const col={qid:find('question id'),img:find('image','images','question image','picture','figure','diagram'),ch:find('chapter','chapter name','topic','unit'),gr:find('group','era','category','branch','section'),q:find('question','questions','q','prompt'),an:find('answer','correct answer','correct','ans','key','correct option'),ex:find('explanation','solution','rationale','explain'),exam:find('exam','exams','exam tag','source','previous year','pyq'),yr:find('year')};
+ const oi='abcdef'.split('').map(L=>find(L,'option '+L,'opt '+L,'options '+L,'choice '+L)),oim='abcdef'.split('').map(L=>find('image '+L,'img '+L,'option '+L+' image','opt '+L+' image','picture '+L));
+ const err=[];const seen='Headings I found (row '+(h+1)+'): '+(head.filter(Boolean).slice(0,10).join(' | ')||'none')+'.';if(col.q<0)err.push('No “Question” column found. '+seen);if(oi[0]<0||oi[1]<0)err.push('Columns “Option A” and “Option B” are required. '+seen);
  if(err.length)return{err};
  const qs=[];let lastCh='',lastGr='';
- for(let i=h+1;i<rows.length;i++){const r=rows[i]||[];if(!r.some(c=>String(c??'').trim()))continue;const g=k=>k<0?'':String(r[k]??'').trim();
+ for(let i=h+1;i<rows.length;i++){const r=rows[i]||[];if(!r.some(c=>String(c??'').trim()))continue;const g=k=>{if(k<0)return'';const v=String(r[k]??'').trim();return/^#(VALUE!|N\/A|REF!|NAME\?|DIV\/0!|NULL!|NUM!)$/i.test(v)?'':v};
   const ch=g(col.ch)||lastCh,gr=g(col.gr)||(g(col.ch)?'':lastGr);lastCh=ch;lastGr=gr||lastGr;if(g(col.ch)&&!g(col.gr))lastGr='';
-  const opts=oi.map(g);let n=opts.length;while(n>0&&!opts[n-1])n--;
-  const ans=g(col.an).toLowerCase().replace(/[().]/g,'').split(/[\s,;&\/]+/).filter(x=>x&&x!=='and').map(x=>/^[1-6]$/.test(x)?'abcdef'[+x-1]:x);
+  if(!g(col.q)&&!g(col.img)&&!oi.some(k=>g(k))&&!oim.some(k=>g(k)))continue;
+  const opts=oi.map(g),oimgs=oim.map(g);let n=opts.length;while(n>0&&!opts[n-1]&&!oimgs[n-1])n--;
+  const ans=normAns(g(col.an),opts.slice(0,n));
   let ex=g(col.exam).split(/[;|\n]+/).map(s=>s.trim()).filter(Boolean);const y=g(col.yr).match(/(?:19|20)\d{2}/);
   if(y)ex=ex.length?ex.map(s=>/(?:19|20)\d{2}/.test(s)?s:s+' '+y[0]):['PYQ '+y[0]];
-  qs.push({_row:i+1,chapter:ch||undefined,group:gr,question:g(col.q),options:opts.slice(0,n),answer:ans,explanation:g(col.ex),exams:ex});}
+  qs.push({_row:i+1,questionId:g(col.qid),chapter:ch||undefined,group:gr,question:g(col.q),images:g(col.img).split(/[;|\n]+/).map(s=>s.trim()).filter(Boolean),optImages:oimgs.slice(0,n),options:opts.slice(0,n),answer:ans,explanation:g(col.ex),exams:ex});}
  return{raw:{subject:info.subject||'',subtitle:info.subtitle||'',groupLabel:info.groupLabel||'',questions:qs}};}
+async function parseSheetJS(buf){if(!window.XLSX)await new Promise((ok,no)=>{const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';s.onload=ok;s.onerror=()=>no(new Error('the backup reader could not load — check your internet'));document.head.append(s)});
+ const wb=XLSX.read(buf,{type:'array'}),out=wb.SheetNames.map(n=>({name:n,rows:XLSX.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:false,defval:''}).map(r=>r.map(c=>String(c??'')))}));if(!out.length)throw new Error('the workbook has no sheets');return out}
+async function parseXlsx(buf){try{const o=await parseXlsx0(buf);if(o.every(s=>!s.rows.length))throw new Error('empty');return o}catch(e){try{return await parseSheetJS(buf)}catch(e2){throw new Error((e&&e.message||'Could not read the workbook')+' — and the backup reader failed: '+(e2&&e2.message||e2)+'. Try opening the file in Excel and saving it again as .xlsx.')}}}
 async function readFileToRaw(f){
  const ext=(f.name.split('.').pop()||'').toLowerCase(),stem=f.name.replace(/\.[^.]+$/,'');
  if(ext==='json')return{raw:JSON.parse(await f.text()),stem};
  let sheets;
  if(['csv','tsv','txt'].includes(ext))sheets=[{name:'Questions',rows:parseCsv(await f.text())}];
- else if(['xlsx','xlsm'].includes(ext)){if(typeof DecompressionStream==='undefined')throw new Error('This browser cannot open .xlsx directly. In Excel use File ▸ Save As ▸ CSV UTF-8 and import that file instead.');sheets=await parseXlsx(await f.arrayBuffer());}
- else throw new Error('Unsupported file type “.'+ext+'”. Please use .xlsx, .csv or .json.');
- const q=sheets.find(s=>/question/i.test(s.name))||sheets[0],info={},is=sheets.find(s=>s!==q&&/^(info|about|subject|settings)/i.test(s.name));
+ else if(['xlsx','xlsm','xls'].includes(ext)){sheets=await parseXlsx(await f.arrayBuffer());}
+ else throw new Error('Unsupported file type “.'+ext+'”. Please use .xlsx, .xls or .csv.');
+ const hs=r=>{const x=(r||[]).map(c=>String(c??'').trim().toLowerCase().replace(/[^a-z0-9]+/g,' ').trim());return x.some(v=>['question','questions','q','prompt'].includes(v))&&x.some(v=>['a','option a','opt a','options a','choice a'].includes(v))};
+ const q=sheets.filter(s=>s.rows.slice(0,25).some(hs)).sort((x,y)=>y.rows.length-x.rows.length)[0]||sheets.find(s=>/question/i.test(s.name))||sheets[0],info={},is=sheets.find(s=>s!==q&&/^(info|about|subject|settings)/i.test(s.name));
  if(is)for(const r of is.rows){const k=String(r&&r[0]||'').toLowerCase().replace(/[^a-z]/g,''),v=String(r&&r[1]||'').trim();if(['subject','subjectname','name'].includes(k))info.subject=v;else if(k==='subtitle')info.subtitle=v;else if(['grouplabel','filterlabel'].includes(k))info.groupLabel=v;}
  const t=rowsToRaw(q.rows,info);if(t.err)throw new Error(t.err.join(' '));return{raw:t.raw,stem};}
 
@@ -155,9 +190,9 @@ function xlsxBlob(sheets){
   ['xl/styles.xml',styles],...sheets.map((s,i)=>[`xl/worksheets/sheet${i+1}.xml`,sheetXml(s)])];
  return zipStore(files);}
 function dlBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.append(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1500);}
-const QHEAD=['Chapter','Group','Question','Option A','Option B','Option C','Option D','Option E','Option F','Answer','Explanation','Exam'],QW=[28,14,70,26,26,26,26,22,22,10,60,28];
+const QHEAD=['Chapter','Group','Question','Option A','Option B','Option C','Option D','Option E','Option F','Answer','Explanation','Exam','Image','Image A','Image B','Image C','Image D','Question ID'],QW=[28,14,70,26,26,26,26,22,22,10,60,28,20,16,16,16,16,24];
 function templateBlob(){
- const info=[['Subject','General Science'],['Subtitle','NCERT based · Class 6–10'],['Group label','Branch'],[''],['HOW TO USE THIS TEMPLATE'],['1. Keep the headings in row 1 of the “Questions” sheet. Add one row per question.'],['2. Chapter: type the chapter name. You may leave it blank on following rows of the same chapter.'],['3. Group (optional): e.g. Physics / Chemistry or Ancient / Medieval / Modern. It becomes an extra filter named “Group label” above.'],['4. Options: fill Option A–F (2 to 6 options). Leave unused option columns empty.'],['5. Answer: the correct letter, e.g. B. For several correct answers write A, C. Leave blank for an unscored question.'],['6. Explanation and Exam (e.g. UPSC CSE 2019) are optional. Separate several exams with ;'],['7. Change the Subject name above, save as .xlsx (or .csv) and import it from Subject ▸ Add subject. Re-importing the same subject name updates it and keeps student progress on unchanged questions.']];
+ const info=[['Subject','General Science'],['Subtitle','NCERT based · Class 6–10'],['Group label','Branch'],[''],['HOW TO USE THIS TEMPLATE'],['1. Keep the headings in row 1 of the “Questions” sheet. Add one row per question.'],['2. Chapter: type the chapter name. You may leave it blank on following rows of the same chapter.'],['3. Group (optional): e.g. Physics / Chemistry or Ancient / Medieval / Modern. It becomes an extra filter named “Group label” above.'],['4. Options: fill Option A–F (2 to 6 options). Leave unused option columns empty.'],['5. Answer: the correct letter, e.g. B. For several correct answers write A, C. Leave blank for an unscored question.'],['6. Explanation and Exam (e.g. UPSC CSE 2019) are optional. Separate several exams with ;'],['7. Change the Subject name above, save as .xlsx (or .csv) and import it from Subject ▸ Add subject. Re-importing the same subject name updates it and keeps student progress on unchanged questions.'],['8. Pictures (optional): type the image file name (e.g. map1.png) in the Image column for a picture shown with the question, and in Image A–D for pictures inside options. Several question pictures: separate with ;. On the admin page, select all those picture files together with this Excel file.']];
  const q=[QHEAD,['Motion and Force','Physics','The SI unit of force is –','Joule','Newton','Watt','Pascal','','','B','Force is measured in newton (N).','UPSC CSE (Pre) 2019'],['','','Select all vector quantities.','Speed','Velocity','Displacement','Mass','','','B, C','Velocity and displacement have direction.',''],['Acids, Bases and Salts','Chemistry','Which of the following are acids?\n1. HCl\n2. NaOH\n3. H2SO4','1 and 2','2 only','1 and 3','1, 2 and 3','','','C','NaOH is a base.','SSC CGL 2021; UPSC CSE (Pre) 2018']];
  return xlsxBlob([{name:'Questions',rows:q,header:true,widths:QW},{name:'Info',rows:info,widths:[18,90]}]);}
 
@@ -165,43 +200,104 @@ function normalizeImport(raw){
  const err=[];if(!raw||typeof raw!=='object'||Array.isArray(raw))return{err:['The file must contain a JSON object or an Excel sheet with a heading row.']};
  const name=String(raw.subject||raw.name||'').trim()||'Imported subject';
  if(!Array.isArray(raw.questions)||!raw.questions.length)return{err:['No questions were found in the file.']};
- const chs=[],byNo=new Map(),byT=new Map(),explicit=Array.isArray(raw.chapters)&&raw.chapters.length>0;
- const addCh=(no,title,group)=>{const c={no,title:String(title),group:group||''};chs.push(c);byNo.set(no,c);byT.set(c.title.toLowerCase(),c);return c;};
+ const chs=[],byNo=new Map(),byTitle=new Map(),explicit=Array.isArray(raw.chapters)&&raw.chapters.length>0;
+ const fold=value=>String(value??'').trim().toLowerCase();
+ function addCh(no,title,group){
+  const c={no,title:String(title).trim(),group:String(group||'').trim()};
+  chs.push(c);byNo.set(no,c);
+  const key=fold(c.title);
+  if(!byTitle.has(key))byTitle.set(key,[]);
+  byTitle.get(key).push(c);
+  return c;
+ }
  (explicit?raw.chapters:[]).forEach((c,i)=>{const o=c&&typeof c==='object'?c:{title:c};addCh(+o.no||i+1,o.title||o.name||'Chapter '+(i+1),String(o.group||o.category||''));});
  const qs=[],cnt=new Map(),seen=new Set();
+ const reservedIds=new Set(raw.questions.map(r=>String(r?.questionId||'').trim()).filter(Boolean));
  raw.questions.forEach((r,i)=>{const at=(r&&r._row?'Row '+r._row:'Question #'+(i+1))+': ';if(!r||typeof r!=='object'){err.push(at+'not an object.');return;}
-  const text=String(r.question??r.prompt??'').trim();if(!text){err.push(at+'the Question cell is empty.');return;}
+  const text=String(r.question??r.prompt??'').trim();if(!text&&!(r.images&&r.images.length)){err.push(at+'the Question cell is empty.');return;}
   let opts=r.options;if(!Array.isArray(opts)||opts.length<2||opts.length>6){err.push(at+'needs 2 to 6 options (found '+(Array.isArray(opts)?opts.length:0)+').');return;}
-  opts=opts.map(o=>String(o&&typeof o==='object'?o.text??'':o??'').trim());if(opts.some(o=>!o)){err.push(at+'an option cell is empty between filled options.');return;}
+  opts=opts.map(o=>String(o&&typeof o==='object'?o.text??'':o??'').trim());if(opts.some((o,j)=>!o&&!(r.optImages&&r.optImages[j]))){err.push(at+'an option cell is empty between filled options.');return;}
   const keys='abcdef'.slice(0,opts.length).split('');let a=r.answer??r.correct;a=a==null||a===''?[]:Array.isArray(a)?a:String(a).split(/[\s,;&\/]+/);
   a=[...new Set(a.map(x=>String(x).trim().toLowerCase().replace(/[().]/g,'')).filter(Boolean))];if(a.some(x=>!keys.includes(x))){err.push(at+'Answer “'+(Array.isArray(r.answer)?r.answer.join(','):r.answer)+'” must be one of '+keys.map(k=>k.toUpperCase()).join(', ')+'.');return;}
-  const cr=r.chapter;let ch;
-  if(cr==null||cr==='')ch=chs[0]||addCh(1,'General','');
-  else{ch=typeof cr==='number'?byNo.get(cr):(byT.get(String(cr).trim().toLowerCase())||byNo.get(+cr));
-   if(!ch){if(typeof cr==='number'&&explicit){err.push(at+'chapter '+cr+' is not listed in "chapters".');return;}ch=addCh(typeof cr==='number'?cr:(chs.reduce((m,c)=>Math.max(m,c.no),0)+1),typeof cr==='number'?'Chapter '+cr:String(cr).trim(),'');}}
-  if(!ch.group&&(r.group||r.category))ch.group=String(r.group||r.category).trim();
-  const n=(cnt.get(ch.no)||0)+1;cnt.set(ch.no,n);let id='U'+h32(ch.title+'|'+text),dd=0;while(seen.has(id))id='U'+h32(ch.title+'|'+text)+'_'+(++dd);seen.add(id);
+  const cr=r.chapter,group=String(r.group||r.category||'').trim();
+  let ch;
+  if(typeof cr==='number'){
+   ch=byNo.get(cr);
+   if(!ch&&explicit){err.push(at+'chapter '+cr+' is not listed in "chapters".');return;}
+   if(!ch)ch=addCh(cr,'Chapter '+cr,group);
+  }else{
+   const missing=cr==null||String(cr).trim()==='';
+   const title=missing?'General':String(cr).trim();
+   const candidates=byTitle.get(fold(title))||[];
+   if(group){
+    ch=candidates.find(c=>fold(c.group)===fold(group));
+    if(!ch&&candidates.length===1&&!candidates[0].group)ch=candidates[0];
+   }else if(candidates.length>1){
+    err.push(at+'chapter "'+title+'" appears in multiple sections. Enter its Group.');return;
+   }else ch=candidates[0];
+   if(!ch&&!candidates.length)ch=missing?(group?undefined:chs[0]):byNo.get(+cr);
+   if(!ch)ch=addCh(chs.reduce((max,c)=>Math.max(max,c.no),0)+1,title,group);
+  }
+  if(group&&!ch.group)ch.group=group;
+  const n=(cnt.get(ch.no)||0)+1;cnt.set(ch.no,n);const given=String(r.questionId||'').trim();
+  if(given&&(!/^[A-Za-z0-9_-]{1,120}$/.test(given)||seen.has(given))){err.push(at+'invalid or duplicate Question ID.');return;}
+  const base='U'+h32(ch.title+'|'+text);let id=given||base,dd=0;
+  if(!given)while(seen.has(id)||reservedIds.has(id))id=base+'_'+(++dd);
+  seen.add(id);
   const ex=Array.isArray(r.exams)?r.exams:r.exams?[r.exams]:[];
-  qs.push({id,chapterNo:ch.no,chapter:ch.title,number:n,pdfPage:'',bookPage:r.page?String(r.page):'',prompt:text,options:opts.map((t,j)=>({key:keys[j],sourceLabel:keys[j],text:t})),correct:a,answerRaw:a.length?'Ans. ('+a.join(' & ')+')':'',type:a.length>1?'Multiple answer':'Multiple choice',explanation:String(r.explanation||''),examTags:ex.filter(Boolean).map(examTag),attemptable:true,gradeable:a.length>0,reviewFlags:[]});});
+  qs.push({id,chapterNo:ch.no,chapter:ch.title,number:n,pdfPage:'',bookPage:r.page?String(r.page):'',prompt:text,...(r.images&&r.images.length?{images:r.images}:{}),options:opts.map((t,j)=>({key:keys[j],sourceLabel:keys[j],text:t,...(r.optImages&&r.optImages[j]?{image:r.optImages[j]}:{})})),correct:a,answerRaw:a.length?'Ans. ('+a.join(' & ')+')':'',type:a.length>1?'Multiple answer':'Multiple choice',explanation:String(r.explanation||''),examTags:ex.filter(Boolean).map(examTag),attemptable:true,gradeable:a.length>0,reviewFlags:[]});});
  if(!qs.length)return{err:err.length?err:['No valid questions were found.']};
  qs.sort((x,y)=>x.chapterNo-y.chapterNo);const used=new Set(qs.map(q=>q.chapterNo));
  const data={title:name,subtitle:String(raw.subtitle||''),groupLabel:String(raw.groupLabel||'').trim()||'Category',chapters:chs.filter(c=>used.has(c.no)).sort((x,y)=>x.no-y.no),questions:qs,source:String(raw.source||'Imported subject'),stats:{total:qs.length}};
  return{data,skipped:err,ungraded:qs.filter(q=>!q.gradeable).length};}
 
-async function readBank(f){const{raw,stem}=await readFileToRaw(f);raw.subject=String(raw.subject||raw.name||'').trim()||stem.replace(/[_-]+/g,' ');const r=normalizeImport(raw);if(r.err)throw new Error(r.err.slice(0,3).join(' · '));if(r.skipped&&r.skipped.length)toast(r.skipped.length+' row(s) skipped — check the file.');return r.data}
+async function readBank(f){const{raw,stem}=await readFileToRaw(f);raw.subject=String(raw.subject||raw.name||'').trim()||stem.replace(/[_-]+/g,' ');
+ const r=normalizeImport(raw);if(!r.data&&!(raw.questions||[]).length)throw new Error((r.err||[]).join(' '));
+ let data=r.data;if(((r.skipped&&r.skipped.length?r.skipped:r.err)||[]).length){data=await askReview(raw,r);if(!data)return null}
+ data.groups=[...new Set(data.chapters.map(c=>c.group).filter(Boolean))];return data}
+let RV=null;
+const badOf=r=>((r.skipped&&r.skipped.length?r.skipped:r.err)||[]);
+const rvIdx=(raw,m)=>{let x=/^Row (\d+): /.exec(m);if(x)return raw.questions.findIndex(q=>q._row==x[1]);x=/^Question #(\d+): /.exec(m);return x?+x[1]-1:-1};
+const rvTxt=m=>m.replace(/^(Row \d+|Question #\d+): /,'');
+function askReview(raw,r){return new Promise(res=>{RV={raw,res,r,show:30};drawRv();$('rvB').hidden=false})}
+function drawRv(){const{raw,r}=RV,bad=badOf(r),items=bad.map(m=>({m,i:rvIdx(raw,m)})).filter(x=>x.i>=0),gr={};
+ bad.forEach(m=>{const t=rvTxt(m).replace(/“[^”]*”/,'“…”').replace(/\(found \d+\)/,'').trim();gr[t]=(gr[t]||0)+1});
+ $('rvS').innerHTML=(r.data?`<b>${r.data.questions.length}</b> questions are ready. `:'No valid questions yet. ')+`<b>${bad.length}</b> row(s) have problems. Fix them below and press <b>Apply fixes</b>, or publish without them.`;
+ $('rvSum').innerHTML=Object.entries(gr).sort((x,y)=>y[1]-x[1]).slice(0,6).map(([t,n])=>`<span class="chip b" style="white-space:normal">${n}× ${esc(t)}</span>`).join(' ');
+ $('rvL').innerHTML=items.slice(0,RV.show).map(x=>{const q=raw.questions[x.i],mx=Math.max(-1,...(q.answer||[]).map(l=>'abcdef'.indexOf(l))),n=Math.min(6,Math.max(4,(q.options||[]).length,mx+1));
+  return`<div class="rvc" data-i="${x.i}"><div class="bad">Sheet row ${esc(q._row||x.i+1)} · ${esc(rvTxt(x.m))}</div><textarea data-q>${esc(q.question||'')}</textarea>${Array.from({length:n},(_,k)=>`<div class="rvo"><b>${'ABCDEF'[k]}</b><input data-o="${k}" value="${esc((q.options||[])[k]||'')}"></div>`).join('')}<div class="rvo"><b>Ans</b><input data-a value="${esc((q.answer||[]).join(', ').toUpperCase())}" placeholder="e.g. B   or   A, C"></div></div>`}).join('')+(items.length>RV.show?`<button class="btn" id="rvM" type="button">Show ${Math.min(40,items.length-RV.show)} more</button>`:'');
+ $('rvP').disabled=!r.data}
+function rvRead(){const{raw}=RV;document.querySelectorAll('#rvL .rvc').forEach(el=>{const q=raw.questions[+el.dataset.i];q.question=el.querySelector('[data-q]').value.trim();const o=[...el.querySelectorAll('[data-o]')].map(i=>i.value.trim());let n=o.length;while(n>0&&!o[n-1])n--;q.options=o.slice(0,n);q.optImages=(q.optImages||[]).slice(0,n);q.answer=normAns(el.querySelector('[data-a]').value,q.options)})}
+$('rvA').onclick=()=>{rvRead();const b=badOf(RV.r).length;RV.r=normalizeImport(RV.raw);const n=badOf(RV.r).length;toast((b-n)+' row(s) fixed'+(n?', '+n+' still need attention.':'.'));if(!n&&RV.r.data){$('rvB').hidden=true;RV.res(RV.r.data);RV=null;return}drawRv()};
+$('rvP').onclick=()=>{rvRead();const r=normalizeImport(RV.raw);if(!r.data)return toast('Nothing valid to publish yet.');const n=badOf(r).length;$('rvB').hidden=true;RV.res(r.data);RV=null;if(n)toast(n+' problem row(s) were left out.')};
+$('rvX').onclick=()=>{$('rvB').hidden=true;if(RV)RV.res(null);RV=null};
+$('rvL').onclick=e=>{if(e.target.id==='rvM'){rvRead();RV.show+=40;drawRv()}};
+const imgName=s=>String(s).split(/[\\/]/).pop().trim().toLowerCase();
+async function shrink(f){if(/svg|gif/i.test(f.type)||(f.size<70000&&/jpe?g|webp/i.test(f.type)))return{blob:f,ext:(f.name.split('.').pop()||'jpg').toLowerCase()};
+ const b=await createImageBitmap(f),sc=Math.min(1,1100/Math.max(b.width,b.height)),c=document.createElement('canvas');c.width=Math.round(b.width*sc);c.height=Math.round(b.height*sc);const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(b,0,0,c.width,c.height);
+ return{blob:await new Promise(r=>c.toBlob(r,'image/jpeg',.85)),ext:'jpg'}}
+async function attachImages(data,id,files){const need=new Set();data.questions.forEach(q=>{(q.images||[]).forEach(n=>need.add(imgName(n)));q.options.forEach(o=>{if(o.image)need.add(imgName(o.image))})});if(!need.size)return;
+ const have=new Map([...files].map(f=>[imgName(f.name),f])),miss=[...need].filter(n=>!have.has(n));
+ if(miss.length)throw new Error('Missing picture file(s): '+miss.slice(0,6).join(', ')+(miss.length>6?' …':'')+'. Select them together with the Excel file.');
+ const urls=new Map(),list=[...need];let done=0;
+ const up=async n=>{const{blob,ext}=await shrink(have.get(n)),path=id+'/'+slug(n.replace(/\.[^.]+$/,''))+'-'+Date.now().toString(36)+'.'+ext;
+  const r=await sb().storage.from('qimg').upload(path,blob,{cacheControl:'31536000',contentType:blob.type||'image/jpeg'});if(r.error)throw new Error(/row-level|policy/i.test(r.error.message)?'Picture storage permission missing — run supabase/images.sql in Supabase.':'Picture upload failed: '+r.error.message);
+  urls.set(n,QM_CONFIG.SUPABASE_URL+'/storage/v1/object/public/qimg/'+path);toast('Uploading pictures '+(++done)+'/'+list.length+'…')};
+ for(let i=0;i<list.length;i+=4)await Promise.all(list.slice(i,i+4).map(up));
+ data.questions.forEach(q=>{if(q.images)q.images=q.images.map(n=>urls.get(imgName(n)));q.options.forEach(o=>{if(o.image)o.image=urls.get(imgName(o.image))})})}
 $('aT').onclick=()=>dlBlob(templateBlob(),'subject-template.xlsx');
 $('aGo').onclick=async()=>{let name=$('aN').value.trim();const f=$('aF').files[0];if(!name&&!f)return toast('Enter a name or choose an Excel file.');let id=slug(name);
  if(!f){const{error}=await sb().from('subjects').upsert({id,name,subtitle:$('aS').value.trim(),status:'upcoming',eta:$('aE').value.trim()||null});if(error)return toast(error.message);toast('Added as upcoming (no file yet).');await loadAll();return}
- try{toast('Reading file…');const data=await readBank(f);name=name||data.title;id=slug(name);data.title=name;const ok=await publish({id,name,subtitle:$('aS').value.trim()||data.subtitle||'',status:$('aSt').value,eta:$('aE').value.trim(),data});if(ok){['aN','aS','aE'].forEach(i=>$(i).value='');$('aF').value=''}}catch(e){toast(e.message||'Could not read that Excel file.')}};
+ try{toast('Reading file…');const data=await readBank(f);if(!data){toast('Cancelled — nothing was published.');return}name=name||data.title;id=slug(name);data.title=name;await attachImages(data,id,$('aI').files);const ok=await publish({id,name,subtitle:$('aS').value.trim()||data.subtitle||'',status:$('aSt').value,eta:$('aE').value.trim(),data});if(ok){['aN','aS','aE'].forEach(i=>$(i).value='');$('aF').value='';$('aI').value=''}}catch(e){toast(e.message||'Could not read that Excel file.')}};
 $('subT').onclick=async e=>{const tr=e.target.closest('tr');if(!tr)return;const id=tr.dataset.id,r=ROWS.find(x=>x.id===id);
- if(e.target.closest('[data-ed]')){const name=prompt('Name',r.name);if(name==null)return;const sub=prompt('Subtitle',r.subtitle||''),eta=prompt('ETA (for upcoming)',r.eta||''),so=prompt('Sort order (lower = earlier)',r.sort??100);const{error}=await sb().from('subjects').update({name:name.trim()||r.name,subtitle:sub||'',eta:eta||null,sort:+so||100,updated_at:new Date().toISOString()}).eq('id',id);if(error)toast(error.message);else loadAll()}
+ if(e.target.closest('[data-ed]'))openEd(r);
  else if(e.target.closest('[data-up]')){PICK=r;$('rF').click()}
- else if(e.target.closest('[data-rm]')){if(!confirm('Delete “'+r.name+'” for everyone? Users keep their own progress, but the subject disappears.'))return;if(r.path)await sb().storage.from('banks').remove([r.path]);const{error}=await sb().from('subjects').delete().eq('id',id);if(error)toast(error.message);else{toast('Deleted.');loadAll()}}
+ else if(e.target.closest('[data-rm]')){if(!confirm('Delete “'+r.name+'” for everyone? Users keep their own progress, but the subject disappears.'))return;if(r.path)await sb().storage.from('banks').remove([r.path]);try{const fl=await sb().storage.from('qimg').list(id,{limit:1000});if(fl.data&&fl.data.length)await sb().storage.from('qimg').remove(fl.data.map(f=>id+'/'+f.name))}catch(x){}const{error}=await sb().from('subjects').delete().eq('id',id);if(error)toast(error.message);else{toast('Deleted.');loadAll()}}
  else if(e.target.closest('[data-mv]')){const m=MAN.find(x=>x.id===tr.dataset.b);toast('Uploading…');try{await publish({id:m.id,name:m.name,subtitle:m.subtitle,status:'live',data:await(await fetch('data/'+m.id+'.json')).json()})}catch(x){toast('Could not read the built-in file.')}}
  else if(e.target.closest('[data-hd]')){const m=MAN.find(x=>x.id===tr.dataset.b);if(!confirm('Hide “'+m.name+'” from everyone?'))return;const{error}=await sb().from('subjects').upsert({id:m.id,name:m.name,subtitle:m.subtitle,status:'hidden'});if(error)toast(error.message);else loadAll()}};
 $('subT').onchange=async e=>{if(!e.target.matches('[data-st]'))return;const id=e.target.closest('tr').dataset.id,{error}=await sb().from('subjects').update({status:e.target.value,updated_at:new Date().toISOString()}).eq('id',id);if(error)toast(error.message);else{toast('Status updated.');loadAll()}};
-$('rF').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f||!PICK)return;try{toast('Reading file…');const data=await readBank(f);data.title=PICK.name;await publish({id:PICK.id,name:PICK.name,subtitle:PICK.subtitle,status:PICK.status,eta:PICK.eta,data})}catch(x){toast(x.message||'Could not read that Excel file.')}};
-$('locT').onclick=async e=>{const tr=e.target.closest('tr');if(!tr||!e.target.closest('[data-pub]'))return;const d=await QM.kvGet(tr.dataset.k);const name=d.title||tr.dataset.k.slice(5);await publish({id:slug(name),name,subtitle:d.subtitle||d.source||'',status:'live',data:d})};
+$('rF').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f||!PICK)return;try{toast('Reading file…');const data=await readBank(f);if(!data){toast('Cancelled — nothing was published.');return}data.title=PICK.name;await attachImages(data,PICK.id,$('aI').files);await publish({id:PICK.id,name:PICK.name,subtitle:PICK.subtitle,status:PICK.status,eta:PICK.eta,data})}catch(x){toast(x.message||'Could not read that Excel file.')}};
+$('locT').onclick=async e=>{const tr=e.target.closest('tr');if(!tr)return;if(e.target.closest('[data-rmk]')){if(!confirm('Remove this draft from this device?'))return;await QM.kvDel(tr.dataset.k);toast('Draft removed.');drawSubs();return}if(!e.target.closest('[data-pub]'))return;const d=await QM.kvGet(tr.dataset.k);const name=d.title||tr.dataset.k.slice(5);await publish({id:slug(name),name,subtitle:d.subtitle||d.source||'',status:'live',data:d})};
 function drawRep(){$('repSub').textContent=`${REP.filter(r=>r.status==='open').length} open · ${REP.length} total`;
  $('repT').innerHTML=REP.length?`<table><tr><th>When</th><th>Subject</th><th>Q</th><th>Issue</th><th>Note</th><th>Question</th><th>Status</th><th></th></tr>${REP.map(r=>`<tr><td>${new Date(r.created_at).toLocaleDateString()}</td><td>${esc(r.subject_name)}</td><td>${esc(r.qno)}</td><td>${esc(r.reason)}</td><td style="white-space:normal;max-width:240px">${esc(r.note)}</td><td style="white-space:normal;max-width:300px"><small>${esc(r.prompt)}</small></td><td><span class="chip ${r.status==='open'?'b':''}">${r.status}</span></td><td><button class="btn" data-r="${r.id}">${r.status==='open'?'Resolve':'Reopen'}</button></td></tr>`).join('')}</table>`:'<div class="empty">No reports yet.</div>'}
 $('repT').onclick=async e=>{const b=e.target.closest('[data-r]');if(!b)return;const r=REP.find(x=>x.id==b.dataset.r);await sb().from('reports').update({status:r.status==='open'?'resolved':'open'}).eq('id',r.id);loadAll()};

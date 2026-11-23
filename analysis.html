@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Exam analysis · My PYQ Online</title><link rel="icon" href="icon.svg"><link rel="stylesheet" href="portal.css">
+<style>
+main{width:min(1240px,94%);margin:24px auto 60px}nav{display:flex;gap:9px}a.btn{text-decoration:none;color:var(--ink)}
+header.analysisHead{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin:32px 0 18px}
+h1,h2,p{margin:0}h1{font-size:clamp(30px,5vw,48px);letter-spacing:-.045em}.subjectName{color:var(--muted);font-weight:650}
+.panel{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:clamp(14px,2.4vw,28px);margin:16px 0}
+label{display:grid;font-size:13px;gap:4px;color:var(--muted);font-weight:650;max-width:100%}select{border:1px solid var(--line);border-radius:9px;background:var(--surface);padding:9px 12px;color:var(--ink);max-width:100%}
+#summary,.caption{color:var(--muted);font-size:14px}.panelHead{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:10px}
+.scroll{overflow:auto;max-height:65vh;margin-top:14px;border:1px solid var(--line);border-radius:10px}
+table{width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums;font-size:14px}
+th,td{padding:8px 12px;text-align:center;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+th{background:var(--surface2)}thead th{position:sticky;top:0;z-index:2}th:first-child{position:sticky;left:0;z-index:1;text-align:left;min-width:120px;max-width:min(34vw,310px);overflow-wrap:anywhere}
+thead th:first-child{z-index:3}tbody th{background:var(--surface);font-weight:600}.heat1{background:#e1ebff;color:#172850}.heat2{background:#adc7fa;color:#132649}.heat3{background:#597cc4;color:white}.heat4{background:#244581;color:white}.ramp{display:inline-flex;vertical-align:middle;margin:0 6px}.ramp i{width:16px;height:10px}.empty{padding:15px}
+</style><script src="config.js"></script><script src="shared.js"></script><script defer src="analysis.js"></script></head>
+<body><main><nav><a class="btn" href="index.html">Home</a><a class="btn" id="back" href="index.html#subjects">Chapters</a></nav>
+<header class="analysisHead"><div><p class="subjectName" id="subjectName"></p><h1>Exam analysis</h1></div><label>Examination<select id="exam" disabled><option>Loading…</option></select></label></header>
+<p id="summary" role="status">Loading the subject’s exam records…</p><button class="btn" hidden id="retry">Retry loading</button>
+<div id="results" hidden><section class="panel"><h2>Sections by year</h2><p class="caption">Columns show years recorded for this exam. A question counts once in each year it appeared.</p><div class="scroll" tabindex="0" aria-label="Section counts by year" id="sections"></div></section>
+<section class="panel"><div class="panelHead"><h2>Chapter heat map</h2><label>Section<select id="section"></select></label></div><p class="caption">Chapters are ranked by total appearances. Fewer <span class="ramp" aria-hidden="true"><i class="heat1"></i><i class="heat2"></i><i class="heat3"></i><i class="heat4"></i></span> More</p><div class="scroll" tabindex="0" aria-label="Chapter frequency by year" id="chapters"></div></section></div>
+</main></body></html>
